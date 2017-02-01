@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="twitchat.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="wowiebot.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="prevChannel" Type="System.String" Scope="User">
@@ -15,7 +15,36 @@
       <Value Profile="(Default)">25</Value>
     </Setting>
     <Setting Name="quotes" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;the last syllable rhymes, that's what rhyming is&lt;/string&gt;
+  &lt;string&gt;!addquote the straightest I ever went through that sewer&lt;/string&gt;
+  &lt;string&gt;Scatter i have a very stiff wrist what is the best solution -LuMardy 2016&lt;/string&gt;
+  &lt;string&gt;i am adult lonely girl an I just love to f*ck as a rabbits&lt;/string&gt;
+  &lt;string&gt;Fun fact, Tricodin. The reason Wowiebot responded to that was not because you said 'Hey wowiebot', but because of the hi in the word shit - Scatterclegge&lt;/string&gt;
+  &lt;string&gt;shit me&lt;/string&gt;
+  &lt;string&gt;There are more people who are 20 now then who arn't&lt;/string&gt;
+  &lt;string&gt;Looks like shit lol I only like Oreos - jalenhu&lt;/string&gt;
+  &lt;string&gt;I've come to the realization that from now on, my only course of action is to leave the discord, lest the worst case scenario presents itself&lt;/string&gt;
+  &lt;string&gt;it probably did fuck up the pregnancy, have you seen me? - lumardy&lt;/string&gt;
+  &lt;string&gt;some guy named momslammer69 isn't using push to talk so i get to hear him breathe heavily into the mic :) - doogsley&lt;/string&gt;
+  &lt;string&gt;goodbye momslammer - doogsley&lt;/string&gt;
+  &lt;string&gt;anybody like these? these fuckin little candies? - scatter&lt;/string&gt;
+  &lt;string&gt;Because i like wet pussy - LuMardy&lt;/string&gt;
+  &lt;string&gt;my mom is listening to bird sounds and jumping on a trampoline ??? - doogsley&lt;/string&gt;
+  &lt;string&gt;scatter went for a shit and the stream went down what a cunt he deserves to fucking die cause hes a stupid retard&lt;/string&gt;
+  &lt;string&gt;WHATS A TOTSIE POP???????? - sandy__andy&lt;/string&gt;
+  &lt;string&gt;my mom just asked me for a weeaboo...and she meant amiibo - doogsley&lt;/string&gt;
+  &lt;string&gt;some wrestler, Plat. Rey machiado or somethin - scatter&lt;/string&gt;
+  &lt;string&gt;I like to uncircumcise my dick in the door hinge - LuMardy&lt;/string&gt;
+  &lt;string&gt;Why are you playing a kids game you nonce&lt;/string&gt;
+  &lt;string&gt;This game sucks. Let's do another run.&lt;/string&gt;
+  &lt;string&gt;Do you think I could fit a whole Wiimote in my mouth?&lt;/string&gt;
+  &lt;string&gt;Don't mine me. I'm just puttin some shit on my lips. - scatter&lt;/string&gt;
+  &lt;string&gt;I mess up my meams too - LuMardy&lt;/string&gt;
+  &lt;string&gt;oh fuck i fuckin dripp- uh dropped it- Scatter&lt;/string&gt;
+  &lt;string&gt;tony just triggered a blend of primitive fight or flight emotions that angered and spooked me - hooktail&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="prefix" Type="System.String" Scope="User">
       <Value Profile="(Default)">!</Value>
