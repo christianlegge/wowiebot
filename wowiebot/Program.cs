@@ -316,7 +316,7 @@ namespace chatrig
                                                 break;
 
                                             case "discord":
-                                                sendMessage("Join my Discord server! You can only be cool if you do this first. https://discord.gg/hAF626j");
+                                                sendMessage("Join my Discord server! You can only be cool if you do this first. " + wowiebot.Properties.Settings.Default.discordServer);
                                                 break;
 
                                             case "uptime":

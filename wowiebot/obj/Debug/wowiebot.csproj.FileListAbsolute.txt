@@ -14,3 +14,13 @@ D:\wowiebot\twitchat\obj\Debug\wowiebot.csproj.GenerateResource.Cache
 D:\wowiebot\wowiebot\bin\Debug\wowiebot.exe.config
 D:\wowiebot\wowiebot\obj\Debug\wowiebot.exe
 D:\wowiebot\wowiebot\obj\Debug\wowiebot.pdb
+D:\wowiebot\wowiebot\bin\Debug\wowiebot.exe
+D:\wowiebot\wowiebot\bin\Debug\wowiebot.pdb
+D:\wowiebot\wowiebot\bin\Debug\Newtonsoft.Json.dll
+D:\wowiebot\wowiebot\bin\Debug\Newtonsoft.Json.xml
+D:\wowiebot\wowiebot\obj\Debug\wowiebot.csprojResolveAssemblyReference.cache
+D:\wowiebot\wowiebot\obj\Debug\wowiebot.FunctionsForm.resources
+D:\wowiebot\wowiebot\obj\Debug\wowiebot.MainForm.resources
+D:\wowiebot\wowiebot\obj\Debug\wowiebot.OAuthForm.resources
+D:\wowiebot\wowiebot\obj\Debug\wowiebot.Properties.Resources.resources
+D:\wowiebot\wowiebot\obj\Debug\wowiebot.csproj.GenerateResource.Cache
