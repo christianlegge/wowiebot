@@ -23,6 +23,7 @@ namespace wowiebot
             linkCheckBox.Checked = Properties.Settings.Default.enableLinkTitles;
             yeahBoiCheckBox.Checked = Properties.Settings.Default.enableYeahBoi;
             discordCheckBox.Checked = Properties.Settings.Default.enableDiscord;
+            eightBallCheckBox.Checked = Properties.Settings.Default.enable8Ball;
             if (Properties.Settings.Default.enableDiscord)
             {
                 discordTextBox.Text = Properties.Settings.Default.discordServer;
@@ -48,6 +49,7 @@ namespace wowiebot
             Properties.Settings.Default.enableLinkTitles = linkCheckBox.Checked;
             Properties.Settings.Default.enableYeahBoi = linkCheckBox.Checked;
             Properties.Settings.Default.enableDiscord = discordCheckBox.Checked;
+            Properties.Settings.Default.enable8Ball = eightBallCheckBox.Checked;
             if (discordCheckBox.Checked)
             {
                 Properties.Settings.Default.discordServer = discordTextBox.Text;

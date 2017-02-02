@@ -208,5 +208,17 @@ namespace wowiebot.Properties {
                 this["discordServer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool enable8Ball {
+            get {
+                return ((bool)(this["enable8Ball"]));
+            }
+            set {
+                this["enable8Ball"] = value;
+            }
+        }
     }
 }

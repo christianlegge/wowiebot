@@ -39,6 +39,7 @@
             this.yeahBoiCheckBox = new System.Windows.Forms.CheckBox();
             this.discordCheckBox = new System.Windows.Forms.CheckBox();
             this.discordTextBox = new System.Windows.Forms.TextBox();
+            this.eightBallCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // quoteCheckBox
@@ -150,6 +151,16 @@
             this.discordTextBox.Text = "https://";
             this.discordTextBox.TextChanged += new System.EventHandler(this.discordTextBox_TextChanged);
             // 
+            // eightBallCheckBox
+            // 
+            this.eightBallCheckBox.AutoSize = true;
+            this.eightBallCheckBox.Location = new System.Drawing.Point(12, 154);
+            this.eightBallCheckBox.Name = "eightBallCheckBox";
+            this.eightBallCheckBox.Size = new System.Drawing.Size(51, 17);
+            this.eightBallCheckBox.TabIndex = 11;
+            this.eightBallCheckBox.Text = "!8ball";
+            this.eightBallCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FunctionsForm
             // 
             this.AcceptButton = this.saveButton;
@@ -157,6 +168,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(215, 215);
+            this.Controls.Add(this.eightBallCheckBox);
             this.Controls.Add(this.discordTextBox);
             this.Controls.Add(this.discordCheckBox);
             this.Controls.Add(this.yeahBoiCheckBox);
@@ -189,5 +201,6 @@
         private System.Windows.Forms.CheckBox yeahBoiCheckBox;
         private System.Windows.Forms.CheckBox discordCheckBox;
         private System.Windows.Forms.TextBox discordTextBox;
+        private System.Windows.Forms.CheckBox eightBallCheckBox;
     }
 }
