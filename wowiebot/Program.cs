@@ -29,10 +29,12 @@ namespace chatrig
         private static List<string> quotes;
         private static Random rnd = new Random();
         private static int lastQuote = -1;
+        private static int lastChoice = -1;
         private static bool addingQuote = false;
         private static List<string> quoteAdders = new List<string>();
         private static string quoteToAdd;
         private static System.Timers.Timer quoteTimer = new System.Timers.Timer(60000);
+        private static List<string> eightBallChoices = new List<string>();
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
 
@@ -104,6 +106,38 @@ namespace chatrig
                 validCommands.Add("wr");
                 displayCommandsInHelp.Add(true);
             }
+            validCommands.Add("8ball");
+            displayCommandsInHelp.Add(false);
+            string eightBallOne = "yes";
+            string eightBallTwo = "no";
+            string eightBallThree = "try again later";
+            string eightBallFour = "maybe~";
+            string eightBallFive = "idk ask scatter";
+            string eightBallSix = "hecc no";
+            string eightBallSeven = "hecc yeah";
+            string eightBallEight = "you wish";
+            string eightBallNine = "signs point to yes";
+            string eightBallTen = "signs point to no";
+            string eightBallEleven = "4 shur";
+            string eightBallTwelve = "i know nothing don't ask me again please i'm just a young bot D:";
+            string eightBallThirteen = "what do you think ;)";
+            string eightBallFourteen = "yank train";
+            string eightBallFifteen = "nuns on ripple";
+            eightBallChoices.Add(eightBallOne);
+            eightBallChoices.Add(eightBallTwo);
+            eightBallChoices.Add(eightBallThree);
+            eightBallChoices.Add(eightBallFour);
+            eightBallChoices.Add(eightBallFive);
+            eightBallChoices.Add(eightBallSix);
+            eightBallChoices.Add(eightBallSeven);
+            eightBallChoices.Add(eightBallEight);
+            eightBallChoices.Add(eightBallNine);
+            eightBallChoices.Add(eightBallTen);
+            eightBallChoices.Add(eightBallEleven);
+            eightBallChoices.Add(eightBallTwelve);
+            eightBallChoices.Add(eightBallThirteen);
+            eightBallChoices.Add(eightBallFourteen);
+            eightBallChoices.Add(eightBallFifteen);
         }
 
         public static void runBot(string pChannel, string nick, string oauth)
@@ -442,6 +476,15 @@ namespace chatrig
 
                                             case "heck":
                                                 sendMessage("https://twitter.com/billyraycyrus/status/335910871974965248");
+                                                break;
+                                            case "8ball":
+                                                int p;
+                                                do
+                                                {
+                                                    p = rnd.Next(eightBallChoices.Count);
+                                                } while (p == lastChoice && eightBallChoices.Count > 1);
+                                                sendMessage(eightBallChoices[p]);
+                                                lastChoice = p;
                                                 break;
 
                                             default:
