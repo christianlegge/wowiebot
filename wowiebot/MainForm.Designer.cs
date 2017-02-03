@@ -109,6 +109,7 @@
             this.serverOutTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.serverOutTextBox.Size = new System.Drawing.Size(431, 117);
             this.serverOutTextBox.TabIndex = 6;
+            this.serverOutTextBox.TabStop = false;
             // 
             // MainForm
             // 

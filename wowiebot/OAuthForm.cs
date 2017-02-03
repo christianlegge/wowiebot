@@ -92,6 +92,7 @@ namespace wowiebot
             connectTask = new Task(connectAction);
             connectTask.Start();
             loginButton.Enabled = false;
+            cancelButton.Enabled = false;
         }
 
         private void connectActionEnd(bool success)
@@ -128,6 +129,7 @@ namespace wowiebot
                 {
                     // close the form on the forms thread
                     loginButton.Enabled = true;
+                    cancelButton.Enabled = true;
                 });
             }
         }

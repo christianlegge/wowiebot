@@ -121,7 +121,7 @@ namespace wowiebot
 
         private void disconnectAction(object sender, EventArgs e)
         {
-            loginPopoutButton.Enabled = true;
+            loginPopoutButton.Enabled = !useWowieBox.Checked;
             channelTextBox.Enabled = true;
             useWowieBox.Enabled = true;
             configButton.Enabled = true;

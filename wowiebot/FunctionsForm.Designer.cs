@@ -75,7 +75,7 @@
             // prefixLabel
             // 
             this.prefixLabel.AutoSize = true;
-            this.prefixLabel.Location = new System.Drawing.Point(146, 86);
+            this.prefixLabel.Location = new System.Drawing.Point(170, 9);
             this.prefixLabel.Name = "prefixLabel";
             this.prefixLabel.Size = new System.Drawing.Size(33, 13);
             this.prefixLabel.TabIndex = 3;
@@ -83,7 +83,7 @@
             // 
             // prefixTextBox
             // 
-            this.prefixTextBox.Location = new System.Drawing.Point(149, 102);
+            this.prefixTextBox.Location = new System.Drawing.Point(173, 25);
             this.prefixTextBox.MaxLength = 1;
             this.prefixTextBox.Name = "prefixTextBox";
             this.prefixTextBox.Size = new System.Drawing.Size(32, 20);

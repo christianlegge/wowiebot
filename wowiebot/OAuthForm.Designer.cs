@@ -36,6 +36,7 @@
             this.loginButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.rememberBox = new System.Windows.Forms.CheckBox();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // oauthTextBox
@@ -113,12 +114,23 @@
             this.rememberBox.UseVisualStyleBackColor = true;
             this.rememberBox.CheckedChanged += new System.EventHandler(this.rememberBox_CheckedChanged);
             // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(258, 88);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 9;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
             // OAuthForm
             // 
             this.AcceptButton = this.loginButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(468, 123);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.rememberBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.loginButton);
@@ -146,5 +158,6 @@
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox rememberBox;
+        private System.Windows.Forms.Button cancelButton;
     }
 }
