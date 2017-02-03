@@ -40,7 +40,7 @@
             // 
             // channelTextBox
             // 
-            this.channelTextBox.Location = new System.Drawing.Point(103, 113);
+            this.channelTextBox.Location = new System.Drawing.Point(178, 190);
             this.channelTextBox.MaxLength = 25;
             this.channelTextBox.Name = "channelTextBox";
             this.channelTextBox.Size = new System.Drawing.Size(150, 20);
@@ -50,7 +50,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 116);
+            this.label1.Location = new System.Drawing.Point(123, 193);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 1;
@@ -58,7 +58,7 @@
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(103, 318);
+            this.connectButton.Location = new System.Drawing.Point(98, 216);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(260, 48);
             this.connectButton.TabIndex = 2;
@@ -68,7 +68,7 @@
             // 
             // loginPopoutButton
             // 
-            this.loginPopoutButton.Location = new System.Drawing.Point(103, 34);
+            this.loginPopoutButton.Location = new System.Drawing.Point(12, 35);
             this.loginPopoutButton.Name = "loginPopoutButton";
             this.loginPopoutButton.Size = new System.Drawing.Size(75, 23);
             this.loginPopoutButton.TabIndex = 3;
@@ -81,7 +81,7 @@
             this.useWowieBox.AutoSize = true;
             this.useWowieBox.Checked = true;
             this.useWowieBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.useWowieBox.Location = new System.Drawing.Point(83, 63);
+            this.useWowieBox.Location = new System.Drawing.Point(12, 12);
             this.useWowieBox.Name = "useWowieBox";
             this.useWowieBox.Size = new System.Drawing.Size(117, 17);
             this.useWowieBox.TabIndex = 4;
@@ -91,7 +91,7 @@
             // 
             // configButton
             // 
-            this.configButton.Location = new System.Drawing.Point(12, 153);
+            this.configButton.Location = new System.Drawing.Point(368, 12);
             this.configButton.Name = "configButton";
             this.configButton.Size = new System.Drawing.Size(75, 23);
             this.configButton.TabIndex = 5;
@@ -101,12 +101,13 @@
             // 
             // serverOutTextBox
             // 
-            this.serverOutTextBox.Location = new System.Drawing.Point(12, 195);
+            this.serverOutTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.serverOutTextBox.Location = new System.Drawing.Point(12, 67);
             this.serverOutTextBox.Multiline = true;
             this.serverOutTextBox.Name = "serverOutTextBox";
             this.serverOutTextBox.ReadOnly = true;
             this.serverOutTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.serverOutTextBox.Size = new System.Drawing.Size(493, 117);
+            this.serverOutTextBox.Size = new System.Drawing.Size(431, 117);
             this.serverOutTextBox.TabIndex = 6;
             // 
             // MainForm
@@ -114,7 +115,7 @@
             this.AcceptButton = this.connectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(528, 378);
+            this.ClientSize = new System.Drawing.Size(455, 276);
             this.Controls.Add(this.serverOutTextBox);
             this.Controls.Add(this.configButton);
             this.Controls.Add(this.useWowieBox);
