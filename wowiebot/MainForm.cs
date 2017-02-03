@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace wowiebot
 {
+
     public partial class MainForm : Form
     {
         public string loggedInUser = null;
@@ -18,6 +19,21 @@ namespace wowiebot
         private OAuthForm childLoginBox = null;
         private bool connected = false;
         private Timer dcTimer = new Timer();
+        delegate void SetTextCallback(string text);
+        private bool connecting = false;
+
+        public void writeToServerOutputTextBox(string text)
+        {
+            if (this.serverOutTextBox.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(writeToServerOutputTextBox);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                serverOutTextBox.AppendText(text);
+            }
+        }
 
         public MainForm()
         {
@@ -26,6 +42,8 @@ namespace wowiebot
             dcTimer.Tick += disconnectAction;
             dcTimer.Interval = 1500;
             channelTextBox.Text = Properties.Settings.Default.prevChannel;
+            serverOutTextBox.TextChanged += ServerOutTextBox_TextChanged;
+      
             if (Properties.Settings.Default.userCookie != "" && Properties.Settings.Default.oauthCookie != "")
             {
                 useWowieBox.Checked = false;
@@ -46,6 +64,16 @@ namespace wowiebot
             }
         }
 
+        private void ServerOutTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (serverOutTextBox.Text.Contains("HAS BEGUN") && connecting)
+            {
+                connecting = false;
+                connectButton.Enabled = true;
+                connectButton.Text = "Disconnect";
+            }
+        }
+
         private void ChildLoginBox_FormClosed(object sender, FormClosedEventArgs e)
         {
             updateConnectButton();
@@ -63,13 +91,15 @@ namespace wowiebot
         {
             if (!connected)
             {
+                writeToServerOutputTextBox("Starting connection.\r\n\r\n");
+                connecting = true;
                 Task connectTask = new Task(new Action(connectTask_fn));
                 connectTask.Start();
-                connectButton.Text = "Disconnect";
                 connected = true;
                 loginPopoutButton.Enabled = false;
                 channelTextBox.Enabled = false;
                 useWowieBox.Enabled = false;
+                connectButton.Enabled = false;
                 configButton.Enabled = false;
                 Properties.Settings.Default.prevChannel = channelTextBox.Text;
                 Properties.Settings.Default.Save();
@@ -79,13 +109,14 @@ namespace wowiebot
                 chatrig.chatrig.disconnect();
                 connected = false;
                 connectButton.Enabled = false;
+                writeToServerOutputTextBox("\r\nDisconnected.\r\n\r\n");
                 dcTimer.Start();
             }
         }
 
         private void connectTask_fn()
         {
-            chatrig.chatrig.runBot(channelTextBox.Text, loggedInUser, loggedInOauth);
+            chatrig.chatrig.runBot(this, channelTextBox.Text, loggedInUser, loggedInOauth);
         }
 
         private void disconnectAction(object sender, EventArgs e)

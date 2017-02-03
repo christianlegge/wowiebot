@@ -35,6 +35,7 @@
             this.loginPopoutButton = new System.Windows.Forms.Button();
             this.useWowieBox = new System.Windows.Forms.CheckBox();
             this.configButton = new System.Windows.Forms.Button();
+            this.serverOutTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // channelTextBox
@@ -57,7 +58,7 @@
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(12, 201);
+            this.connectButton.Location = new System.Drawing.Point(103, 318);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(260, 48);
             this.connectButton.TabIndex = 2;
@@ -90,7 +91,7 @@
             // 
             // configButton
             // 
-            this.configButton.Location = new System.Drawing.Point(13, 172);
+            this.configButton.Location = new System.Drawing.Point(12, 153);
             this.configButton.Name = "configButton";
             this.configButton.Size = new System.Drawing.Size(75, 23);
             this.configButton.TabIndex = 5;
@@ -98,12 +99,23 @@
             this.configButton.UseVisualStyleBackColor = true;
             this.configButton.Click += new System.EventHandler(this.configButton_Click);
             // 
+            // serverOutTextBox
+            // 
+            this.serverOutTextBox.Location = new System.Drawing.Point(12, 195);
+            this.serverOutTextBox.Multiline = true;
+            this.serverOutTextBox.Name = "serverOutTextBox";
+            this.serverOutTextBox.ReadOnly = true;
+            this.serverOutTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.serverOutTextBox.Size = new System.Drawing.Size(493, 117);
+            this.serverOutTextBox.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.connectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(528, 378);
+            this.Controls.Add(this.serverOutTextBox);
             this.Controls.Add(this.configButton);
             this.Controls.Add(this.useWowieBox);
             this.Controls.Add(this.loginPopoutButton);
@@ -128,6 +140,7 @@
         private System.Windows.Forms.Button loginPopoutButton;
         private System.Windows.Forms.CheckBox useWowieBox;
         private System.Windows.Forms.Button configButton;
+        private System.Windows.Forms.TextBox serverOutTextBox;
     }
 }
 

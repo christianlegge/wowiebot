@@ -128,7 +128,7 @@ namespace chatrig
             }
         }
 
-        public static void runBot(string pChannel, string nick, string oauth)
+        public static void runBot(MainForm mainForm, string pChannel, string nick, string oauth)
         { 
             quoteTimer.Elapsed += QuoteTimer_Elapsed;
 
@@ -152,7 +152,7 @@ namespace chatrig
             wowiebot.Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
             quotes = new List<string>(arrQuotes);
 
-            Int32 port = 6667;
+            int port = 6667;
             TcpClient client = new TcpClient("irc.twitch.tv", port);
             // Enter in channel (the username of the stream chat you wish to connect to) without the #
 
@@ -169,7 +169,10 @@ namespace chatrig
             Byte[] login = System.Text.Encoding.ASCII.GetBytes(loginstring);
             stream.Write(login, 0, login.Length);
             Console.WriteLine("Sent login.\r\n");
+            mainForm.writeToServerOutputTextBox("Sent login.\r\n");
+            
             Console.WriteLine(loginstring);
+            mainForm.writeToServerOutputTextBox(loginstring);
 
             // Receive the TcpServer.response.
             // Buffer to store the response bytes.
@@ -182,6 +185,7 @@ namespace chatrig
             Int32 bytes = stream.Read(data, 0, data.Length);
             responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
             Console.WriteLine("Received WELCOME: \r\n\r\n{0}", responseData);
+            mainForm.writeToServerOutputTextBox("Received WELCOME: \r\n\r\n" + responseData);
 
             // send message to join channel
 
@@ -189,8 +193,10 @@ namespace chatrig
             Byte[] join = System.Text.Encoding.ASCII.GetBytes(joinstring);
             stream.Write(join, 0, join.Length);
             Console.WriteLine("Sent channel join.\r\n");
+            mainForm.writeToServerOutputTextBox("Sent channel join.\r\n");
             Console.WriteLine(joinstring);
-            
+            mainForm.writeToServerOutputTextBox(joinstring);
+
             // PMs the channel to announce that it's joined and listening
             // These three lines are the example for how to send something to the channel
 
@@ -200,8 +206,10 @@ namespace chatrig
             
             // Lets you know its working
             
-            Console.WriteLine("TWITCH CHAT HAS BEGUN.\r\n\r\nr.");
-            Console.WriteLine("\r\nBE CAREFUL.");
+            Console.WriteLine("TWITCH CHAT HAS BEGUN.\r\n\r\n");
+            mainForm.writeToServerOutputTextBox("TWITCH CHAT HAS BEGUN.\r\n\r\n");
+            Console.WriteLine("\r\nBE CAREFUL.\r\n");
+            mainForm.writeToServerOutputTextBox("\r\nBE CAREFUL.\r\n");
 
             string helpCommands = "Use me in the following ways: ";
             for (int i = 0; i < validCommands.Count; i++)
@@ -231,6 +239,7 @@ namespace chatrig
                     catch (Exception e)
                     {
                         Console.WriteLine("OH SHIT SOMETHING WENT WRONG\r\n", e);
+                        mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
                     }
 
                     myCompleteMessage.AppendFormat("{0}", Encoding.ASCII.GetString(myReadBuffer, 0, numberOfBytesRead));
@@ -242,6 +251,7 @@ namespace chatrig
 
                 // Print out the received message to the console.
                 Console.WriteLine(myCompleteMessage.ToString());
+                mainForm.writeToServerOutputTextBox(myCompleteMessage.ToString());
                 switch (myCompleteMessage.ToString())
                 {
                     // Every 5 minutes the Twitch server will send a PING, this is to respond with a PONG to keepalive
@@ -251,10 +261,12 @@ namespace chatrig
                         Byte[] say = System.Text.Encoding.ASCII.GetBytes("PONG :tmi.twitch.tv\r\n");
                         stream.Write(say, 0, say.Length);
                         Console.WriteLine("Ping? Pong!");
+                        mainForm.writeToServerOutputTextBox("Ping? Pong!");
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine("OH SHIT SOMETHING WENT WRONG\r\n", e);
+                            mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
                         }
                         break;
                         
@@ -529,8 +541,9 @@ namespace chatrig
                         catch (Exception e)
                         {
                             Console.WriteLine("OH SHIT SOMETHING WENT WRONG\r\n", e);
+                            mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
                         }
-                        
+
                         // Uncomment the following for raw message output for debugging
                         //
                         // Console.WriteLine("Raw output: " + message[0] + "::" + message[1] + "::" + message[2]);
