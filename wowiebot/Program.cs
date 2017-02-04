@@ -10,14 +10,13 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Timers;
 using System.Text.RegularExpressions;
-using System.Web;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Runtime.Serialization.Json;
 using System.Net.Http;
 using System.Windows.Forms;
 using wowiebot;
 
-namespace chatrig
+namespace wowiebot
 {
     class chatrig
     {
@@ -54,9 +53,9 @@ namespace chatrig
             willDisconnect = true;
         }
 
-        private static void populateValidCommands(string nick)
+        private static void populateValidCommands(MainForm mainForm, string nick)
         {
-            var cfg = wowiebot.Properties.Settings.Default;
+            var cfg = Properties.Settings.Default;
             validCommands.Add("help");
             displayCommandsInHelp.Add(false);
             validCommands.Add("commands");
@@ -129,22 +128,20 @@ namespace chatrig
         }
 
         public static int runBot(MainForm mainForm, string pChannel, string nick, string oauth)
-        { 
-            quoteTimer.Elapsed += QuoteTimer_Elapsed;
-
-            longestYeahBoiEver = wowiebot.Properties.Settings.Default.longestYeahBoiEver;
-
-            //string[] arrQuotes = File.ReadAllLines("quotes.txt");
-            //twitchat.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-            //twitchat.Properties.Settings.Default.quotes.AddRange(arrQuotes);
-            //twitchat.Properties.Settings.Default.Save();
-            //quotes = new List<string>(arrQuotes);
-            channel = pChannel;
-
-            populateValidCommands(nick);
-
+        {
             try
             {
+                quoteTimer.Elapsed += QuoteTimer_Elapsed;
+                longestYeahBoiEver = wowiebot.Properties.Settings.Default.longestYeahBoiEver;
+
+                //string[] arrQuotes = File.ReadAllLines("quotes.txt");
+                //twitchat.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                //twitchat.Properties.Settings.Default.quotes.AddRange(arrQuotes);
+                //twitchat.Properties.Settings.Default.Save();
+                //quotes = new List<string>(arrQuotes);
+                channel = pChannel;
+                populateValidCommands(mainForm, nick);
+                
                 if (wowiebot.Properties.Settings.Default.quotes == null)
                 {
                     wowiebot.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
@@ -153,11 +150,12 @@ namespace chatrig
                 wowiebot.Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
                 quotes = new List<string>(arrQuotes);
             }
-            catch
+            
+            catch (Exception e)
             {
                 mainForm.writeToServerOutputTextBox("Error in quote setup. Continuing...\r\n\r\n");
+                MessageBox.Show(e.Message);
             }
-
             TcpClient client;
             try
             {
@@ -173,9 +171,10 @@ namespace chatrig
             catch (Exception e)
             {
                 mainForm.writeToServerOutputTextBox("Connection error.\r\n\r\n");
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 1;
             }
+            
 
             // Send the message to the connected TcpServer. 
 
@@ -223,7 +222,7 @@ namespace chatrig
             // Lets you know its working
             
             Console.WriteLine("TWITCH CHAT HAS BEGUN.\r\n\r\n");
-            mainForm.writeToServerOutputTextBox("TWITCH CHAT HAS BEGUN.\r\n\r\n");
+            mainForm.writeToServerOutputTextBox("TWITCH CHAT HAS BEGUN.");
             Console.WriteLine("\r\nBE CAREFUL.\r\n");
             mainForm.writeToServerOutputTextBox("\r\nBE CAREFUL.\r\n");
 
@@ -351,6 +350,7 @@ namespace chatrig
                                                     apiStream = apiRequest.GetResponse().GetResponseStream();
                                                     StreamReader apiReader = new StreamReader(apiStream);
                                                     string jsonData = apiReader.ReadToEnd();
+                                                    
                                                     JObject parsed = JObject.Parse(jsonData);
 
                                                     apiReader.Close();

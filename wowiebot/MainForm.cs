@@ -94,7 +94,9 @@ namespace wowiebot
                 writeToServerOutputTextBox("Starting connection.\r\n\r\n");
                 connecting = true;
                 Task connectTask = new Task(new Action(connectTask_fn));
+                
                 connectTask.Start();
+                
                 connected = true;
                 loginPopoutButton.Enabled = false;
                 channelTextBox.Enabled = false;
@@ -103,10 +105,11 @@ namespace wowiebot
                 configButton.Enabled = false;
                 Properties.Settings.Default.prevChannel = channelTextBox.Text;
                 Properties.Settings.Default.Save();
+                
             }
             else
             {
-                chatrig.chatrig.disconnect();
+                chatrig.disconnect();
                 connected = false;
                 connectButton.Enabled = false;
                 writeToServerOutputTextBox("\r\nDisconnected.\r\n\r\n");
@@ -116,7 +119,16 @@ namespace wowiebot
 
         private void connectTask_fn()
         {
-            int retVal = chatrig.chatrig.runBot(this, channelTextBox.Text, loggedInUser, loggedInOauth);
+            
+            int retVal = 999;
+            try
+            {
+                retVal = chatrig.runBot(this, channelTextBox.Text, loggedInUser, loggedInOauth);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Exception thrown", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             if (retVal == 1)
             {
                 this.Invoke((MethodInvoker)delegate

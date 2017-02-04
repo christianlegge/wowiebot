@@ -1,0 +1,13 @@
+D:\wowiebot\wowiebot\bin\Release\wowiebot.exe.config
+D:\wowiebot\wowiebot\bin\Release\wowiebot.exe
+D:\wowiebot\wowiebot\bin\Release\wowiebot.pdb
+D:\wowiebot\wowiebot\bin\Release\Newtonsoft.Json.dll
+D:\wowiebot\wowiebot\bin\Release\Newtonsoft.Json.xml
+D:\wowiebot\wowiebot\obj\Release\wowiebot.FunctionsForm.resources
+D:\wowiebot\wowiebot\obj\Release\wowiebot.MainForm.resources
+D:\wowiebot\wowiebot\obj\Release\wowiebot.OAuthForm.resources
+D:\wowiebot\wowiebot\obj\Release\wowiebot.Properties.Resources.resources
+D:\wowiebot\wowiebot\obj\Release\wowiebot.csproj.GenerateResource.Cache
+D:\wowiebot\wowiebot\obj\Release\wowiebot.exe
+D:\wowiebot\wowiebot\obj\Release\wowiebot.pdb
+D:\wowiebot\wowiebot\obj\Release\wowiebot.csprojResolveAssemblyReference.cache
