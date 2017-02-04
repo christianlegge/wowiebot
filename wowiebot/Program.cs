@@ -128,7 +128,7 @@ namespace chatrig
             }
         }
 
-        public static void runBot(MainForm mainForm, string pChannel, string nick, string oauth)
+        public static int runBot(MainForm mainForm, string pChannel, string nick, string oauth)
         { 
             quoteTimer.Elapsed += QuoteTimer_Elapsed;
 
@@ -143,23 +143,39 @@ namespace chatrig
 
             populateValidCommands(nick);
 
-
-            if (wowiebot.Properties.Settings.Default.quotes == null)
+            try
             {
-                wowiebot.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                if (wowiebot.Properties.Settings.Default.quotes == null)
+                {
+                    wowiebot.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                }
+                string[] arrQuotes = new string[wowiebot.Properties.Settings.Default.quotes.Count];
+                wowiebot.Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
+                quotes = new List<string>(arrQuotes);
             }
-            string[] arrQuotes = new string[wowiebot.Properties.Settings.Default.quotes.Count];
-            wowiebot.Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
-            quotes = new List<string>(arrQuotes);
+            catch
+            {
+                mainForm.writeToServerOutputTextBox("Error in quote setup. Continuing...\r\n\r\n");
+            }
 
-            int port = 6667;
-            TcpClient client = new TcpClient("irc.twitch.tv", port);
-            // Enter in channel (the username of the stream chat you wish to connect to) without the #
+            TcpClient client;
+            try
+            {
+                int port = 6667;
+                client = new TcpClient("irc.twitch.tv", port);
+                // Enter in channel (the username of the stream chat you wish to connect to) without the #
 
-            // Get a client stream for reading and writing.
-            //  Stream stream = client.GetStream();
+                // Get a client stream for reading and writing.
+                //  Stream stream = client.GetStream();
 
-            stream = client.GetStream();
+                stream = client.GetStream();
+            }
+            catch (Exception e)
+            {
+                mainForm.writeToServerOutputTextBox("Connection error.\r\n\r\n");
+                MessageBox.Show(e.Message);
+                return 1;
+            }
 
             // Send the message to the connected TcpServer. 
 
@@ -554,6 +570,7 @@ namespace chatrig
 
             stream.Close();
             client.Close();
+            return 0;
         }
 
         private static void QuoteTimer_Elapsed(object sender, ElapsedEventArgs e)

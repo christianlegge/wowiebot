@@ -116,7 +116,21 @@ namespace wowiebot
 
         private void connectTask_fn()
         {
-            chatrig.chatrig.runBot(this, channelTextBox.Text, loggedInUser, loggedInOauth);
+            int retVal = chatrig.chatrig.runBot(this, channelTextBox.Text, loggedInUser, loggedInOauth);
+            if (retVal == 1)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    connected = false;
+                    connecting = false;
+                    loginPopoutButton.Enabled = !useWowieBox.Checked;
+                    channelTextBox.Enabled = true;
+                    useWowieBox.Enabled = true;
+                    configButton.Enabled = true;
+                    updateConnectButton();
+                });
+
+            }
         }
 
         private void disconnectAction(object sender, EventArgs e)
