@@ -132,7 +132,7 @@ namespace wowiebot
             try
             {
                 quoteTimer.Elapsed += QuoteTimer_Elapsed;
-                longestYeahBoiEver = wowiebot.Properties.Settings.Default.longestYeahBoiEver;
+                longestYeahBoiEver = Properties.Settings.Default.longestYeahBoiEver;
 
                 //string[] arrQuotes = File.ReadAllLines("quotes.txt");
                 //twitchat.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
@@ -142,12 +142,12 @@ namespace wowiebot
                 channel = pChannel;
                 populateValidCommands(mainForm, nick);
                 
-                if (wowiebot.Properties.Settings.Default.quotes == null)
+                if (Properties.Settings.Default.quotes == null)
                 {
-                    wowiebot.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                    Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
                 }
-                string[] arrQuotes = new string[wowiebot.Properties.Settings.Default.quotes.Count];
-                wowiebot.Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
+                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
+                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
                 quotes = new List<string>(arrQuotes);
             }
             
@@ -216,7 +216,7 @@ namespace wowiebot
             // These three lines are the example for how to send something to the channel
 
             string announcestring = channel + "!" + channel + "@" + channel +".tmi.twitch.tv PRIVMSG " + channel + " BOT ENABLED\r\n";
-            Byte[] announce = System.Text.Encoding.ASCII.GetBytes(announcestring);
+            Byte[] announce = Encoding.ASCII.GetBytes(announcestring);
             stream.Write(announce, 0, announce.Length);
             
             // Lets you know its working
@@ -231,7 +231,7 @@ namespace wowiebot
             {
                 if (displayCommandsInHelp[i])
                 {
-                    helpCommands += wowiebot.Properties.Settings.Default.prefix + validCommands[i] + ", ";
+                    helpCommands += Properties.Settings.Default.prefix + validCommands[i] + ", ";
                 }
             }
             helpCommands = helpCommands.Substring(0, helpCommands.Length - 2);
@@ -316,7 +316,7 @@ namespace wowiebot
 
 
 
-                                if (message[2].StartsWith(wowiebot.Properties.Settings.Default.prefix))
+                                if (message[2].StartsWith(Properties.Settings.Default.prefix))
                                 {
                                     string command;
                                     if (message[2].Contains(" "))
@@ -509,18 +509,18 @@ namespace wowiebot
                                     }
                                 }
 
-                                else if (wowiebot.Properties.Settings.Default.enableYeahBoi
+                                else if (Properties.Settings.Default.enableYeahBoi
                                 && message[2].ToLower().Contains("wowie")
                                 && message[2].ToLower().Contains("longest")
                                 && message[2].ToLower().Contains("ever")
                                 && (message[2].ToLower().Contains("yeah boi") || message[2].ToLower().Contains("yeah boy")))
                                 {
-                                    sendMessage("yeah bo" + new string('i', longestYeahBoiEver));
-                                    longestYeahBoiEver++;
-                                    wowiebot.Properties.Settings.Default.longestYeahBoiEver++;
+                                    sendMessage("yeah bo" + new string('i', longestYeahBoiEver++));
+                                    Properties.Settings.Default.longestYeahBoiEver++;
+                                    Properties.Settings.Default.Save();
                                 }
 
-                                if (wowiebot.Properties.Settings.Default.enableLinkTitles)
+                                if (Properties.Settings.Default.enableLinkTitles)
                                 {
                                     Regex regx = new Regex(@"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase);
                                     MatchCollection mactches = regx.Matches(message[2]);
@@ -539,7 +539,10 @@ namespace wowiebot
                                         }
                                         string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
                                         title = Regex.Replace(title, @"[^\u0000-\u007F]+", string.Empty);
-                                        sendMessage(sendingUser[0] + " posted: " + title);
+                                        if (title != null && title != "")
+                                        {
+                                            sendMessage(sendingUser[0] + " posted: " + title);
+                                        }
                                     }
                                 }
                                 
