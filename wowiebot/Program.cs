@@ -10,6 +10,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Timers;
 using System.Text.RegularExpressions;
+using System.Web;
 using Newtonsoft.Json.Linq;
 using System.Runtime.Serialization.Json;
 using System.Net.Http;
@@ -493,6 +494,7 @@ namespace wowiebot
                                             case "heck":
                                                 sendMessage("https://twitter.com/billyraycyrus/status/335910871974965248");
                                                 break;
+
                                             case "8ball":
                                                 int p;
                                                 do
@@ -531,7 +533,7 @@ namespace wowiebot
                                         //WebRequest req = WebRequest.Create(match.Value);
                                         try
                                         {
-                                            source = x.DownloadString(match.Value);
+                                            source = HttpUtility.HtmlDecode(x.DownloadString(match.Value));
                                         }
                                         catch
                                         {
