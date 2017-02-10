@@ -40,6 +40,7 @@
             this.discordCheckBox = new System.Windows.Forms.CheckBox();
             this.discordTextBox = new System.Windows.Forms.TextBox();
             this.eightBallCheckBox = new System.Windows.Forms.CheckBox();
+            this.editQuotesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // quoteCheckBox
@@ -51,6 +52,7 @@
             this.quoteCheckBox.TabIndex = 0;
             this.quoteCheckBox.Text = "!quote";
             this.quoteCheckBox.UseVisualStyleBackColor = true;
+            this.quoteCheckBox.CheckedChanged += new System.EventHandler(this.quoteCheckBox_CheckedChanged);
             // 
             // titleCheckBox
             // 
@@ -161,6 +163,16 @@
             this.eightBallCheckBox.Text = "!8ball";
             this.eightBallCheckBox.UseVisualStyleBackColor = true;
             // 
+            // editQuotesButton
+            // 
+            this.editQuotesButton.Location = new System.Drawing.Point(68, 8);
+            this.editQuotesButton.Name = "editQuotesButton";
+            this.editQuotesButton.Size = new System.Drawing.Size(75, 23);
+            this.editQuotesButton.TabIndex = 12;
+            this.editQuotesButton.Text = "Edit Quotes";
+            this.editQuotesButton.UseVisualStyleBackColor = true;
+            this.editQuotesButton.Click += new System.EventHandler(this.editQuotesButton_Click);
+            // 
             // FunctionsForm
             // 
             this.AcceptButton = this.saveButton;
@@ -168,6 +180,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(215, 215);
+            this.Controls.Add(this.editQuotesButton);
             this.Controls.Add(this.eightBallCheckBox);
             this.Controls.Add(this.discordTextBox);
             this.Controls.Add(this.discordCheckBox);
@@ -202,5 +215,6 @@
         private System.Windows.Forms.CheckBox discordCheckBox;
         private System.Windows.Forms.TextBox discordTextBox;
         private System.Windows.Forms.CheckBox eightBallCheckBox;
+        private System.Windows.Forms.Button editQuotesButton;
     }
 }

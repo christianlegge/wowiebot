@@ -27,3 +27,4 @@ D:\wowiebot\wowiebot\obj\Debug\wowiebot.csproj.GenerateResource.Cache
 C:\Users\Andrew\Source\Repos\wowiebot\wowiebot\bin\Debug\wowiebot.exe.config
 C:\Users\Andrew\Source\Repos\wowiebot\wowiebot\obj\Debug\wowiebot.exe
 C:\Users\Andrew\Source\Repos\wowiebot\wowiebot\obj\Debug\wowiebot.pdb
+D:\wowiebot\wowiebot\obj\Debug\wowiebot.QuotesForm.resources

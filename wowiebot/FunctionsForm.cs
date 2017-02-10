@@ -18,6 +18,7 @@ namespace wowiebot
             discordTextBox.Enabled = discordCheckBox.Checked;
             prefixTextBox.Text = Properties.Settings.Default.prefix;
             quoteCheckBox.Checked = Properties.Settings.Default.enableQuotes;
+            editQuotesButton.Enabled = Properties.Settings.Default.enableQuotes;
             uptimeCheckBox.Checked = Properties.Settings.Default.enableUptime;
             titleCheckBox.Checked = Properties.Settings.Default.enableTitle;
             linkCheckBox.Checked = Properties.Settings.Default.enableLinkTitles;
@@ -85,6 +86,18 @@ namespace wowiebot
             {
                 saveButton.Enabled = true;
             }
+        }
+
+        private void quoteCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            editQuotesButton.Enabled = quoteCheckBox.Checked;
+        }
+
+        private void editQuotesButton_Click(object sender, EventArgs e)
+        {
+            QuotesForm quotesForm = new QuotesForm();
+            quotesForm.StartPosition = FormStartPosition.CenterScreen;
+            quotesForm.ShowDialog();
         }
     }
 }

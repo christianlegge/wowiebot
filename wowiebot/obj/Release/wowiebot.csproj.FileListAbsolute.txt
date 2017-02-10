@@ -11,3 +11,4 @@ D:\wowiebot\wowiebot\obj\Release\wowiebot.csproj.GenerateResource.Cache
 D:\wowiebot\wowiebot\obj\Release\wowiebot.exe
 D:\wowiebot\wowiebot\obj\Release\wowiebot.pdb
 D:\wowiebot\wowiebot\obj\Release\wowiebot.csprojResolveAssemblyReference.cache
+D:\wowiebot\wowiebot\obj\Release\wowiebot.QuotesForm.resources
