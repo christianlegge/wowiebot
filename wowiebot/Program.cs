@@ -533,6 +533,9 @@ namespace wowiebot
                                         //WebRequest req = WebRequest.Create(match.Value);
                                         try
                                         {
+                                            x.Headers.Add("Accept-Language", " en-US");
+                                            x.Headers.Add("Accept", " text/html, application/xhtml+xml, */*");
+                                            x.Headers.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)");
                                             source = HttpUtility.HtmlDecode(x.DownloadString(match.Value));
                                         }
                                         catch
