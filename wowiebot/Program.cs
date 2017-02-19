@@ -37,6 +37,7 @@ namespace wowiebot
         private static List<string> eightBallChoices = new List<string>();
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
+        private static string userID;
 
         private static int longestYeahBoiEver;
         private static bool willDisconnect = false;
@@ -128,6 +129,30 @@ namespace wowiebot
             }
         }
 
+        private static void getUserIDFromAPI()
+        {
+            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/users?login=" + channel);
+            apiRequest.Accept = "application/vnd.twitchtv.v5+json";
+            apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
+
+            Stream apiStream;
+
+            apiStream = apiRequest.GetResponse().GetResponseStream();
+            StreamReader apiReader = new StreamReader(apiStream);
+            string jsonData = apiReader.ReadToEnd();
+
+            JObject parsed = JObject.Parse(jsonData);
+            JObject userParsed = JObject.Parse(parsed.GetValue("users").First.ToString());
+
+            apiReader.Close();
+            apiReader.Dispose();
+
+            apiStream.Close();
+            apiStream.Dispose();
+
+            userID = userParsed.GetValue("_id").ToString();
+        }
+
         public static int runBot(MainForm mainForm, string pChannel, string nick, string oauth)
         {
             try
@@ -142,6 +167,11 @@ namespace wowiebot
                 //quotes = new List<string>(arrQuotes);
                 channel = pChannel;
                 populateValidCommands(mainForm, nick);
+
+                if (validCommands.Contains("title") || validCommands.Contains("uptime"))
+                {
+                    getUserIDFromAPI();
+                }
                 
                 if (Properties.Settings.Default.quotes == null)
                 {
@@ -341,10 +371,9 @@ namespace wowiebot
                                             case "title":
                                             case "game":
                                                 {
-                                                    HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/channels/" + channel);
-                                                    apiRequest.Accept = "application/vnd.twitchtv.v2+json";
+                                                    HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/channels/" + userID);
+                                                    apiRequest.Accept = "application/vnd.twitchtv.v5+json";
                                                     apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
-
 
                                                     Stream apiStream;
 
@@ -372,8 +401,8 @@ namespace wowiebot
 
                                             case "uptime":
                                                 {
-                                                    HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/streams/" + channel);
-                                                    apiRequest.Accept = "application/vnd.twitchtv.v2+json";
+                                                    HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/streams/" + userID);
+                                                    apiRequest.Accept = "application/vnd.twitchtv.v5+json";
                                                     apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
 
 
