@@ -42,6 +42,8 @@ namespace wowiebot
         private static int longestYeahBoiEver;
         private static bool willDisconnect = false;
 
+        private static Dictionary<string, string> commandsList;
+
 
         static void Main(string[] args)
         {
@@ -53,6 +55,11 @@ namespace wowiebot
         public static void disconnect()
         {
             willDisconnect = true;
+        }
+
+        private static void populateCommandsList(MainForm mainForm, string nick)
+        {
+            commandsList.Add("", "");
         }
 
         private static void populateValidCommands(MainForm mainForm, string nick)

@@ -34,6 +34,15 @@ namespace wowiebot
                 discordTextBox.Text = "https://";
             }
             updateSaveButton();
+
+            DataTable dt = new DataTable("Commands");
+            DataColumn dc = new DataColumn("Command", Type.GetType("System.String"));
+            DataColumn fn = new DataColumn("Function", Type.GetType("System.String"));
+            DataColumn parameters = new DataColumn("Parameters", Type.GetType("System.String"));
+            dt.Columns.Add(dc);
+            dt.Columns.Add(fn);
+            dt.Columns.Add(parameters);
+            commandDataGrid.DataSource = dt;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -98,6 +107,12 @@ namespace wowiebot
             QuotesForm quotesForm = new QuotesForm();
             quotesForm.StartPosition = FormStartPosition.CenterScreen;
             quotesForm.ShowDialog();
+        }
+
+        private void commandDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            
         }
     }
 }

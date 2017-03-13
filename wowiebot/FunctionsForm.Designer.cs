@@ -41,6 +41,8 @@
             this.discordTextBox = new System.Windows.Forms.TextBox();
             this.eightBallCheckBox = new System.Windows.Forms.CheckBox();
             this.editQuotesButton = new System.Windows.Forms.Button();
+            this.commandDataGrid = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.commandDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // quoteCheckBox
@@ -173,13 +175,23 @@
             this.editQuotesButton.UseVisualStyleBackColor = true;
             this.editQuotesButton.Click += new System.EventHandler(this.editQuotesButton_Click);
             // 
+            // commandDataGrid
+            // 
+            this.commandDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.commandDataGrid.Location = new System.Drawing.Point(286, 21);
+            this.commandDataGrid.Name = "commandDataGrid";
+            this.commandDataGrid.Size = new System.Drawing.Size(424, 505);
+            this.commandDataGrid.TabIndex = 13;
+            this.commandDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.commandDataGrid_CellContentClick);
+            // 
             // FunctionsForm
             // 
             this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(215, 215);
+            this.ClientSize = new System.Drawing.Size(722, 538);
+            this.Controls.Add(this.commandDataGrid);
             this.Controls.Add(this.editQuotesButton);
             this.Controls.Add(this.eightBallCheckBox);
             this.Controls.Add(this.discordTextBox);
@@ -197,6 +209,7 @@
             this.MaximizeBox = false;
             this.Name = "FunctionsForm";
             this.Text = "Config";
+            ((System.ComponentModel.ISupportInitialize)(this.commandDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,5 +229,6 @@
         private System.Windows.Forms.TextBox discordTextBox;
         private System.Windows.Forms.CheckBox eightBallCheckBox;
         private System.Windows.Forms.Button editQuotesButton;
+        private System.Windows.Forms.DataGridView commandDataGrid;
     }
 }
