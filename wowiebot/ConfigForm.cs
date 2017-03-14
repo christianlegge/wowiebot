@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace wowiebot
 {
     public partial class ConfigForm : Form
     {
+        DataSet commandsDataSet;
+
         public ConfigForm()
         {
             InitializeComponent();
@@ -33,6 +36,17 @@ namespace wowiebot
                 discordTextBox.Text = "https://";
             }
             updateSaveButton();
+            commandsDataSet = new DataSet();
+            DataTable commandsDataTable = new DataTable();
+            DataColumn cmd = new DataColumn("Command");
+            DataColumn fn = new DataColumn("Function");
+            DataColumn parm = new DataColumn("Parameters");
+            commandsDataTable.Columns.Add(cmd);
+            commandsDataTable.Columns.Add(fn);
+            commandsDataTable.Columns.Add(parm);
+            commandsDataSet.Tables.Add(commandsDataTable);
+            //this.commandsDataTable = Properties.Settings.Default.commandsDataSet;
+            dataGridView1.DataSource = commandsDataSet;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -53,6 +67,8 @@ namespace wowiebot
             {
                 Properties.Settings.Default.discordServer = discordTextBox.Text;
             }
+            string test = JsonConvert.SerializeObject(dataGridView1.DataSource);
+            Properties.Settings.Default.commandsDataSetJson = JsonConvert.SerializeObject(dataGridView1.DataSource);
             Properties.Settings.Default.Save();
             Close();
         }

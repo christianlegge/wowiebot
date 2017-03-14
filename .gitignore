@@ -7,3 +7,8 @@ wowiebot/obj/Release/wowiebot.pdb
 wowiebot/bin/Debug/wowiebot.pdb
 *.pdb
 wowiebot/obj/Debug/wowiebot.csproj.GenerateResource.Cache
+*.suo
+wowiebot/bin/Debug/wowiebot.pdb
+*.cache
+*.exe
+wowiebot/obj/Debug/wowiebot.pdb

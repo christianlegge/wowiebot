@@ -196,5 +196,17 @@ namespace wowiebot.Properties {
                 this["choices8Ball"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string commandsDataSetJson {
+            get {
+                return ((string)(this["commandsDataSetJson"]));
+            }
+            set {
+                this["commandsDataSetJson"] = value;
+            }
+        }
     }
 }
