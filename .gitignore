@@ -3,3 +3,7 @@ wowiebot/bin/Debug/wowiebot.vshost.exe.manifest
 *.pdb
 *.exe
 wowiebot/obj/Release/wowiebot.pdb
+*.exe
+wowiebot/bin/Debug/wowiebot.pdb
+*.pdb
+wowiebot/obj/Debug/wowiebot.csproj.GenerateResource.Cache

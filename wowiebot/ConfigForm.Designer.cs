@@ -41,6 +41,8 @@
             this.eightBallCheckBox = new System.Windows.Forms.CheckBox();
             this.editQuotesButton = new System.Windows.Forms.Button();
             this.edit8BallChoicesButton = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // quoteCheckBox
@@ -173,13 +175,22 @@
             this.edit8BallChoicesButton.UseVisualStyleBackColor = true;
             this.edit8BallChoicesButton.Click += new System.EventHandler(this.edit8BallChoicesButton_Click);
             // 
-            // FunctionsForm
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(252, 12);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(446, 515);
+            this.dataGridView1.TabIndex = 14;
+            // 
+            // ConfigForm
             // 
             this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(215, 202);
+            this.ClientSize = new System.Drawing.Size(710, 540);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.edit8BallChoicesButton);
             this.Controls.Add(this.editQuotesButton);
             this.Controls.Add(this.eightBallCheckBox);
@@ -195,8 +206,9 @@
             this.Controls.Add(this.quoteCheckBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "FunctionsForm";
+            this.Name = "ConfigForm";
             this.Text = "Config";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,5 +228,6 @@
         private System.Windows.Forms.CheckBox eightBallCheckBox;
         private System.Windows.Forms.Button editQuotesButton;
         private System.Windows.Forms.Button edit8BallChoicesButton;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
