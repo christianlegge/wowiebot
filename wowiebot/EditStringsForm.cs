@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace wowiebot
 {
-    public partial class QuotesForm : Form
+    public partial class EditStringsForm : Form
     {
-        public QuotesForm()
+        public EditStringsForm()
         {
             InitializeComponent();
             foreach (string s in Properties.Settings.Default.quotes)

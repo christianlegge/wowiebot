@@ -19,7 +19,7 @@ using wowiebot;
 
 namespace wowiebot
 {
-    class chatrig
+    class ChatHandler
     {
         
         private static byte[] data;

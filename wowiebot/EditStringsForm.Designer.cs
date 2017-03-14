@@ -1,6 +1,6 @@
 ﻿namespace wowiebot
 {
-    partial class QuotesForm
+    partial class EditStringsForm
     {
         /// <summary>
         /// Required designer variable.

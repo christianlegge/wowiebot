@@ -202,7 +202,7 @@ namespace wowiebot
 
         private void configButton_Click(object sender, EventArgs e)
         {
-            FunctionsForm funcForm = new FunctionsForm();
+            ConfigForm funcForm = new ConfigForm();
             funcForm.StartPosition = FormStartPosition.CenterParent;
             funcForm.ShowDialog();
         }

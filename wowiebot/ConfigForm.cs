@@ -11,11 +11,11 @@ using System.Data.SqlClient;
 
 namespace wowiebot
 {
-    public partial class FunctionsForm : Form
+    public partial class ConfigForm : Form
     {
         DataSet dataSet = new DataSet();
 
-        public FunctionsForm()
+        public ConfigForm()
         {
             InitializeComponent();
             discordTextBox.Enabled = discordCheckBox.Checked;
@@ -114,7 +114,7 @@ namespace wowiebot
 
         private void editQuotesButton_Click(object sender, EventArgs e)
         {
-            QuotesForm quotesForm = new QuotesForm();
+            EditStringsForm quotesForm = new EditStringsForm();
             quotesForm.StartPosition = FormStartPosition.CenterScreen;
             quotesForm.ShowDialog();
         }

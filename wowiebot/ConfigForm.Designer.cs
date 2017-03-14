@@ -1,6 +1,6 @@
 ﻿namespace wowiebot
 {
-    partial class FunctionsForm
+    partial class ConfigForm
     {
         /// <summary>
         /// Required designer variable.
