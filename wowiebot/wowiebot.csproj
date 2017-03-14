@@ -84,6 +84,7 @@
     <Compile Include="QuotesForm.Designer.cs">
       <DependentUpon>QuotesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WowiebotApplication.cs" />
     <EmbeddedResource Include="FunctionsForm.resx">
       <DependentUpon>FunctionsForm.cs</DependentUpon>
     </EmbeddedResource>
