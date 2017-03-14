@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace wowiebot
 {
-    public partial class FunctionsForm : Form
+    public partial class ConfigForm : Form
     {
-        public FunctionsForm()
+        public ConfigForm()
         {
             InitializeComponent();
             discordTextBox.Enabled = discordCheckBox.Checked;

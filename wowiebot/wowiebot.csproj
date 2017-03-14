@@ -58,11 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionsForm.cs">
+    <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FunctionsForm.Designer.cs">
-      <DependentUpon>FunctionsForm.cs</DependentUpon>
+    <Compile Include="ConfigForm.Designer.cs">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -85,8 +85,8 @@
       <DependentUpon>EditStringsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WowiebotApplication.cs" />
-    <EmbeddedResource Include="FunctionsForm.resx">
-      <DependentUpon>FunctionsForm.cs</DependentUpon>
+    <EmbeddedResource Include="ConfigForm.resx">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
