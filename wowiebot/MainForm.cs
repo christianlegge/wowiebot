@@ -109,7 +109,7 @@ namespace wowiebot
             }
             else
             {
-                chatrig.disconnect();
+                ChatHandler.disconnect();
                 connected = false;
                 connectButton.Enabled = false;
                 writeToServerOutputTextBox("\r\nDisconnected.\r\n\r\n");
@@ -123,7 +123,7 @@ namespace wowiebot
             int retVal = 999;
             try
             {
-                retVal = chatrig.runBot(this, channelTextBox.Text, loggedInUser, loggedInOauth);
+                retVal = ChatHandler.start(this, channelTextBox.Text, loggedInUser, loggedInOauth);
             }
             catch (Exception e)
             {
@@ -202,7 +202,7 @@ namespace wowiebot
 
         private void configButton_Click(object sender, EventArgs e)
         {
-            FunctionsForm funcForm = new FunctionsForm();
+            ConfigForm funcForm = new ConfigForm();
             funcForm.StartPosition = FormStartPosition.CenterParent;
             funcForm.ShowDialog();
         }

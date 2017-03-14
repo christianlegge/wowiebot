@@ -61,18 +61,6 @@ namespace wowiebot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int longestYeahBoiEver {
-            get {
-                return ((int)(this["longestYeahBoiEver"]));
-            }
-            set {
-                this["longestYeahBoiEver"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
         public global::System.Collections.Specialized.StringCollection quotes {
@@ -146,18 +134,6 @@ namespace wowiebot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enableYeahBoi {
-            get {
-                return ((bool)(this["enableYeahBoi"]));
-            }
-            set {
-                this["enableYeahBoi"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool enableDiscord {
             get {
@@ -189,6 +165,35 @@ namespace wowiebot.Properties {
             }
             set {
                 this["enable8Ball"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>yes</string>
+  <string>no</string>
+  <string>try again later</string>
+  <string>maybe~</string>
+  <string>idk ask scatter</string>
+  <string>hecc no</string>
+  <string>hecc yeah</string>
+  <string>you wish</string>
+  <string>signs point to yes</string>
+  <string>signs point to no</string>
+  <string>4 shur</string>
+  <string>i know nothing don't ask me again please i'm just a young bot D:</string>
+  <string>what do you think ;)</string>
+  <string>yank train</string>
+  <string>nuns on ripple</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection choices8Ball {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["choices8Ball"]));
+            }
+            set {
+                this["choices8Ball"] = value;
             }
         }
     }

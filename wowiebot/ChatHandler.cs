@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Timers;
 using System.Text.RegularExpressions;
 using System.Web;
 using Newtonsoft.Json.Linq;
-using System.Runtime.Serialization.Json;
-using System.Net.Http;
-using System.Windows.Forms;
-using wowiebot;
 
 namespace wowiebot
 {
-    class chatrig
+    class ChatHandler
     {
-        
         private static byte[] data;
         private static string channel;
+        private static string botNick;
+        private static string botOauth;
+        private static MainForm mainForm;
         private static NetworkStream stream;
 
         private static List<string> quotes;
@@ -38,155 +33,28 @@ namespace wowiebot
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
-
-        private static int longestYeahBoiEver;
+        
         private static bool willDisconnect = false;
 
-
-        static void Main(string[] args)
+        public static int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            mainForm = pMainForm;
+            channel = pChannel;
+            botNick = pNick;
+            botOauth = pOauth;
+
+            populateValidCommands();
+
+            if (validCommands.Contains("title") || validCommands.Contains("uptime"))
+            {
+                getUserIDFromAPI();
+            }
+
+            return runBot();
         }
 
-        public static void disconnect()
+        public static int runBot()
         {
-            willDisconnect = true;
-        }
-
-        private static void populateValidCommands(MainForm mainForm, string nick)
-        {
-            var cfg = Properties.Settings.Default;
-            validCommands.Add("help");
-            displayCommandsInHelp.Add(false);
-            validCommands.Add("commands");
-            displayCommandsInHelp.Add(false);
-            if (cfg.enableQuotes)
-            {
-                validCommands.Add("quote");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("addquote");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("yes");
-                displayCommandsInHelp.Add(false);
-            }
-            if (cfg.enableTitle)
-            {
-                validCommands.Add("title");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("game");
-                displayCommandsInHelp.Add(false);
-            }
-            if (cfg.enableUptime)
-            {
-                validCommands.Add("uptime");
-                displayCommandsInHelp.Add(true);
-            }
-            if (cfg.enableDiscord)
-            {
-                validCommands.Add("discord");
-                displayCommandsInHelp.Add(true);
-            }
-            if (nick == "wowiebot")
-            {
-                validCommands.Add("wowie");
-                displayCommandsInHelp.Add(false);
-            }
-            if (channel == "scatterclegge")
-            {
-                validCommands.Add("wr");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("no");
-                displayCommandsInHelp.Add(false);
-                validCommands.Add("heck");
-                displayCommandsInHelp.Add(false);
-            }
-            if (channel.ToLower() == "lumardy")
-            {
-                validCommands.Add("wr");
-                displayCommandsInHelp.Add(true);
-            }
-            if (cfg.enable8Ball)
-            {
-                validCommands.Add("8ball");
-                displayCommandsInHelp.Add(true);
-                eightBallChoices.Add("yes");
-                eightBallChoices.Add("no");
-                eightBallChoices.Add("try again later");
-                eightBallChoices.Add("maybe~");
-                eightBallChoices.Add("idk ask scatter");
-                eightBallChoices.Add("hecc no");
-                eightBallChoices.Add("hecc yeah");
-                eightBallChoices.Add("you wish");
-                eightBallChoices.Add("signs point to yes");
-                eightBallChoices.Add("signs point to no");
-                eightBallChoices.Add("4 shur");
-                eightBallChoices.Add("i know nothing don't ask me again please i'm just a young bot D:");
-                eightBallChoices.Add("what do you think ;)");
-                eightBallChoices.Add("yank train");
-                eightBallChoices.Add("nuns on ripple");
-            }
-        }
-
-        private static void getUserIDFromAPI()
-        {
-            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/users?login=" + channel);
-            apiRequest.Accept = "application/vnd.twitchtv.v5+json";
-            apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
-
-            Stream apiStream;
-
-            apiStream = apiRequest.GetResponse().GetResponseStream();
-            StreamReader apiReader = new StreamReader(apiStream);
-            string jsonData = apiReader.ReadToEnd();
-
-            JObject parsed = JObject.Parse(jsonData);
-            JObject userParsed = JObject.Parse(parsed.GetValue("users").First.ToString());
-
-            apiReader.Close();
-            apiReader.Dispose();
-
-            apiStream.Close();
-            apiStream.Dispose();
-
-            userID = userParsed.GetValue("_id").ToString();
-        }
-
-        public static int runBot(MainForm mainForm, string pChannel, string nick, string oauth)
-        {
-            try
-            {
-                quoteTimer.Elapsed += QuoteTimer_Elapsed;
-                longestYeahBoiEver = Properties.Settings.Default.longestYeahBoiEver;
-
-                //string[] arrQuotes = File.ReadAllLines("quotes.txt");
-                //twitchat.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-                //twitchat.Properties.Settings.Default.quotes.AddRange(arrQuotes);
-                //twitchat.Properties.Settings.Default.Save();
-                //quotes = new List<string>(arrQuotes);
-                channel = pChannel;
-                populateValidCommands(mainForm, nick);
-
-                if (validCommands.Contains("title") || validCommands.Contains("uptime"))
-                {
-                    getUserIDFromAPI();
-                }
-                
-                if (Properties.Settings.Default.quotes == null)
-                {
-                    Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-                }
-                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
-                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
-                quotes = new List<string>(arrQuotes);
-            }
-            
-            catch (Exception e)
-            {
-                mainForm.writeToServerOutputTextBox("Error in quote setup. Continuing...\r\n\r\n");
-                MessageBox.Show(e.Message);
-            }
             TcpClient client;
             try
             {
@@ -211,7 +79,7 @@ namespace wowiebot
 
             // string oauth = "5bdocznijbholgvt3o9u6t5ui6okjs";
 
-            string loginstring = "PASS oauth:" + oauth + "\r\nNICK "+ nick +"\r\n";
+            string loginstring = "PASS oauth:" + botOauth + "\r\nNICK "+ botNick +"\r\n";
             Byte[] login = System.Text.Encoding.ASCII.GetBytes(loginstring);
             stream.Write(login, 0, login.Length);
             Console.WriteLine("Sent login.\r\n");
@@ -525,6 +393,11 @@ namespace wowiebot
                                                 break;
 
                                             case "8ball":
+                                                if (eightBallChoices.Count == 0)
+                                                {
+                                                    sendMessage("You drop the 8-ball and it shatters irrecoverably onto the floor.");
+                                                    break;
+                                                }
                                                 int p;
                                                 do
                                                 {
@@ -538,17 +411,6 @@ namespace wowiebot
                                                 break;
                                         }
                                     }
-                                }
-
-                                else if (Properties.Settings.Default.enableYeahBoi
-                                && message[2].ToLower().Contains("wowie")
-                                && message[2].ToLower().Contains("longest")
-                                && message[2].ToLower().Contains("ever")
-                                && (message[2].ToLower().Contains("yeah boi") || message[2].ToLower().Contains("yeah boy")))
-                                {
-                                    sendMessage("yeah bo" + new string('i', longestYeahBoiEver++));
-                                    Properties.Settings.Default.longestYeahBoiEver++;
-                                    Properties.Settings.Default.Save();
                                 }
 
                                 if (Properties.Settings.Default.enableLinkTitles)
@@ -622,6 +484,109 @@ namespace wowiebot
         {
             Byte[] say = Encoding.ASCII.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);
+        }
+
+        private static void getUserIDFromAPI()
+        {
+            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/users?login=" + channel);
+            apiRequest.Accept = "application/vnd.twitchtv.v5+json";
+            apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
+
+            Stream apiStream;
+
+            apiStream = apiRequest.GetResponse().GetResponseStream();
+            StreamReader apiReader = new StreamReader(apiStream);
+            string jsonData = apiReader.ReadToEnd();
+
+            JObject parsed = JObject.Parse(jsonData);
+            JObject userParsed = JObject.Parse(parsed.GetValue("users").First.ToString());
+
+            apiReader.Close();
+            apiReader.Dispose();
+
+            apiStream.Close();
+            apiStream.Dispose();
+
+            userID = userParsed.GetValue("_id").ToString();
+        }
+
+        public static void disconnect()
+        {
+            willDisconnect = true;
+        }
+
+        private static void populateValidCommands()
+        {
+            var cfg = Properties.Settings.Default;
+            validCommands.Add("help");
+            displayCommandsInHelp.Add(false);
+            validCommands.Add("commands");
+            displayCommandsInHelp.Add(false);
+            if (cfg.enableQuotes)
+            {
+                validCommands.Add("quote");
+                displayCommandsInHelp.Add(true);
+                validCommands.Add("addquote");
+                displayCommandsInHelp.Add(true);
+                validCommands.Add("yes");
+                displayCommandsInHelp.Add(false);
+                if (Properties.Settings.Default.quotes == null)
+                {
+                    Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                }
+                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
+                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
+                quotes = new List<string>(arrQuotes);
+                quoteTimer.Elapsed += QuoteTimer_Elapsed;
+            }
+            if (cfg.enableTitle)
+            {
+                validCommands.Add("title");
+                displayCommandsInHelp.Add(true);
+                validCommands.Add("game");
+                displayCommandsInHelp.Add(false);
+            }
+            if (cfg.enableUptime)
+            {
+                validCommands.Add("uptime");
+                displayCommandsInHelp.Add(true);
+            }
+            if (cfg.enableDiscord)
+            {
+                validCommands.Add("discord");
+                displayCommandsInHelp.Add(true);
+            }
+            if (botNick == "wowiebot")
+            {
+                validCommands.Add("wowie");
+                displayCommandsInHelp.Add(false);
+            }
+            if (channel == "scatterclegge")
+            {
+                validCommands.Add("wr");
+                displayCommandsInHelp.Add(true);
+                validCommands.Add("no");
+                displayCommandsInHelp.Add(false);
+                validCommands.Add("heck");
+                displayCommandsInHelp.Add(false);
+            }
+            if (channel.ToLower() == "lumardy")
+            {
+                validCommands.Add("wr");
+                displayCommandsInHelp.Add(true);
+            }
+            if (cfg.enable8Ball)
+            {
+                validCommands.Add("8ball");
+                displayCommandsInHelp.Add(true);
+                if (Properties.Settings.Default.choices8Ball == null)
+                {
+                    Properties.Settings.Default.choices8Ball = new System.Collections.Specialized.StringCollection();
+                }
+                string[] arr8Ball = new string[Properties.Settings.Default.choices8Ball.Count];
+                Properties.Settings.Default.choices8Ball.CopyTo(arr8Ball, 0);
+                eightBallChoices = new List<string>(arr8Ball);
+            }
         }
     }
 }

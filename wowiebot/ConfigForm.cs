@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace wowiebot
 {
-    public partial class FunctionsForm : Form
+    public partial class ConfigForm : Form
     {
-        public FunctionsForm()
+        public ConfigForm()
         {
             InitializeComponent();
             discordTextBox.Enabled = discordCheckBox.Checked;
@@ -22,7 +22,6 @@ namespace wowiebot
             uptimeCheckBox.Checked = Properties.Settings.Default.enableUptime;
             titleCheckBox.Checked = Properties.Settings.Default.enableTitle;
             linkCheckBox.Checked = Properties.Settings.Default.enableLinkTitles;
-            yeahBoiCheckBox.Checked = Properties.Settings.Default.enableYeahBoi;
             discordCheckBox.Checked = Properties.Settings.Default.enableDiscord;
             eightBallCheckBox.Checked = Properties.Settings.Default.enable8Ball;
             if (Properties.Settings.Default.enableDiscord)
@@ -48,7 +47,6 @@ namespace wowiebot
             Properties.Settings.Default.enableUptime = uptimeCheckBox.Checked;
             Properties.Settings.Default.enableTitle = titleCheckBox.Checked;
             Properties.Settings.Default.enableLinkTitles = linkCheckBox.Checked;
-            Properties.Settings.Default.enableYeahBoi = linkCheckBox.Checked;
             Properties.Settings.Default.enableDiscord = discordCheckBox.Checked;
             Properties.Settings.Default.enable8Ball = eightBallCheckBox.Checked;
             if (discordCheckBox.Checked)
@@ -95,7 +93,14 @@ namespace wowiebot
 
         private void editQuotesButton_Click(object sender, EventArgs e)
         {
-            QuotesForm quotesForm = new QuotesForm();
+            EditStringsForm quotesForm = new EditStringsForm("quotes");
+            quotesForm.StartPosition = FormStartPosition.CenterScreen;
+            quotesForm.ShowDialog();
+        }
+
+        private void edit8BallChoicesButton_Click(object sender, EventArgs e)
+        {
+            EditStringsForm quotesForm = new EditStringsForm("choices");
             quotesForm.StartPosition = FormStartPosition.CenterScreen;
             quotesForm.ShowDialog();
         }
