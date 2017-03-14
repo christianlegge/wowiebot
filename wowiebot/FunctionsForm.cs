@@ -22,7 +22,6 @@ namespace wowiebot
             uptimeCheckBox.Checked = Properties.Settings.Default.enableUptime;
             titleCheckBox.Checked = Properties.Settings.Default.enableTitle;
             linkCheckBox.Checked = Properties.Settings.Default.enableLinkTitles;
-            yeahBoiCheckBox.Checked = Properties.Settings.Default.enableYeahBoi;
             discordCheckBox.Checked = Properties.Settings.Default.enableDiscord;
             eightBallCheckBox.Checked = Properties.Settings.Default.enable8Ball;
             if (Properties.Settings.Default.enableDiscord)
@@ -48,7 +47,6 @@ namespace wowiebot
             Properties.Settings.Default.enableUptime = uptimeCheckBox.Checked;
             Properties.Settings.Default.enableTitle = titleCheckBox.Checked;
             Properties.Settings.Default.enableLinkTitles = linkCheckBox.Checked;
-            Properties.Settings.Default.enableYeahBoi = linkCheckBox.Checked;
             Properties.Settings.Default.enableDiscord = discordCheckBox.Checked;
             Properties.Settings.Default.enable8Ball = eightBallCheckBox.Checked;
             if (discordCheckBox.Checked)

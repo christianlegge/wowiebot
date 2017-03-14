@@ -30,8 +30,7 @@ namespace wowiebot
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
-
-        private static int longestYeahBoiEver;
+        
         private static bool willDisconnect = false;
 
        
@@ -40,7 +39,6 @@ namespace wowiebot
             try
             {
                 quoteTimer.Elapsed += QuoteTimer_Elapsed;
-                longestYeahBoiEver = Properties.Settings.Default.longestYeahBoiEver;
 
                 //string[] arrQuotes = File.ReadAllLines("quotes.txt");
                 //twitchat.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
@@ -425,17 +423,6 @@ namespace wowiebot
                                                 break;
                                         }
                                     }
-                                }
-
-                                else if (Properties.Settings.Default.enableYeahBoi
-                                && message[2].ToLower().Contains("wowie")
-                                && message[2].ToLower().Contains("longest")
-                                && message[2].ToLower().Contains("ever")
-                                && (message[2].ToLower().Contains("yeah boi") || message[2].ToLower().Contains("yeah boy")))
-                                {
-                                    sendMessage("yeah bo" + new string('i', longestYeahBoiEver++));
-                                    Properties.Settings.Default.longestYeahBoiEver++;
-                                    Properties.Settings.Default.Save();
                                 }
 
                                 if (Properties.Settings.Default.enableLinkTitles)

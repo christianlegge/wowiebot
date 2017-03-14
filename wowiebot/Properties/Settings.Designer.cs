@@ -61,18 +61,6 @@ namespace wowiebot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int longestYeahBoiEver {
-            get {
-                return ((int)(this["longestYeahBoiEver"]));
-            }
-            set {
-                this["longestYeahBoiEver"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
         public global::System.Collections.Specialized.StringCollection quotes {
@@ -141,18 +129,6 @@ namespace wowiebot.Properties {
             }
             set {
                 this["enableLinkTitles"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enableYeahBoi {
-            get {
-                return ((bool)(this["enableYeahBoi"]));
-            }
-            set {
-                this["enableYeahBoi"] = value;
             }
         }
         
