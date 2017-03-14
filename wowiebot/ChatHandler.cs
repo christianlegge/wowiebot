@@ -19,9 +19,8 @@ using wowiebot;
 
 namespace wowiebot
 {
-    class chatrig
+    class ChatHandler
     {
-        
         private static byte[] data;
         private static string channel;
         private static NetworkStream stream;
@@ -42,111 +41,7 @@ namespace wowiebot
         private static int longestYeahBoiEver;
         private static bool willDisconnect = false;
 
-
-
-        public static void disconnect()
-        {
-            willDisconnect = true;
-        }
-
-        private static void populateValidCommands(MainForm mainForm, string nick)
-        {
-            var cfg = Properties.Settings.Default;
-            validCommands.Add("help");
-            displayCommandsInHelp.Add(false);
-            validCommands.Add("commands");
-            displayCommandsInHelp.Add(false);
-            if (cfg.enableQuotes)
-            {
-                validCommands.Add("quote");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("addquote");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("yes");
-                displayCommandsInHelp.Add(false);
-            }
-            if (cfg.enableTitle)
-            {
-                validCommands.Add("title");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("game");
-                displayCommandsInHelp.Add(false);
-            }
-            if (cfg.enableUptime)
-            {
-                validCommands.Add("uptime");
-                displayCommandsInHelp.Add(true);
-            }
-            if (cfg.enableDiscord)
-            {
-                validCommands.Add("discord");
-                displayCommandsInHelp.Add(true);
-            }
-            if (nick == "wowiebot")
-            {
-                validCommands.Add("wowie");
-                displayCommandsInHelp.Add(false);
-            }
-            if (channel == "scatterclegge")
-            {
-                validCommands.Add("wr");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("no");
-                displayCommandsInHelp.Add(false);
-                validCommands.Add("heck");
-                displayCommandsInHelp.Add(false);
-            }
-            if (channel.ToLower() == "lumardy")
-            {
-                validCommands.Add("wr");
-                displayCommandsInHelp.Add(true);
-            }
-            if (cfg.enable8Ball)
-            {
-                validCommands.Add("8ball");
-                displayCommandsInHelp.Add(true);
-                eightBallChoices.Add("yes");
-                eightBallChoices.Add("no");
-                eightBallChoices.Add("try again later");
-                eightBallChoices.Add("maybe~");
-                eightBallChoices.Add("idk ask scatter");
-                eightBallChoices.Add("hecc no");
-                eightBallChoices.Add("hecc yeah");
-                eightBallChoices.Add("you wish");
-                eightBallChoices.Add("signs point to yes");
-                eightBallChoices.Add("signs point to no");
-                eightBallChoices.Add("4 shur");
-                eightBallChoices.Add("i know nothing don't ask me again please i'm just a young bot D:");
-                eightBallChoices.Add("what do you think ;)");
-                eightBallChoices.Add("yank train");
-                eightBallChoices.Add("nuns on ripple");
-            }
-        }
-
-        private static void getUserIDFromAPI()
-        {
-            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/users?login=" + channel);
-            apiRequest.Accept = "application/vnd.twitchtv.v5+json";
-            apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
-
-            Stream apiStream;
-
-            apiStream = apiRequest.GetResponse().GetResponseStream();
-            StreamReader apiReader = new StreamReader(apiStream);
-            string jsonData = apiReader.ReadToEnd();
-
-            JObject parsed = JObject.Parse(jsonData);
-            JObject userParsed = JObject.Parse(parsed.GetValue("users").First.ToString());
-
-            apiReader.Close();
-            apiReader.Dispose();
-
-            apiStream.Close();
-            apiStream.Dispose();
-
-            userID = userParsed.GetValue("_id").ToString();
-        }
-
+       
         public static int runBot(MainForm mainForm, string pChannel, string nick, string oauth)
         {
             try
@@ -616,6 +511,109 @@ namespace wowiebot
         {
             Byte[] say = Encoding.ASCII.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);
+        }
+
+        private static void getUserIDFromAPI()
+        {
+            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/users?login=" + channel);
+            apiRequest.Accept = "application/vnd.twitchtv.v5+json";
+            apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
+
+            Stream apiStream;
+
+            apiStream = apiRequest.GetResponse().GetResponseStream();
+            StreamReader apiReader = new StreamReader(apiStream);
+            string jsonData = apiReader.ReadToEnd();
+
+            JObject parsed = JObject.Parse(jsonData);
+            JObject userParsed = JObject.Parse(parsed.GetValue("users").First.ToString());
+
+            apiReader.Close();
+            apiReader.Dispose();
+
+            apiStream.Close();
+            apiStream.Dispose();
+
+            userID = userParsed.GetValue("_id").ToString();
+        }
+
+        public static void disconnect()
+        {
+            willDisconnect = true;
+        }
+
+        private static void populateValidCommands(MainForm mainForm, string nick)
+        {
+            var cfg = Properties.Settings.Default;
+            validCommands.Add("help");
+            displayCommandsInHelp.Add(false);
+            validCommands.Add("commands");
+            displayCommandsInHelp.Add(false);
+            if (cfg.enableQuotes)
+            {
+                validCommands.Add("quote");
+                displayCommandsInHelp.Add(true);
+                validCommands.Add("addquote");
+                displayCommandsInHelp.Add(true);
+                validCommands.Add("yes");
+                displayCommandsInHelp.Add(false);
+            }
+            if (cfg.enableTitle)
+            {
+                validCommands.Add("title");
+                displayCommandsInHelp.Add(true);
+                validCommands.Add("game");
+                displayCommandsInHelp.Add(false);
+            }
+            if (cfg.enableUptime)
+            {
+                validCommands.Add("uptime");
+                displayCommandsInHelp.Add(true);
+            }
+            if (cfg.enableDiscord)
+            {
+                validCommands.Add("discord");
+                displayCommandsInHelp.Add(true);
+            }
+            if (nick == "wowiebot")
+            {
+                validCommands.Add("wowie");
+                displayCommandsInHelp.Add(false);
+            }
+            if (channel == "scatterclegge")
+            {
+                validCommands.Add("wr");
+                displayCommandsInHelp.Add(true);
+                validCommands.Add("no");
+                displayCommandsInHelp.Add(false);
+                validCommands.Add("heck");
+                displayCommandsInHelp.Add(false);
+            }
+            if (channel.ToLower() == "lumardy")
+            {
+                validCommands.Add("wr");
+                displayCommandsInHelp.Add(true);
+            }
+            if (cfg.enable8Ball)
+            {
+                validCommands.Add("8ball");
+                displayCommandsInHelp.Add(true);
+                eightBallChoices.Add("yes");
+                eightBallChoices.Add("no");
+                eightBallChoices.Add("try again later");
+                eightBallChoices.Add("maybe~");
+                eightBallChoices.Add("idk ask scatter");
+                eightBallChoices.Add("hecc no");
+                eightBallChoices.Add("hecc yeah");
+                eightBallChoices.Add("you wish");
+                eightBallChoices.Add("signs point to yes");
+                eightBallChoices.Add("signs point to no");
+                eightBallChoices.Add("4 shur");
+                eightBallChoices.Add("i know nothing don't ask me again please i'm just a young bot D:");
+                eightBallChoices.Add("what do you think ;)");
+                eightBallChoices.Add("yank train");
+                eightBallChoices.Add("nuns on ripple");
+            }
         }
     }
 }
