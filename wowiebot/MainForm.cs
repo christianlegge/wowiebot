@@ -123,7 +123,7 @@ namespace wowiebot
             int retVal = 999;
             try
             {
-                retVal = ChatHandler.runBot(this, channelTextBox.Text, loggedInUser, loggedInOauth);
+                retVal = ChatHandler.start(this, channelTextBox.Text, loggedInUser, loggedInOauth);
             }
             catch (Exception e)
             {

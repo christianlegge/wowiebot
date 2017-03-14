@@ -16,6 +16,9 @@ namespace wowiebot
     {
         private static byte[] data;
         private static string channel;
+        private static string botNick;
+        private static string botOauth;
+        private static MainForm mainForm;
         private static NetworkStream stream;
 
         private static List<string> quotes;
@@ -33,40 +36,25 @@ namespace wowiebot
         
         private static bool willDisconnect = false;
 
-       
-        public static int runBot(MainForm mainForm, string pChannel, string nick, string oauth)
+        public static int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
         {
-            try
-            {
-                quoteTimer.Elapsed += QuoteTimer_Elapsed;
+            mainForm = pMainForm;
+            channel = pChannel;
+            botNick = pNick;
+            botOauth = pOauth;
 
-                //string[] arrQuotes = File.ReadAllLines("quotes.txt");
-                //twitchat.Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-                //twitchat.Properties.Settings.Default.quotes.AddRange(arrQuotes);
-                //twitchat.Properties.Settings.Default.Save();
-                //quotes = new List<string>(arrQuotes);
-                channel = pChannel;
-                populateValidCommands(mainForm, nick);
+            populateValidCommands();
 
-                if (validCommands.Contains("title") || validCommands.Contains("uptime"))
-                {
-                    getUserIDFromAPI();
-                }
-                
-                if (Properties.Settings.Default.quotes == null)
-                {
-                    Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-                }
-                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
-                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
-                quotes = new List<string>(arrQuotes);
-            }
-            
-            catch (Exception e)
+            if (validCommands.Contains("title") || validCommands.Contains("uptime"))
             {
-                mainForm.writeToServerOutputTextBox("Error in quote setup. Continuing...\r\n\r\n");
-                MessageBox.Show(e.Message);
+                getUserIDFromAPI();
             }
+
+            return runBot();
+        }
+
+        public static int runBot()
+        {
             TcpClient client;
             try
             {
@@ -91,7 +79,7 @@ namespace wowiebot
 
             // string oauth = "5bdocznijbholgvt3o9u6t5ui6okjs";
 
-            string loginstring = "PASS oauth:" + oauth + "\r\nNICK "+ nick +"\r\n";
+            string loginstring = "PASS oauth:" + botOauth + "\r\nNICK "+ botNick +"\r\n";
             Byte[] login = System.Text.Encoding.ASCII.GetBytes(loginstring);
             stream.Write(login, 0, login.Length);
             Console.WriteLine("Sent login.\r\n");
@@ -527,7 +515,7 @@ namespace wowiebot
             willDisconnect = true;
         }
 
-        private static void populateValidCommands(MainForm mainForm, string nick)
+        private static void populateValidCommands()
         {
             var cfg = Properties.Settings.Default;
             validCommands.Add("help");
@@ -542,6 +530,14 @@ namespace wowiebot
                 displayCommandsInHelp.Add(true);
                 validCommands.Add("yes");
                 displayCommandsInHelp.Add(false);
+                if (Properties.Settings.Default.quotes == null)
+                {
+                    Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                }
+                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
+                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
+                quotes = new List<string>(arrQuotes);
+                quoteTimer.Elapsed += QuoteTimer_Elapsed;
             }
             if (cfg.enableTitle)
             {
@@ -560,7 +556,7 @@ namespace wowiebot
                 validCommands.Add("discord");
                 displayCommandsInHelp.Add(true);
             }
-            if (nick == "wowiebot")
+            if (botNick == "wowiebot")
             {
                 validCommands.Add("wowie");
                 displayCommandsInHelp.Add(false);
