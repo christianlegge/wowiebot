@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace wowiebot
 {
     public partial class ConfigForm : Form
     {
+        DataSet dataSet = new DataSet();
+        
         public ConfigForm()
         {
             InitializeComponent();
@@ -33,6 +36,20 @@ namespace wowiebot
                 discordTextBox.Text = "https://";
             }
             updateSaveButton();
+
+            DataTable dt = new DataTable("Commands");
+            DataColumn dc = new DataColumn("Command", Type.GetType("System.String"));
+            DataColumn fn = new DataColumn("Function", Type.GetType("System.String"));
+            DataColumn parameters = new DataColumn("Parameters", Type.GetType("System.String"));
+            dt.Columns.Add(dc);
+            dt.Columns.Add(fn);
+            dt.Columns.Add(parameters);
+            commandDataGrid.DataSource = dt;
+
+            dataSet.Tables.Add(dt);
+            
+
+
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -54,6 +71,8 @@ namespace wowiebot
                 Properties.Settings.Default.discordServer = discordTextBox.Text;
             }
             Properties.Settings.Default.Save();
+            
+
             Close();
         }
 

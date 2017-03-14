@@ -35,6 +35,8 @@ namespace wowiebot
         private static string userID;
         
         private static bool willDisconnect = false;
+        
+        private static List<Command> commandsList;
 
         public static int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
         {
@@ -480,7 +482,7 @@ namespace wowiebot
             quoteTimer.Stop();
         }
 
-        private static void sendMessage(string message)
+        public static void sendMessage(string message)
         {
             Byte[] say = Encoding.ASCII.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);

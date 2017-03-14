@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +71,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessageCommand.cs" />
     <Compile Include="OAuthForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,7 +86,6 @@
     <Compile Include="EditStringsForm.Designer.cs">
       <DependentUpon>EditStringsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WowiebotApplication.cs" />
     <EmbeddedResource Include="ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </EmbeddedResource>
