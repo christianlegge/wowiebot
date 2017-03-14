@@ -42,8 +42,7 @@ namespace wowiebot
         private static int longestYeahBoiEver;
         private static bool willDisconnect = false;
 
-        private static Dictionary<string, string> commandsList;
-
+        private static List<Command> commandsList;
 
         static void Main(string[] args)
         {
@@ -57,9 +56,10 @@ namespace wowiebot
             willDisconnect = true;
         }
 
-        private static void populateCommandsList(MainForm mainForm, string nick)
+        private static void populateCommandsList()
         {
-            commandsList.Add("", "");
+            MessageCommand message = new MessageCommand("twitter", "follow me");
+            commandsList.Add(message);
         }
 
         private static void populateValidCommands(MainForm mainForm, string nick)
@@ -625,7 +625,7 @@ namespace wowiebot
             quoteTimer.Stop();
         }
 
-        private static void sendMessage(string message)
+        public static void sendMessage(string message)
         {
             Byte[] say = Encoding.ASCII.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);

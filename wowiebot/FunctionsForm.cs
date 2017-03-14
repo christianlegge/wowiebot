@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace wowiebot
 {
     public partial class FunctionsForm : Form
     {
+        DataSet dataSet = new DataSet();
+
         public FunctionsForm()
         {
             InitializeComponent();
@@ -43,6 +46,11 @@ namespace wowiebot
             dt.Columns.Add(fn);
             dt.Columns.Add(parameters);
             commandDataGrid.DataSource = dt;
+
+            dataSet.Tables.Add(dt);
+            
+
+
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -65,6 +73,8 @@ namespace wowiebot
                 Properties.Settings.Default.discordServer = discordTextBox.Text;
             }
             Properties.Settings.Default.Save();
+            
+
             Close();
         }
 
@@ -107,12 +117,6 @@ namespace wowiebot
             QuotesForm quotesForm = new QuotesForm();
             quotesForm.StartPosition = FormStartPosition.CenterScreen;
             quotesForm.ShowDialog();
-        }
-
-        private void commandDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-            
         }
     }
 }

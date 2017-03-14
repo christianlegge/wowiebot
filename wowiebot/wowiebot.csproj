@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
     <Compile Include="FunctionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +71,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessageCommand.cs" />
     <Compile Include="OAuthForm.cs">
       <SubType>Form</SubType>
     </Compile>

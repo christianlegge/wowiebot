@@ -182,7 +182,6 @@
             this.commandDataGrid.Name = "commandDataGrid";
             this.commandDataGrid.Size = new System.Drawing.Size(424, 505);
             this.commandDataGrid.TabIndex = 13;
-            this.commandDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.commandDataGrid_CellContentClick);
             // 
             // FunctionsForm
             // 
