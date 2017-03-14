@@ -1,0 +1,5 @@
+*.exe
+wowiebot/bin/Debug/wowiebot.vshost.exe.manifest
+*.pdb
+*.exe
+wowiebot/obj/Release/wowiebot.pdb
