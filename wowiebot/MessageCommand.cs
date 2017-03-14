@@ -29,7 +29,7 @@ namespace wowiebot
 
         public void handle()
         {
-            chatrig.sendMessage(parameters[0]);
+            ChatHandler.sendMessage(parameters[0]);
         }
     }
 }

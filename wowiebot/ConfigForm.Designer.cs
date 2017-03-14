@@ -36,13 +36,13 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.linkCheckBox = new System.Windows.Forms.CheckBox();
-            this.yeahBoiCheckBox = new System.Windows.Forms.CheckBox();
             this.discordCheckBox = new System.Windows.Forms.CheckBox();
             this.discordTextBox = new System.Windows.Forms.TextBox();
             this.eightBallCheckBox = new System.Windows.Forms.CheckBox();
             this.editQuotesButton = new System.Windows.Forms.Button();
             this.commandDataGrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.commandDataGrid)).BeginInit();
+            this.edit8BallChoicesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // quoteCheckBox
@@ -96,7 +96,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(28, 180);
+            this.saveButton.Location = new System.Drawing.Point(28, 167);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 5;
@@ -107,7 +107,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(109, 180);
+            this.cancelButton.Location = new System.Drawing.Point(109, 167);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 6;
@@ -125,20 +125,10 @@
             this.linkCheckBox.Text = "Display link titles";
             this.linkCheckBox.UseVisualStyleBackColor = true;
             // 
-            // yeahBoiCheckBox
-            // 
-            this.yeahBoiCheckBox.AutoSize = true;
-            this.yeahBoiCheckBox.Location = new System.Drawing.Point(12, 106);
-            this.yeahBoiCheckBox.Name = "yeahBoiCheckBox";
-            this.yeahBoiCheckBox.Size = new System.Drawing.Size(131, 17);
-            this.yeahBoiCheckBox.TabIndex = 8;
-            this.yeahBoiCheckBox.Text = "Longest yeah boi ever";
-            this.yeahBoiCheckBox.UseVisualStyleBackColor = true;
-            // 
             // discordCheckBox
             // 
             this.discordCheckBox.AutoSize = true;
-            this.discordCheckBox.Location = new System.Drawing.Point(12, 130);
+            this.discordCheckBox.Location = new System.Drawing.Point(12, 105);
             this.discordCheckBox.Name = "discordCheckBox";
             this.discordCheckBox.Size = new System.Drawing.Size(63, 17);
             this.discordCheckBox.TabIndex = 9;
@@ -148,7 +138,7 @@
             // 
             // discordTextBox
             // 
-            this.discordTextBox.Location = new System.Drawing.Point(81, 128);
+            this.discordTextBox.Location = new System.Drawing.Point(81, 103);
             this.discordTextBox.Name = "discordTextBox";
             this.discordTextBox.Size = new System.Drawing.Size(100, 20);
             this.discordTextBox.TabIndex = 10;
@@ -158,7 +148,7 @@
             // eightBallCheckBox
             // 
             this.eightBallCheckBox.AutoSize = true;
-            this.eightBallCheckBox.Location = new System.Drawing.Point(12, 154);
+            this.eightBallCheckBox.Location = new System.Drawing.Point(12, 128);
             this.eightBallCheckBox.Name = "eightBallCheckBox";
             this.eightBallCheckBox.Size = new System.Drawing.Size(51, 17);
             this.eightBallCheckBox.TabIndex = 11;
@@ -182,6 +172,15 @@
             this.commandDataGrid.Name = "commandDataGrid";
             this.commandDataGrid.Size = new System.Drawing.Size(424, 505);
             this.commandDataGrid.TabIndex = 13;
+            // edit8BallChoicesButton
+            // 
+            this.edit8BallChoicesButton.Location = new System.Drawing.Point(70, 128);
+            this.edit8BallChoicesButton.Name = "edit8BallChoicesButton";
+            this.edit8BallChoicesButton.Size = new System.Drawing.Size(75, 23);
+            this.edit8BallChoicesButton.TabIndex = 13;
+            this.edit8BallChoicesButton.Text = "Edit Choices";
+            this.edit8BallChoicesButton.UseVisualStyleBackColor = true;
+            this.edit8BallChoicesButton.Click += new System.EventHandler(this.edit8BallChoicesButton_Click);
             // 
             // FunctionsForm
             // 
@@ -191,11 +190,11 @@
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(722, 538);
             this.Controls.Add(this.commandDataGrid);
+            this.Controls.Add(this.edit8BallChoicesButton);
             this.Controls.Add(this.editQuotesButton);
             this.Controls.Add(this.eightBallCheckBox);
             this.Controls.Add(this.discordTextBox);
             this.Controls.Add(this.discordCheckBox);
-            this.Controls.Add(this.yeahBoiCheckBox);
             this.Controls.Add(this.linkCheckBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
@@ -223,11 +222,11 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.CheckBox quoteCheckBox;
         private System.Windows.Forms.CheckBox linkCheckBox;
-        private System.Windows.Forms.CheckBox yeahBoiCheckBox;
         private System.Windows.Forms.CheckBox discordCheckBox;
         private System.Windows.Forms.TextBox discordTextBox;
         private System.Windows.Forms.CheckBox eightBallCheckBox;
         private System.Windows.Forms.Button editQuotesButton;
         private System.Windows.Forms.DataGridView commandDataGrid;
+        private System.Windows.Forms.Button edit8BallChoicesButton;
     }
 }

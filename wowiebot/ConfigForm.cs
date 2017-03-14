@@ -14,7 +14,7 @@ namespace wowiebot
     public partial class ConfigForm : Form
     {
         DataSet dataSet = new DataSet();
-
+        
         public ConfigForm()
         {
             InitializeComponent();
@@ -25,7 +25,6 @@ namespace wowiebot
             uptimeCheckBox.Checked = Properties.Settings.Default.enableUptime;
             titleCheckBox.Checked = Properties.Settings.Default.enableTitle;
             linkCheckBox.Checked = Properties.Settings.Default.enableLinkTitles;
-            yeahBoiCheckBox.Checked = Properties.Settings.Default.enableYeahBoi;
             discordCheckBox.Checked = Properties.Settings.Default.enableDiscord;
             eightBallCheckBox.Checked = Properties.Settings.Default.enable8Ball;
             if (Properties.Settings.Default.enableDiscord)
@@ -65,7 +64,6 @@ namespace wowiebot
             Properties.Settings.Default.enableUptime = uptimeCheckBox.Checked;
             Properties.Settings.Default.enableTitle = titleCheckBox.Checked;
             Properties.Settings.Default.enableLinkTitles = linkCheckBox.Checked;
-            Properties.Settings.Default.enableYeahBoi = linkCheckBox.Checked;
             Properties.Settings.Default.enableDiscord = discordCheckBox.Checked;
             Properties.Settings.Default.enable8Ball = eightBallCheckBox.Checked;
             if (discordCheckBox.Checked)
@@ -114,7 +112,14 @@ namespace wowiebot
 
         private void editQuotesButton_Click(object sender, EventArgs e)
         {
-            EditStringsForm quotesForm = new EditStringsForm();
+            EditStringsForm quotesForm = new EditStringsForm("quotes");
+            quotesForm.StartPosition = FormStartPosition.CenterScreen;
+            quotesForm.ShowDialog();
+        }
+
+        private void edit8BallChoicesButton_Click(object sender, EventArgs e)
+        {
+            EditStringsForm quotesForm = new EditStringsForm("choices");
             quotesForm.StartPosition = FormStartPosition.CenterScreen;
             quotesForm.ShowDialog();
         }
