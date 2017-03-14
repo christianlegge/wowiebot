@@ -45,5 +45,25 @@
     <Setting Name="enable8Ball" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="choices8Ball" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;yes&lt;/string&gt;
+  &lt;string&gt;no&lt;/string&gt;
+  &lt;string&gt;try again later&lt;/string&gt;
+  &lt;string&gt;maybe~&lt;/string&gt;
+  &lt;string&gt;idk ask scatter&lt;/string&gt;
+  &lt;string&gt;hecc no&lt;/string&gt;
+  &lt;string&gt;hecc yeah&lt;/string&gt;
+  &lt;string&gt;you wish&lt;/string&gt;
+  &lt;string&gt;signs point to yes&lt;/string&gt;
+  &lt;string&gt;signs point to no&lt;/string&gt;
+  &lt;string&gt;4 shur&lt;/string&gt;
+  &lt;string&gt;i know nothing don't ask me again please i'm just a young bot D:&lt;/string&gt;
+  &lt;string&gt;what do you think ;)&lt;/string&gt;
+  &lt;string&gt;yank train&lt;/string&gt;
+  &lt;string&gt;nuns on ripple&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

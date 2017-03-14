@@ -10,15 +10,32 @@ using System.Windows.Forms;
 
 namespace wowiebot
 {
-    public partial class QuotesForm : Form
+    public partial class EditStringsForm : Form
     {
-        public QuotesForm()
+        string type;
+        public EditStringsForm(string editing)
         {
             InitializeComponent();
-            foreach (string s in Properties.Settings.Default.quotes)
+            type = editing;
+            switch (type)
             {
-                textBox1.Text += s + "\r\n";
+                case "quotes":
+                    foreach (string s in Properties.Settings.Default.quotes)
+                    {
+                        textBox1.Text += s + "\r\n";
+                    }
+                    label1.Text = "Add or remove quotes here. One per line.";
+                    break;
+
+                case "choices":
+                    foreach (string s in Properties.Settings.Default.choices8Ball)
+                    {
+                        textBox1.Text += s + "\r\n";
+                    }
+                    label1.Text = "Add or remove choices here. One per line.";
+                    break;
             }
+            
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -33,7 +50,16 @@ namespace wowiebot
             }
             strArr = strArr.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             s.AddRange(strArr);
-            Properties.Settings.Default.quotes = s;
+            switch (type)
+            {
+                case "quotes":
+                    Properties.Settings.Default.quotes = s;
+                    break;
+
+                case "choices":
+                    Properties.Settings.Default.choices8Ball = s;
+                    break;
+            }
             Properties.Settings.Default.Save();
             Close();
         }

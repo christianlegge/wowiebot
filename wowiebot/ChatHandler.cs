@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Timers;
 using System.Text.RegularExpressions;
 using System.Web;
 using Newtonsoft.Json.Linq;
-using System.Runtime.Serialization.Json;
-using System.Net.Http;
-using System.Windows.Forms;
-using wowiebot;
 
 namespace wowiebot
 {
@@ -414,6 +407,11 @@ namespace wowiebot
                                                 break;
 
                                             case "8ball":
+                                                if (eightBallChoices.Count == 0)
+                                                {
+                                                    sendMessage("You drop the 8-ball and it shatters irrecoverably onto the floor.");
+                                                    break;
+                                                }
                                                 int p;
                                                 do
                                                 {
@@ -598,21 +596,13 @@ namespace wowiebot
             {
                 validCommands.Add("8ball");
                 displayCommandsInHelp.Add(true);
-                eightBallChoices.Add("yes");
-                eightBallChoices.Add("no");
-                eightBallChoices.Add("try again later");
-                eightBallChoices.Add("maybe~");
-                eightBallChoices.Add("idk ask scatter");
-                eightBallChoices.Add("hecc no");
-                eightBallChoices.Add("hecc yeah");
-                eightBallChoices.Add("you wish");
-                eightBallChoices.Add("signs point to yes");
-                eightBallChoices.Add("signs point to no");
-                eightBallChoices.Add("4 shur");
-                eightBallChoices.Add("i know nothing don't ask me again please i'm just a young bot D:");
-                eightBallChoices.Add("what do you think ;)");
-                eightBallChoices.Add("yank train");
-                eightBallChoices.Add("nuns on ripple");
+                if (Properties.Settings.Default.choices8Ball == null)
+                {
+                    Properties.Settings.Default.choices8Ball = new System.Collections.Specialized.StringCollection();
+                }
+                string[] arr8Ball = new string[Properties.Settings.Default.choices8Ball.Count];
+                Properties.Settings.Default.choices8Ball.CopyTo(arr8Ball, 0);
+                eightBallChoices = new List<string>(arr8Ball);
             }
         }
     }

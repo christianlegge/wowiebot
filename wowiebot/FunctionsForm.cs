@@ -95,7 +95,14 @@ namespace wowiebot
 
         private void editQuotesButton_Click(object sender, EventArgs e)
         {
-            QuotesForm quotesForm = new QuotesForm();
+            EditStringsForm quotesForm = new EditStringsForm("quotes");
+            quotesForm.StartPosition = FormStartPosition.CenterScreen;
+            quotesForm.ShowDialog();
+        }
+
+        private void edit8BallChoicesButton_Click(object sender, EventArgs e)
+        {
+            EditStringsForm quotesForm = new EditStringsForm("choices");
             quotesForm.StartPosition = FormStartPosition.CenterScreen;
             quotesForm.ShowDialog();
         }

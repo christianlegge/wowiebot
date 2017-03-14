@@ -41,6 +41,7 @@
             this.discordTextBox = new System.Windows.Forms.TextBox();
             this.eightBallCheckBox = new System.Windows.Forms.CheckBox();
             this.editQuotesButton = new System.Windows.Forms.Button();
+            this.edit8BallChoicesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // quoteCheckBox
@@ -94,7 +95,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(28, 180);
+            this.saveButton.Location = new System.Drawing.Point(30, 215);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 5;
@@ -105,7 +106,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(109, 180);
+            this.cancelButton.Location = new System.Drawing.Point(111, 215);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 6;
@@ -156,7 +157,7 @@
             // eightBallCheckBox
             // 
             this.eightBallCheckBox.AutoSize = true;
-            this.eightBallCheckBox.Location = new System.Drawing.Point(12, 154);
+            this.eightBallCheckBox.Location = new System.Drawing.Point(12, 153);
             this.eightBallCheckBox.Name = "eightBallCheckBox";
             this.eightBallCheckBox.Size = new System.Drawing.Size(51, 17);
             this.eightBallCheckBox.TabIndex = 11;
@@ -173,13 +174,24 @@
             this.editQuotesButton.UseVisualStyleBackColor = true;
             this.editQuotesButton.Click += new System.EventHandler(this.editQuotesButton_Click);
             // 
+            // edit8BallChoicesButton
+            // 
+            this.edit8BallChoicesButton.Location = new System.Drawing.Point(70, 153);
+            this.edit8BallChoicesButton.Name = "edit8BallChoicesButton";
+            this.edit8BallChoicesButton.Size = new System.Drawing.Size(75, 23);
+            this.edit8BallChoicesButton.TabIndex = 13;
+            this.edit8BallChoicesButton.Text = "Edit Choices";
+            this.edit8BallChoicesButton.UseVisualStyleBackColor = true;
+            this.edit8BallChoicesButton.Click += new System.EventHandler(this.edit8BallChoicesButton_Click);
+            // 
             // FunctionsForm
             // 
             this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(215, 215);
+            this.ClientSize = new System.Drawing.Size(215, 250);
+            this.Controls.Add(this.edit8BallChoicesButton);
             this.Controls.Add(this.editQuotesButton);
             this.Controls.Add(this.eightBallCheckBox);
             this.Controls.Add(this.discordTextBox);
@@ -216,5 +228,6 @@
         private System.Windows.Forms.TextBox discordTextBox;
         private System.Windows.Forms.CheckBox eightBallCheckBox;
         private System.Windows.Forms.Button editQuotesButton;
+        private System.Windows.Forms.Button edit8BallChoicesButton;
     }
 }
