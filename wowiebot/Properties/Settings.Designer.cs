@@ -200,12 +200,12 @@ namespace wowiebot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string commandsDataSetJson {
+        public string commandsDataTableJson {
             get {
-                return ((string)(this["commandsDataSetJson"]));
+                return ((string)(this["commandsDataTableJson"]));
             }
             set {
-                this["commandsDataSetJson"] = value;
+                this["commandsDataTableJson"] = value;
             }
         }
     }

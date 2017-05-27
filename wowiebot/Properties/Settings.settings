@@ -59,7 +59,7 @@
   &lt;string&gt;nuns on ripple&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="commandsDataSetJson" Type="System.String" Scope="User">
+    <Setting Name="commandsDataTableJson" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
