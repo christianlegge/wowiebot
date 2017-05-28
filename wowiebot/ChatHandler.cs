@@ -403,7 +403,7 @@ namespace wowiebot
                             message = message.Replace("$QUOTE", getQuote());
                             break;
                         case "QNUM":
-                            message = message.Replace("$QNUM", lastQuote.ToString());
+                            message = message.Replace("$QNUM", (lastQuote + 1).ToString());
                             break;
                         case "BROADCASTER":
                             message = message.Replace("$BROADCASTER", channel);
