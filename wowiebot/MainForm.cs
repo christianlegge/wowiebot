@@ -85,6 +85,7 @@ namespace wowiebot
             DataRow uptimeRow = table.NewRow();
             DataRow discordRow = table.NewRow();
             DataRow eightBallRow = table.NewRow();
+            DataRow helpRow = table.NewRow();
             quoteRow.SetField<string>(cmd, "quote");
             quoteRow.SetField<string>(msg, "[$QUOTENUM]: $QUOTE");
             quoteRow.SetField<Boolean>(showInHelp, true);
@@ -100,11 +101,15 @@ namespace wowiebot
             eightBallRow.SetField<string>(cmd, "8ball");
             eightBallRow.SetField<string>(msg, "$8BALL");
             eightBallRow.SetField<Boolean>(showInHelp, true);
+            helpRow.SetField<string>(cmd, "help");
+            helpRow.SetField<string>(msg, "Use me in the following ways: $COMMANDS");
+            helpRow.SetField<Boolean>(showInHelp, false);
             table.Rows.Add(quoteRow);
             table.Rows.Add(titleRow);
             table.Rows.Add(uptimeRow);
             table.Rows.Add(discordRow);
             table.Rows.Add(eightBallRow);
+            table.Rows.Add(helpRow);
             String x = JsonConvert.SerializeObject(table);
             Properties.Settings.Default.commandsDataTableJson = x;
             Properties.Settings.Default.Save();

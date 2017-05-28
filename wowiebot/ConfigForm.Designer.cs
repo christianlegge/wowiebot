@@ -177,6 +177,10 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(252, 12);
             this.dataGridView1.Name = "dataGridView1";
@@ -204,10 +208,11 @@
             this.Controls.Add(this.uptimeCheckBox);
             this.Controls.Add(this.titleCheckBox);
             this.Controls.Add(this.quoteCheckBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(726, 579);
             this.Name = "ConfigForm";
             this.Text = "Config";
+            this.Resize += new System.EventHandler(this.ConfigForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

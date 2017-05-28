@@ -14,6 +14,7 @@ namespace wowiebot
     public partial class ConfigForm : Form
     {
         DataTable commandsDataTable;
+        Size oldSize;
 
         public ConfigForm()
         {
@@ -39,10 +40,14 @@ namespace wowiebot
             commandsDataTable = getDataTableFromSettings();
             
             
+            
             dataGridView1.DataSource = commandsDataTable;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -124,6 +129,12 @@ namespace wowiebot
                 ((MainForm)ParentForm).loadDefaultCommandsTable();
             }
             return JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.commandsDataTableJson);
+            
+        }
+
+        private void ConfigForm_Resize(object sender, EventArgs e)
+        {
+            
             
         }
     }
