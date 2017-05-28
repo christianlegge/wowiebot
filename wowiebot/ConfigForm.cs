@@ -11,8 +11,6 @@ using Newtonsoft.Json;
 
 namespace wowiebot
 {
-    enum BotFunction { ShowQuote, AddQuote, SendMessage, ShowUptime, ShowTitle};
-
     public partial class ConfigForm : Form
     {
         DataTable commandsDataTable;
@@ -122,10 +120,8 @@ namespace wowiebot
                 // return default table
                 DataTable table = new DataTable();
                 DataColumn cmd = new DataColumn("Command");
-                DataColumn fn = new DataColumn("Function");
                 DataColumn parm = new DataColumn("Parameters");
                 table.Columns.Add(cmd);
-                table.Columns.Add(fn);
                 table.Columns.Add(parm);
                 DataRow quoteRow = table.NewRow();
                 DataRow titleRow = table.NewRow();
@@ -133,19 +129,14 @@ namespace wowiebot
                 DataRow discordRow = table.NewRow();
                 DataRow eightBallRow = table.NewRow();
                 quoteRow.SetField<string>(cmd, "quote");
-                quoteRow.SetField<BotFunction>(fn, BotFunction.SendMessage);
                 quoteRow.SetField<string>(parm, "[$QUOTENUM]: $QUOTE");
                 titleRow.SetField<string>(cmd, "title");
-                titleRow.SetField<BotFunction>(fn, BotFunction.SendMessage);
                 titleRow.SetField<string>(parm, "$BROADCASTER is playing $GAME: \"$TITLE\"");
                 uptimeRow.SetField<string>(cmd, "uptime");
-                uptimeRow.SetField<BotFunction>(fn, BotFunction.SendMessage);
-                uptimeRow.SetField<string>(parm, "$BROADCASTER has been live for $UPTIME.");
+                uptimeRow.SetField<string>(parm, "$BROADCASTER has been live for $UPHOURS hours and $UPMINUTES minutes.");
                 discordRow.SetField<string>(cmd, "discord");
-                discordRow.SetField<BotFunction>(fn, BotFunction.SendMessage);
                 discordRow.SetField<string>(parm, "Join my discord server! http://discord.gg/XXXXXX");
                 eightBallRow.SetField<string>(cmd, "8ball");
-                eightBallRow.SetField<BotFunction>(fn, BotFunction.SendMessage);
                 eightBallRow.SetField<string>(parm, "$8BALL");
                 table.Rows.Add(quoteRow);
                 table.Rows.Add(titleRow);

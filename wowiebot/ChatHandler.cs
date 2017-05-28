@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Data;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Timers;
 using System.Text.RegularExpressions;
 using System.Web;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace wowiebot
@@ -33,6 +35,8 @@ namespace wowiebot
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
+        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QUOTENUM", "BROADCASTER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL" } );
+        private static DataTable commandsTable;
         
         private static bool willDisconnect = false;
 
@@ -42,6 +46,8 @@ namespace wowiebot
             channel = pChannel;
             botNick = pNick;
             botOauth = pOauth;
+
+            commandsTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.commandsDataTableJson);
 
             populateValidCommands();
 
@@ -227,6 +233,8 @@ namespace wowiebot
 
                                     if (validCommands.Contains(command))
                                     {
+                                        string msg = commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Parameters");
+                                        sendMessage(msg);
 
                                         switch (command)
                                         {
@@ -482,8 +490,168 @@ namespace wowiebot
 
         private static void sendMessage(string message)
         {
+            TimeSpan uptime = new TimeSpan(0);
+            JObject broadcastData = null;
+            //        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QUOTENUM", "BROADCASTER", "GAME", "TITLE", "UPTIME", "8BALL" } );
+            foreach (String cmd in messageVars)
+            {
+                if (message.Contains("$" + cmd))
+                {
+                    switch (cmd)
+                    {
+                        case "QUOTE":
+                            message.Replace("$QUOTE", getQuote());
+                            break;
+                        case "QUOTENUM":
+                            message.Replace("$QUOTENUM", lastQuote.ToString());
+                            break;
+                        case "BROADCASTER":
+                            message.Replace("$BROADCASTER", channel);
+                            break;
+                        case "GAME":
+                            if (broadcastData == null)
+                            {
+                                broadcastData = getBroadcastDataFromAPI();
+                            }
+                            message.Replace("$GAME", broadcastData.Property("game").Value.ToString());
+                            break;
+                        case "TITLE":
+                            if (broadcastData == null)
+                            {
+                                broadcastData = getBroadcastDataFromAPI();
+                            }
+                            message.Replace("$TITLE", broadcastData.Property("status").Value.ToString());
+                            break;
+                        case "UPHOURS":
+                            if (uptime.Ticks == 0)
+                            {
+                                uptime = getUptime();
+                            }
+                            message.Replace("$UPHOURS", uptime.Hours.ToString());
+                            break;
+                        case "UPMINUTES":
+                            if (uptime.Ticks == 0)
+                            {
+                                uptime = getUptime();
+                            }
+                            message.Replace("$UPMINUTES", uptime.Minutes.ToString());
+                            break;
+                        case "8BALL":
+                            message.Replace("$8BALL", get8BallResponse());
+                            break;
+                   
+
+
+                    }
+                }
+            }
+
+
             Byte[] say = Encoding.ASCII.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);
+        }
+
+        private static String get8BallResponse()
+        {
+            if (eightBallChoices.Count == 0)
+            {
+                return "You drop the 8-ball and it shatters irrecoverably onto the floor.";
+            }
+            int p;
+            do
+            {
+                p = rnd.Next(eightBallChoices.Count);
+            } while (p == lastChoice && eightBallChoices.Count > 1);
+            lastChoice = p;
+            return eightBallChoices[p];
+        }
+
+        private static TimeSpan getUptime()
+        {
+            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/streams/" + userID);
+            apiRequest.Accept = "application/vnd.twitchtv.v5+json";
+            apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
+
+
+            Stream apiStream;
+
+            apiStream = apiRequest.GetResponse().GetResponseStream();
+            StreamReader apiReader = new StreamReader(apiStream);
+            string jsonData = apiReader.ReadToEnd();
+            JObject parsed = JObject.Parse(jsonData);
+            JObject streamParsed = JObject.Parse(parsed.Property("stream").Value.ToString());
+
+            apiReader.Close();
+            apiReader.Dispose();
+
+            apiStream.Close();
+            apiStream.Dispose();
+
+            if (parsed.Property("stream").Value.ToString() == "")
+            {
+                return new TimeSpan(-1);
+            }
+            string time = streamParsed.Property("created_at").ToString();
+            DateTime liveTime = DateTime.Parse(streamParsed.Property("created_at").Value.ToString());
+            //   DateTime liveTime = DateTime.ParseExact(streamParsed.Property("created_at").ToString(), "", new System.Globalization.CultureInfo("en-US"), System.Globalization.DateTimeStyles.None); 
+            TimeSpan uptime = DateTime.Now.ToUniversalTime() - liveTime;
+
+            return uptime;
+
+            sendMessage(channel + " has been live for " + uptime.Hours + " hours and " + uptime.Minutes + " minutes.");
+
+        }
+
+        private static String getQuote()
+        {
+            if (quotes.Count == 0)
+            {
+                return "No quotes. I guess " + channel + " just isn't funny or quotable.";
+            }
+            int q;
+            do
+            {
+                q = rnd.Next(quotes.Count);
+            } while (q == lastQuote && quotes.Count > 1);
+            lastQuote = q;
+            return quotes[q];
+        }
+
+        private static JObject getBroadcastDataFromAPI()
+        {
+            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/channels/" + userID);
+            apiRequest.Accept = "application/vnd.twitchtv.v5+json";
+            apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
+
+            Stream apiStream;
+
+            apiStream = apiRequest.GetResponse().GetResponseStream();
+            StreamReader apiReader = new StreamReader(apiStream);
+            string jsonData = apiReader.ReadToEnd();
+
+            JObject parsed = JObject.Parse(jsonData);
+
+            apiReader.Close();
+            apiReader.Dispose();
+
+            apiStream.Close();
+            apiStream.Dispose();
+
+            return parsed;
+
+            sendMessage(channel + " is streaming " + parsed.Property("game").Value.ToString() + ": \"" + parsed.Property("status").Value.ToString() + "\"");
+        }
+
+        private static String getQuote(int i)
+        {
+            if (quotes.Count > i)
+            {
+                return quotes[i];
+            }
+            else
+            {
+                return "Index out of range.";
+            }
         }
 
         private static void getUserIDFromAPI()
@@ -517,6 +685,19 @@ namespace wowiebot
 
         private static void populateValidCommands()
         {
+
+            DataRow[] commands = commandsTable.Select();
+            foreach (DataRow i in commands)
+            {
+                validCommands.Add(i.Field<string>("Command"));
+            }
+
+            return;
+
+
+
+
+
             var cfg = Properties.Settings.Default;
             validCommands.Add("help");
             displayCommandsInHelp.Add(false);
