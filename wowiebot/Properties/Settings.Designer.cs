@@ -87,84 +87,12 @@ namespace wowiebot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enableQuotes {
-            get {
-                return ((bool)(this["enableQuotes"]));
-            }
-            set {
-                this["enableQuotes"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enableUptime {
-            get {
-                return ((bool)(this["enableUptime"]));
-            }
-            set {
-                this["enableUptime"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enableTitle {
-            get {
-                return ((bool)(this["enableTitle"]));
-            }
-            set {
-                this["enableTitle"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool enableLinkTitles {
             get {
                 return ((bool)(this["enableLinkTitles"]));
             }
             set {
                 this["enableLinkTitles"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool enableDiscord {
-            get {
-                return ((bool)(this["enableDiscord"]));
-            }
-            set {
-                this["enableDiscord"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string discordServer {
-            get {
-                return ((string)(this["discordServer"]));
-            }
-            set {
-                this["discordServer"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enable8Ball {
-            get {
-                return ((bool)(this["enable8Ball"]));
-            }
-            set {
-                this["enable8Ball"] = value;
             }
         }
         

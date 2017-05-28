@@ -58,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandsHelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommandsHelpForm.Designer.cs">
+      <DependentUpon>CommandsHelpForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
       <DependentUpon>EditStringsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WowiebotApplication.cs" />
+    <EmbeddedResource Include="CommandsHelpForm.resx">
+      <DependentUpon>CommandsHelpForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </EmbeddedResource>

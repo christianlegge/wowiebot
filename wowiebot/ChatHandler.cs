@@ -458,6 +458,16 @@ namespace wowiebot
 
         private static String get8BallResponse()
         {
+            if (Properties.Settings.Default.choices8Ball == null)
+            {
+                Properties.Settings.Default.choices8Ball = new System.Collections.Specialized.StringCollection();
+            }
+            if (eightBallChoices == null)
+            {
+                string[] arr8Ball = new string[Properties.Settings.Default.choices8Ball.Count];
+                Properties.Settings.Default.choices8Ball.CopyTo(arr8Ball, 0);
+                eightBallChoices = new List<string>(arr8Ball);
+            }
             if (eightBallChoices.Count == 0)
             {
                 return "You drop the 8-ball and it shatters irrecoverably onto the floor.";
@@ -610,74 +620,6 @@ namespace wowiebot
             }
 
             return;
-
-
-
-
-
-            var cfg = Properties.Settings.Default;
-            validCommands.Add("help");
-            displayCommandsInHelp.Add(false);
-            validCommands.Add("commands");
-            displayCommandsInHelp.Add(false);
-            if (cfg.enableQuotes)
-            {
-                validCommands.Add("quote");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("addquote");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("yes");
-                displayCommandsInHelp.Add(false);
-                
-            }
-            if (cfg.enableTitle)
-            {
-                validCommands.Add("title");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("game");
-                displayCommandsInHelp.Add(false);
-            }
-            if (cfg.enableUptime)
-            {
-                validCommands.Add("uptime");
-                displayCommandsInHelp.Add(true);
-            }
-            if (cfg.enableDiscord)
-            {
-                validCommands.Add("discord");
-                displayCommandsInHelp.Add(true);
-            }
-            if (botNick == "wowiebot")
-            {
-                validCommands.Add("wowie");
-                displayCommandsInHelp.Add(false);
-            }
-            if (channel == "scatterclegge")
-            {
-                validCommands.Add("wr");
-                displayCommandsInHelp.Add(true);
-                validCommands.Add("no");
-                displayCommandsInHelp.Add(false);
-                validCommands.Add("heck");
-                displayCommandsInHelp.Add(false);
-            }
-            if (channel.ToLower() == "lumardy")
-            {
-                validCommands.Add("wr");
-                displayCommandsInHelp.Add(true);
-            }
-            if (cfg.enable8Ball)
-            {
-                validCommands.Add("8ball");
-                displayCommandsInHelp.Add(true);
-                if (Properties.Settings.Default.choices8Ball == null)
-                {
-                    Properties.Settings.Default.choices8Ball = new System.Collections.Specialized.StringCollection();
-                }
-                string[] arr8Ball = new string[Properties.Settings.Default.choices8Ball.Count];
-                Properties.Settings.Default.choices8Ball.CopyTo(arr8Ball, 0);
-                eightBallChoices = new List<string>(arr8Ball);
-            }
         }
     }
 }

@@ -28,3 +28,4 @@ C:\Users\Andrew\Source\Repos\wowiebot\wowiebot\obj\Debug\wowiebot.exe
 C:\Users\Andrew\Source\Repos\wowiebot\wowiebot\obj\Debug\wowiebot.pdb
 D:\wowiebot\wowiebot\obj\Debug\wowiebot.EditStringsForm.resources
 D:\wowiebot\wowiebot\obj\Debug\wowiebot.ConfigForm.resources
+D:\wowiebot\wowiebot\obj\Debug\wowiebot.CommandsHelpForm.resources
