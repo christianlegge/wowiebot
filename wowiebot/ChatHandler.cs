@@ -35,9 +35,10 @@ namespace wowiebot
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
-        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "BROADCASTER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" } );
+        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" } );
         private static DataTable commandsTable;
         private static String helpCommands;
+        private static String sender;
         
         private static bool willDisconnect = false;
 
@@ -205,7 +206,8 @@ namespace wowiebot
                             if (preamble[1] == "PRIVMSG")
                             {
                                 string[] sendingUser = preamble[0].Split('!');
-                                tochat = sendingUser[0] + ": " + message[2];
+                                sender = sendingUser[0];
+                                tochat = sender + ": " + message[2];
 
                                 // sometimes the carriage returns get lost (??)
                                 if (tochat.Contains("\n") == false)
@@ -214,7 +216,7 @@ namespace wowiebot
                                 }
 
                                 // Ignore some well known bots
-                                if (sendingUser[0] != "moobot" && sendingUser[0] != "whale_bot")
+                                if (sender != "moobot" && sender != "whale_bot")
                                 {
                                     //  SendKeys.SendWait(tochat.TrimEnd('\n'));
                                 }
@@ -392,7 +394,6 @@ namespace wowiebot
         {
             TimeSpan uptime = new TimeSpan(0);
             JObject broadcastData = null;
-            //        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QUOTENUM", "BROADCASTER", "GAME", "TITLE", "UPTIME", "8BALL" } );
             foreach (String cmd in messageVars)
             {
                 if (message.Contains("$" + cmd))
@@ -407,6 +408,9 @@ namespace wowiebot
                             break;
                         case "BROADCASTER":
                             message = message.Replace("$BROADCASTER", channel);
+                            break;
+                        case "SENDER":
+                            message = message.Replace("$SENDER", sender);
                             break;
                         case "GAME":
                             if (broadcastData == null)
