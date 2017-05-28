@@ -38,7 +38,11 @@ namespace wowiebot
             updateSaveButton();
             commandsDataTable = getDataTableFromSettings();
             
+            
             dataGridView1.DataSource = commandsDataTable;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[1].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -117,37 +121,7 @@ namespace wowiebot
         {
             if (Properties.Settings.Default.commandsDataTableJson == null || Properties.Settings.Default.commandsDataTableJson == "" || Properties.Settings.Default.commandsDataTableJson == "[]")
             {
-                // return default table
-                DataTable table = new DataTable();
-                DataColumn cmd = new DataColumn("Command");
-                DataColumn parm = new DataColumn("Parameters");
-                table.Columns.Add(cmd);
-                table.Columns.Add(parm);
-                DataRow quoteRow = table.NewRow();
-                DataRow titleRow = table.NewRow();
-                DataRow uptimeRow = table.NewRow();
-                DataRow discordRow = table.NewRow();
-                DataRow eightBallRow = table.NewRow();
-                quoteRow.SetField<string>(cmd, "quote");
-                quoteRow.SetField<string>(parm, "[$QUOTENUM]: $QUOTE");
-                titleRow.SetField<string>(cmd, "title");
-                titleRow.SetField<string>(parm, "$BROADCASTER is playing $GAME: \"$TITLE\"");
-                uptimeRow.SetField<string>(cmd, "uptime");
-                uptimeRow.SetField<string>(parm, "$BROADCASTER has been live for $UPHOURS hours and $UPMINUTES minutes.");
-                discordRow.SetField<string>(cmd, "discord");
-                discordRow.SetField<string>(parm, "Join my discord server! http://discord.gg/XXXXXX");
-                eightBallRow.SetField<string>(cmd, "8ball");
-                eightBallRow.SetField<string>(parm, "$8BALL");
-                table.Rows.Add(quoteRow);
-                table.Rows.Add(titleRow);
-                table.Rows.Add(uptimeRow);
-                table.Rows.Add(discordRow);
-                table.Rows.Add(eightBallRow);
-                String x = JsonConvert.SerializeObject(table);
-                Properties.Settings.Default.commandsDataTableJson = x;
-                Properties.Settings.Default.Save();
-                DataTable test = JsonConvert.DeserializeObject<DataTable>(x);
-                return table;
+                ((MainForm)ParentForm).loadDefaultCommandsTable();
             }
             return JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.commandsDataTableJson);
             

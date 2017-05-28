@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace wowiebot
 {
@@ -51,6 +52,11 @@ namespace wowiebot
                 loggedInOauth = Properties.Settings.Default.oauthCookie;
                 updateConnectButton();
             }
+            if (Properties.Settings.Default.commandsDataTableJson == null || Properties.Settings.Default.commandsDataTableJson == "" || Properties.Settings.Default.commandsDataTableJson == "[]")
+            {
+                loadDefaultCommandsTable();
+            }
+
             loginPopoutButton.Enabled = !useWowieBox.Checked;
             
             connectButton.Enabled = channelTextBox.TextLength >= 4;
@@ -62,6 +68,47 @@ namespace wowiebot
                 updateConnectButton();
 
             }
+        }
+
+        public void loadDefaultCommandsTable()
+        {
+            // return default table
+            DataTable table = new DataTable();
+            DataColumn cmd = new DataColumn("Command");
+            DataColumn msg = new DataColumn("Message");
+            DataColumn showInHelp = new DataColumn("Show in help command");
+            table.Columns.Add(cmd);
+            table.Columns.Add(msg);
+            table.Columns.Add(showInHelp);
+            DataRow quoteRow = table.NewRow();
+            DataRow titleRow = table.NewRow();
+            DataRow uptimeRow = table.NewRow();
+            DataRow discordRow = table.NewRow();
+            DataRow eightBallRow = table.NewRow();
+            quoteRow.SetField<string>(cmd, "quote");
+            quoteRow.SetField<string>(msg, "[$QUOTENUM]: $QUOTE");
+            quoteRow.SetField<Boolean>(showInHelp, true);
+            titleRow.SetField<string>(cmd, "title");
+            titleRow.SetField<string>(msg, "$BROADCASTER is playing $GAME: \"$TITLE\"");
+            titleRow.SetField<Boolean>(showInHelp, true);
+            uptimeRow.SetField<string>(cmd, "uptime");
+            uptimeRow.SetField<string>(msg, "$BROADCASTER has been live for $UPHOURS hours and $UPMINUTES minutes.");
+            uptimeRow.SetField<Boolean>(showInHelp, true);
+            discordRow.SetField<string>(cmd, "discord");
+            discordRow.SetField<string>(msg, "Join my discord server! http://discord.gg/XXXXXX");
+            discordRow.SetField<Boolean>(showInHelp, true);
+            eightBallRow.SetField<string>(cmd, "8ball");
+            eightBallRow.SetField<string>(msg, "$8BALL");
+            eightBallRow.SetField<Boolean>(showInHelp, true);
+            table.Rows.Add(quoteRow);
+            table.Rows.Add(titleRow);
+            table.Rows.Add(uptimeRow);
+            table.Rows.Add(discordRow);
+            table.Rows.Add(eightBallRow);
+            String x = JsonConvert.SerializeObject(table);
+            Properties.Settings.Default.commandsDataTableJson = x;
+            Properties.Settings.Default.Save();
+            DataTable test = JsonConvert.DeserializeObject<DataTable>(x);
         }
 
         private void ServerOutTextBox_TextChanged(object sender, EventArgs e)

@@ -35,8 +35,9 @@ namespace wowiebot
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
-        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QUOTENUM", "BROADCASTER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL" } );
+        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "BROADCASTER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" } );
         private static DataTable commandsTable;
+        private static String helpCommands;
         
         private static bool willDisconnect = false;
 
@@ -131,7 +132,7 @@ namespace wowiebot
             Console.WriteLine("\r\nBE CAREFUL.\r\n");
             mainForm.writeToServerOutputTextBox("\r\nBE CAREFUL.\r\n");
 
-            string helpCommands = "Use me in the following ways: ";
+            helpCommands = "";
             for (int i = 0; i < validCommands.Count; i++)
             {
                 if (displayCommandsInHelp[i])
@@ -233,99 +234,12 @@ namespace wowiebot
 
                                     if (validCommands.Contains(command))
                                     {
-                                        string msg = commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Parameters");
+                                        string msg = commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Message");
                                         sendMessage(msg);
 
                                         switch (command)
                                         {
-                                            case "help":
-                                            case "commands":
-                                                
-                                                sendMessage(helpCommands);
-                                                break;
 
-                                            case "title":
-                                            case "game":
-                                                {
-                                                    HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/channels/" + userID);
-                                                    apiRequest.Accept = "application/vnd.twitchtv.v5+json";
-                                                    apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
-
-                                                    Stream apiStream;
-
-                                                    apiStream = apiRequest.GetResponse().GetResponseStream();
-                                                    StreamReader apiReader = new StreamReader(apiStream);
-                                                    string jsonData = apiReader.ReadToEnd();
-                                                    
-                                                    JObject parsed = JObject.Parse(jsonData);
-
-                                                    apiReader.Close();
-                                                    apiReader.Dispose();
-
-                                                    apiStream.Close();
-                                                    apiStream.Dispose();
-
-
-
-                                                    sendMessage(channel + " is streaming " + parsed.Property("game").Value.ToString() + ": \"" + parsed.Property("status").Value.ToString() + "\"");
-                                                }
-                                                break;
-
-                                            case "discord":
-                                                sendMessage("Join my Discord server! You can only be cool if you do this first. " + wowiebot.Properties.Settings.Default.discordServer);
-                                                break;
-
-                                            case "uptime":
-                                                {
-                                                    HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/streams/" + userID);
-                                                    apiRequest.Accept = "application/vnd.twitchtv.v5+json";
-                                                    apiRequest.Headers.Add("Client-ID: jqqcl6f383moz9gzdd3aeg7lt4h0t0");
-
-
-                                                    Stream apiStream;
-
-                                                    apiStream = apiRequest.GetResponse().GetResponseStream();
-                                                    StreamReader apiReader = new StreamReader(apiStream);
-                                                    string jsonData = apiReader.ReadToEnd();
-                                                    JObject parsed = JObject.Parse(jsonData);
-                                                    JObject streamParsed = JObject.Parse(parsed.Property("stream").Value.ToString());
-
-                                                    apiReader.Close();
-                                                    apiReader.Dispose();
-
-                                                    apiStream.Close();
-                                                    apiStream.Dispose();
-
-                                                    if (parsed.Property("stream").Value.ToString() == "")
-                                                    {
-                                                        sendMessage("Stream is not live. How are you seeing this?");
-                                                        break;
-                                                    }
-                                                    string time = streamParsed.Property("created_at").ToString();
-                                                    DateTime liveTime = DateTime.Parse(streamParsed.Property("created_at").Value.ToString());
-                                                    //   DateTime liveTime = DateTime.ParseExact(streamParsed.Property("created_at").ToString(), "", new System.Globalization.CultureInfo("en-US"), System.Globalization.DateTimeStyles.None); 
-                                                    TimeSpan uptime = DateTime.Now.ToUniversalTime() - liveTime;
-
-                                                    sendMessage(channel + " has been live for " + uptime.Hours + " hours and " + uptime.Minutes + " minutes.");
-
-                                                }
-
-                                                break;
-
-                                            case "quote":
-                                                if (quotes.Count == 0)
-                                                {
-                                                    sendMessage("No quotes. I guess " + channel + " just isn't funny or quotable.");
-                                                    break;
-                                                }
-                                                int q;
-                                                do
-                                                {
-                                                    q = rnd.Next(quotes.Count);
-                                                } while (q == lastQuote && quotes.Count > 1);
-                                                sendMessage(quotes[q]);
-                                                lastQuote = q;
-                                                break;
 
                                             case "addquote":
 
@@ -400,20 +314,6 @@ namespace wowiebot
                                                 sendMessage("https://twitter.com/billyraycyrus/status/335910871974965248");
                                                 break;
 
-                                            case "8ball":
-                                                if (eightBallChoices.Count == 0)
-                                                {
-                                                    sendMessage("You drop the 8-ball and it shatters irrecoverably onto the floor.");
-                                                    break;
-                                                }
-                                                int p;
-                                                do
-                                                {
-                                                    p = rnd.Next(eightBallChoices.Count);
-                                                } while (p == lastChoice && eightBallChoices.Count > 1);
-                                                sendMessage(eightBallChoices[p]);
-                                                lastChoice = p;
-                                                break;
 
                                             default:
                                                 break;
@@ -500,47 +400,48 @@ namespace wowiebot
                     switch (cmd)
                     {
                         case "QUOTE":
-                            message.Replace("$QUOTE", getQuote());
+                            message = message.Replace("$QUOTE", getQuote());
                             break;
-                        case "QUOTENUM":
-                            message.Replace("$QUOTENUM", lastQuote.ToString());
+                        case "QNUM":
+                            message = message.Replace("$QNUM", lastQuote.ToString());
                             break;
                         case "BROADCASTER":
-                            message.Replace("$BROADCASTER", channel);
+                            message = message.Replace("$BROADCASTER", channel);
                             break;
                         case "GAME":
                             if (broadcastData == null)
                             {
                                 broadcastData = getBroadcastDataFromAPI();
                             }
-                            message.Replace("$GAME", broadcastData.Property("game").Value.ToString());
+                            message = message.Replace("$GAME", broadcastData.Property("game").Value.ToString());
                             break;
                         case "TITLE":
                             if (broadcastData == null)
                             {
                                 broadcastData = getBroadcastDataFromAPI();
                             }
-                            message.Replace("$TITLE", broadcastData.Property("status").Value.ToString());
+                            message = message.Replace("$TITLE", broadcastData.Property("status").Value.ToString());
                             break;
                         case "UPHOURS":
                             if (uptime.Ticks == 0)
                             {
                                 uptime = getUptime();
                             }
-                            message.Replace("$UPHOURS", uptime.Hours.ToString());
+                            message = message.Replace("$UPHOURS", uptime.Hours.ToString());
                             break;
                         case "UPMINUTES":
                             if (uptime.Ticks == 0)
                             {
                                 uptime = getUptime();
                             }
-                            message.Replace("$UPMINUTES", uptime.Minutes.ToString());
+                            message = message.Replace("$UPMINUTES", uptime.Minutes.ToString());
                             break;
                         case "8BALL":
-                            message.Replace("$8BALL", get8BallResponse());
+                            message = message.Replace("$8BALL", get8BallResponse());
                             break;
-                   
-
+                        case "COMMANDS":
+                            message = message.Replace("$COMMANDS", helpCommands);
+                            break;
 
                     }
                 }
@@ -604,6 +505,17 @@ namespace wowiebot
 
         private static String getQuote()
         {
+            if (Properties.Settings.Default.quotes == null)
+            {
+                Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+            }
+            if (quotes == null)
+            {
+                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
+                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
+                quotes = new List<string>(arrQuotes);
+                quoteTimer.Elapsed += QuoteTimer_Elapsed;
+            }
             if (quotes.Count == 0)
             {
                 return "No quotes. I guess " + channel + " just isn't funny or quotable.";
@@ -690,6 +602,7 @@ namespace wowiebot
             foreach (DataRow i in commands)
             {
                 validCommands.Add(i.Field<string>("Command"));
+                displayCommandsInHelp.Add(i.Field<string>("Show in help command").ToLower() == "true");
             }
 
             return;
@@ -711,14 +624,7 @@ namespace wowiebot
                 displayCommandsInHelp.Add(true);
                 validCommands.Add("yes");
                 displayCommandsInHelp.Add(false);
-                if (Properties.Settings.Default.quotes == null)
-                {
-                    Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-                }
-                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
-                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
-                quotes = new List<string>(arrQuotes);
-                quoteTimer.Elapsed += QuoteTimer_Elapsed;
+                
             }
             if (cfg.enableTitle)
             {
