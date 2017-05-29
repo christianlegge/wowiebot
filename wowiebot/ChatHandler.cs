@@ -247,70 +247,11 @@ namespace wowiebot
                                     {
                                         string msg = commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Message");
                                         sendMessage(msg, message[2].Substring(message[2].IndexOf(" ") + 1));
+                                    }
 
-                                        switch (command)
-                                        {
-
-
-                                              
-
-                                            case "yes":
-                                                if (!addingQuote)
-                                                    break;
-
-                                                if (!quoteAdders.Contains(sendingUser[0]))
-                                                {
-                                                    quoteAdders.Add(sendingUser[0]);
-                                                    if (quoteAdders.Count == 2)
-                                                    {
-                                                        sendMessage("One more!");
-                                                    }
-                                                    else if (quoteAdders.Count == 3)
-                                                    {
-                                                        wowiebot.Properties.Settings.Default.quotes.Add(quoteToAdd);
-                                                        wowiebot.Properties.Settings.Default.Save();
-                                                        quoteAdders.Clear();
-                                                        quotes.Add(quoteToAdd);
-                                                        addingQuote = false;
-                                                        quoteTimer.Stop();
-                                                        sendMessage("Quote added.");
-                                                    }
-                                                }
-
-                                                else if (quoteAdders[0] == sendingUser[0])
-                                                {
-                                                    sendMessage("Yeah, you added the quote. I got it.");
-                                                }
-
-                                                else
-                                                {
-                                                    sendMessage("You already voted, dingus");
-                                                }
-
-                                                break;
-
-                                            case "no":
-                                                if (!addingQuote)
-                                                    break;
-                                                sendMessage("Smartass.");
-                                                break;
-
-                                            case "wowie":
-                                                sendMessage("wowie");
-                                                break;
-
-                                            case "wr":
-                                                sendMessage("https://www.youtube.com/watch?v=okR63Hh6ONU");
-                                                break;
-
-                                            case "heck":
-                                                sendMessage("https://twitter.com/billyraycyrus/status/335910871974965248");
-                                                break;
-
-
-                                            default:
-                                                break;
-                                        }
+                                    else if (command == "wowie" && botNick == "wowiebot")
+                                    {
+                                        sendMessage("wowie");
                                     }
                                 }
 
@@ -338,7 +279,7 @@ namespace wowiebot
                                         title = Regex.Replace(title, @"[^\u0000-\u007F]+", string.Empty);
                                         if (title != null && title != "")
                                         {
-                                            sendMessage(sendingUser[0] + " posted: " + title);
+                                            sendMessage(sender + " posted: " + title);
                                         }
                                     }
                                 }

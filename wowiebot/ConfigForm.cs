@@ -32,8 +32,7 @@ namespace wowiebot
             emptyQuoteMessage.Text = Properties.Settings.Default.emptyQuotesMessage;
             updateSaveButton();
             commandsDataTable = getDataTableFromSettings();
-            
-            
+
             
             dataGridView1.DataSource = commandsDataTable;
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;

@@ -19,7 +19,7 @@ namespace wowiebot
 
 You can use variables in the message that the bot will replace with other data. You can use any of:
 
-$QUOTE: A random quote from the list of quotes, or if the list is empty, a placeholder string (set this in Edit Quotes)
+$QUOTE: A random quote from the list of quotes, or if the list is empty, a placeholder string
 $QNUM: The index of the quote selected
 $BROADCASTER: The username of the broadcaster
 $SENDER: The username of the user who sent the command

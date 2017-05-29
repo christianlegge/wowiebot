@@ -82,6 +82,8 @@ namespace wowiebot
             table.Columns.Add(msg);
             table.Columns.Add(showInHelp);
             DataRow quoteRow = table.NewRow();
+            DataRow addquoteRow = table.NewRow();
+            DataRow voteyesRow = table.NewRow();
             DataRow titleRow = table.NewRow();
             DataRow uptimeRow = table.NewRow();
             DataRow discordRow = table.NewRow();
@@ -90,6 +92,12 @@ namespace wowiebot
             quoteRow.SetField<string>(cmd, "quote");
             quoteRow.SetField<string>(msg, "[$QNUM]: $QUOTE");
             quoteRow.SetField<bool>(showInHelp, true);
+            addquoteRow.SetField<string>(cmd, "addquote");
+            addquoteRow.SetField<string>(msg, "$ADDQUOTE");
+            addquoteRow.SetField<bool>(showInHelp, true);
+            voteyesRow.SetField<string>(cmd, "yes");
+            voteyesRow.SetField<string>(msg, "$VOTEYES");
+            voteyesRow.SetField<bool>(showInHelp, false);
             titleRow.SetField<string>(cmd, "title");
             titleRow.SetField<string>(msg, "$BROADCASTER is playing $GAME: \"$TITLE\"");
             titleRow.SetField<bool>(showInHelp, true);
@@ -106,6 +114,8 @@ namespace wowiebot
             helpRow.SetField<string>(msg, "Use me in the following ways: $COMMANDS");
             helpRow.SetField<bool>(showInHelp, false);
             table.Rows.Add(quoteRow);
+            table.Rows.Add(addquoteRow);
+            table.Rows.Add(voteyesRow);
             table.Rows.Add(titleRow);
             table.Rows.Add(uptimeRow);
             table.Rows.Add(discordRow);
