@@ -136,5 +136,41 @@ namespace wowiebot.Properties {
                 this["commandsDataTableJson"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int quoteAddingMethod {
+            get {
+                return ((int)(this["quoteAddingMethod"]));
+            }
+            set {
+                this["quoteAddingMethod"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int quoteVotersNumber {
+            get {
+                return ((int)(this["quoteVotersNumber"]));
+            }
+            set {
+                this["quoteVotersNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No quotes. I guess $BROADCASTER isn\'t funny or quotable.")]
+        public string emptyQuotesMessage {
+            get {
+                return ((string)(this["emptyQuotesMessage"]));
+            }
+            set {
+                this["emptyQuotesMessage"] = value;
+            }
+        }
     }
 }

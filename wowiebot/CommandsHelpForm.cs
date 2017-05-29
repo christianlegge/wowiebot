@@ -18,6 +18,7 @@ namespace wowiebot
             helpText.Text = @"This is the list of bot commands. When a user enters a command in the chat, the bot will respond with the message in the table.
 
 You can use variables in the message that the bot will replace with other data. You can use any of:
+
 $QUOTE: A random quote from the list of quotes, or if the list is empty, a placeholder string (set this in Edit Quotes)
 $QNUM: The index of the quote selected
 $BROADCASTER: The username of the broadcaster
@@ -27,7 +28,17 @@ $TITLE: The current title of the broadcaster's stream
 $UPHOURS: Whole number of hours the broadcaster has been live
 $UPMINUTES: Whole number of minutes the broadcaster has been live
 $8BALL: A random choice from the 8-Ball Choices
-$COMMANDS: A list of all commands with ""Show in commands list"" checked";
+$COMMANDS: A list of all commands with ""Show in commands list"" checked
+
+These variables don't get replaced by things, but change the command to do something else.
+
+$ADDQUOTE: Makes the command add a quote
+$VOTEYES: Makes the command the ""agree"" command for adding quotes (only has an effect when using voting for quote adding)";
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

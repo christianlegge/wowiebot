@@ -35,10 +35,11 @@ namespace wowiebot
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
-        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" } );
+        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" } );
         private static DataTable commandsTable;
         private static String helpCommands;
         private static String sender;
+        private static bool senderIsMod;
         
         private static bool willDisconnect = false;
 
@@ -67,7 +68,7 @@ namespace wowiebot
             try
             {
                 int port = 6667;
-                client = new TcpClient("irc.twitch.tv", port);
+                client = new TcpClient("irc.chat.twitch.tv", port);
                 // Enter in channel (the username of the stream chat you wish to connect to) without the #
 
                 // Get a client stream for reading and writing.
@@ -108,6 +109,13 @@ namespace wowiebot
             responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
             Console.WriteLine("Received WELCOME: \r\n\r\n{0}", responseData);
             mainForm.writeToServerOutputTextBox("Received WELCOME: \r\n\r\n" + responseData);
+
+            string tagReqString = "CAP REQ :twitch.tv/tags\r\n";
+            Console.WriteLine(tagReqString);
+            mainForm.writeToServerOutputTextBox(tagReqString);
+            Byte[] tagReq = System.Text.Encoding.ASCII.GetBytes(tagReqString);
+            stream.Write(tagReq, 0, tagReq.Length);
+
 
             // send message to join channel
 
@@ -208,6 +216,7 @@ namespace wowiebot
                                 string[] sendingUser = preamble[0].Split('!');
                                 sender = sendingUser[0];
                                 tochat = sender + ": " + message[2];
+                                senderIsMod = message[0].Contains("mod=1");
 
                                 // sometimes the carriage returns get lost (??)
                                 if (tochat.Contains("\n") == false)
@@ -237,31 +246,13 @@ namespace wowiebot
                                     if (validCommands.Contains(command))
                                     {
                                         string msg = commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Message");
-                                        sendMessage(msg);
+                                        sendMessage(msg, message[2].Substring(message[2].IndexOf(" ") + 1));
 
                                         switch (command)
                                         {
 
 
-                                            case "addquote":
-
-                                                if (addingQuote)
-                                                {
-                                                    sendMessage("Finish adding the current quote first.");
-                                                    break;
-                                                }
-
-
-                                                quoteToAdd = message[2].Substring(message[2].IndexOf(" ") + 1);
-                                                quoteToAdd = quoteToAdd.Remove(quoteToAdd.Length - 2);
-                                                addingQuote = true;
-                                                quoteTimer.Start();
-
-                                                sendMessage("Two other people need to agree by typing !yes to add the quote! Ends in one minute.");
-
-                                                quoteAdders.Add(sendingUser[0]);
-
-                                                break;
+                                              
 
                                             case "yes":
                                                 if (!addingQuote)
@@ -377,6 +368,9 @@ namespace wowiebot
                 }
             }
 
+            addingQuote = false;
+            quoteTimer.Stop();
+
             stream.Close();
             client.Close();
             return 0;
@@ -392,6 +386,11 @@ namespace wowiebot
 
         private static void sendMessage(string message)
         {
+            sendMessage(message, "");
+        }
+
+        private static void sendMessage(string message, string commandArgs)
+        {
             TimeSpan uptime = new TimeSpan(0);
             JObject broadcastData = null;
             foreach (String cmd in messageVars)
@@ -406,6 +405,12 @@ namespace wowiebot
                         case "QNUM":
                             message = message.Replace("$QNUM", (lastQuote + 1).ToString());
                             break;
+                        case "ADDQUOTE":
+                            addQuote(commandArgs);
+                            return;
+                        case "VOTEYES":
+                            voteYes();
+                            return;
                         case "BROADCASTER":
                             message = message.Replace("$BROADCASTER", channel);
                             break;
@@ -456,11 +461,116 @@ namespace wowiebot
             stream.Write(say, 0, say.Length);
         }
 
+        private static void addQuote(string quote)
+        {
+            if (Properties.Settings.Default.quotes == null)
+            {
+                Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.Save();
+            }
+            if (quotes == null)
+            {
+                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
+                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
+                quotes = new List<string>(arrQuotes);
+                quoteTimer.Elapsed += QuoteTimer_Elapsed;
+            }
+            if (addingQuote)
+            {
+                sendMessage("Finish adding the current quote first.");
+                return;
+            }
+
+            quoteToAdd = quote;
+            quoteToAdd = quoteToAdd.Remove(quoteToAdd.Length - 2);
+
+            if (Properties.Settings.Default.quoteAddingMethod == 0)
+            {
+                Properties.Settings.Default.quotes.Add(quoteToAdd);
+                Properties.Settings.Default.Save();
+                quotes.Add(quoteToAdd);
+                sendMessage("Quote added.");
+                return;
+            }
+
+            else if (Properties.Settings.Default.quoteAddingMethod == 1 || Properties.Settings.Default.quoteAddingMethod == 2)
+            {
+                if (sender == channel || (senderIsMod && Properties.Settings.Default.quoteAddingMethod == 1))
+                {
+                    Properties.Settings.Default.quotes.Add(quoteToAdd);
+                    Properties.Settings.Default.Save();
+                    quotes.Add(quoteToAdd);
+                    sendMessage("Quote added.");
+                    return;
+                }
+                else
+                {
+                    sendMessage("You don't have permission to do that.");
+                    return;
+                }
+            }
+
+            else if (Properties.Settings.Default.quoteAddingMethod == 3)
+            {
+                addingQuote = true;
+                quoteTimer.Start();
+                sendMessage((Properties.Settings.Default.quoteVotersNumber - 1).ToString() + 
+                             " other " + (Properties.Settings.Default.quoteVotersNumber > 2 ? "people need" : "person needs") + " to agree by typing " +
+                             Properties.Settings.Default.prefix + 
+                             commandsTable.Select("Message LIKE '*$VOTEYES*'")[0].Field<string>("Command") + 
+                             " to add the quote! Ends in one minute.");
+                quoteAdders.Add(sender);
+            }
+           
+        }
+
+        private static void voteYes()
+        {
+            if (!addingQuote)
+                return;
+
+            if (!quoteAdders.Contains(sender))
+            {
+                quoteAdders.Add(sender);
+                if (quoteAdders.Count < Properties.Settings.Default.quoteVotersNumber)
+                {
+                    sendMessage((Properties.Settings.Default.quoteVotersNumber - quoteAdders.Count).ToString() + " more!");
+                }
+                else if (quoteAdders.Count == 3)
+                {
+                    wowiebot.Properties.Settings.Default.quotes.Add(quoteToAdd);
+                    wowiebot.Properties.Settings.Default.Save();
+                    quoteAdders.Clear();
+                    quotes.Add(quoteToAdd);
+                    addingQuote = false;
+                    quoteTimer.Stop();
+                    sendMessage("Quote added.");
+                }
+            }
+
+            else if (quoteAdders[0] == sender)
+            {
+                sendMessage("Yeah, you added the quote. I got it.");
+            }
+
+            else
+            {
+                sendMessage("You already voted, dingus.");
+            }
+
+        }
+
+        private static List<String> getMods(string pChannel)
+        {
+            return null;
+        }
+
         private static String get8BallResponse()
         {
             if (Properties.Settings.Default.choices8Ball == null)
             {
                 Properties.Settings.Default.choices8Ball = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.Save();
             }
             if (eightBallChoices == null)
             {
@@ -522,6 +632,7 @@ namespace wowiebot
             if (Properties.Settings.Default.quotes == null)
             {
                 Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.Save();
             }
             if (quotes == null)
             {
@@ -570,6 +681,18 @@ namespace wowiebot
 
         private static String getQuote(int i)
         {
+            if (Properties.Settings.Default.quotes == null)
+            {
+                Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.Save();
+            }
+            if (quotes == null)
+            {
+                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
+                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
+                quotes = new List<string>(arrQuotes);
+                quoteTimer.Elapsed += QuoteTimer_Elapsed;
+            }
             if (quotes.Count > i)
             {
                 return quotes[i];
@@ -616,7 +739,7 @@ namespace wowiebot
             foreach (DataRow i in commands)
             {
                 validCommands.Add(i.Field<string>("Command"));
-                displayCommandsInHelp.Add(i.Field<string>("Show in help command").ToLower() == "true");
+                displayCommandsInHelp.Add(i.Field<bool>("Show in commands list"));
             }
 
             return;

@@ -39,7 +39,14 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.quoteMethodDropDown = new System.Windows.Forms.ComboBox();
+            this.quoteMethodLabel = new System.Windows.Forms.Label();
+            this.quoteVotersNumLabel = new System.Windows.Forms.Label();
+            this.quoteVotersNum = new System.Windows.Forms.NumericUpDown();
+            this.emptyQuoteMessage = new System.Windows.Forms.TextBox();
+            this.emptyQuotesLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).BeginInit();
             this.SuspendLayout();
             // 
             // prefixLabel
@@ -62,7 +69,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(28, 167);
+            this.saveButton.Location = new System.Drawing.Point(16, 264);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 5;
@@ -73,7 +80,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(109, 167);
+            this.cancelButton.Location = new System.Drawing.Point(97, 264);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 6;
@@ -118,14 +125,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(252, 41);
+            this.dataGridView1.Location = new System.Drawing.Point(273, 41);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(446, 486);
+            this.dataGridView1.Size = new System.Drawing.Size(489, 486);
             this.dataGridView1.TabIndex = 14;
+            this.dataGridView1.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(348, 10);
+            this.button1.Location = new System.Drawing.Point(369, 11);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(17, 23);
             this.button1.TabIndex = 15;
@@ -137,11 +145,73 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(248, 11);
+            this.label1.Location = new System.Drawing.Point(269, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 20);
             this.label1.TabIndex = 16;
             this.label1.Text = "Commands";
+            // 
+            // quoteMethodDropDown
+            // 
+            this.quoteMethodDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.quoteMethodDropDown.FormattingEnabled = true;
+            this.quoteMethodDropDown.Location = new System.Drawing.Point(12, 110);
+            this.quoteMethodDropDown.Name = "quoteMethodDropDown";
+            this.quoteMethodDropDown.Size = new System.Drawing.Size(234, 21);
+            this.quoteMethodDropDown.TabIndex = 17;
+            this.quoteMethodDropDown.SelectedIndexChanged += new System.EventHandler(this.quoteMethodDropDown_SelectedIndexChanged);
+            // 
+            // quoteMethodLabel
+            // 
+            this.quoteMethodLabel.AutoSize = true;
+            this.quoteMethodLabel.Location = new System.Drawing.Point(13, 94);
+            this.quoteMethodLabel.Name = "quoteMethodLabel";
+            this.quoteMethodLabel.Size = new System.Drawing.Size(131, 13);
+            this.quoteMethodLabel.TabIndex = 18;
+            this.quoteMethodLabel.Text = "Quote adding permissions:";
+            // 
+            // quoteVotersNumLabel
+            // 
+            this.quoteVotersNumLabel.AutoSize = true;
+            this.quoteVotersNumLabel.Location = new System.Drawing.Point(9, 146);
+            this.quoteVotersNumLabel.Name = "quoteVotersNumLabel";
+            this.quoteVotersNumLabel.Size = new System.Drawing.Size(258, 13);
+            this.quoteVotersNumLabel.TabIndex = 19;
+            this.quoteVotersNumLabel.Text = "Votes required to add quote (including original adder):";
+            // 
+            // quoteVotersNum
+            // 
+            this.quoteVotersNum.Location = new System.Drawing.Point(12, 162);
+            this.quoteVotersNum.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.quoteVotersNum.Name = "quoteVotersNum";
+            this.quoteVotersNum.Size = new System.Drawing.Size(36, 20);
+            this.quoteVotersNum.TabIndex = 20;
+            this.quoteVotersNum.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // emptyQuoteMessage
+            // 
+            this.emptyQuoteMessage.Location = new System.Drawing.Point(12, 205);
+            this.emptyQuoteMessage.Name = "emptyQuoteMessage";
+            this.emptyQuoteMessage.Size = new System.Drawing.Size(255, 20);
+            this.emptyQuoteMessage.TabIndex = 21;
+            this.emptyQuoteMessage.TextChanged += new System.EventHandler(this.emptyQuoteMessage_TextChanged);
+            // 
+            // emptyQuotesLabel
+            // 
+            this.emptyQuotesLabel.AutoSize = true;
+            this.emptyQuotesLabel.Location = new System.Drawing.Point(12, 189);
+            this.emptyQuotesLabel.Name = "emptyQuotesLabel";
+            this.emptyQuotesLabel.Size = new System.Drawing.Size(181, 13);
+            this.emptyQuotesLabel.TabIndex = 22;
+            this.emptyQuotesLabel.Text = "Message for when quotes are empty:";
             // 
             // ConfigForm
             // 
@@ -149,7 +219,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(710, 540);
+            this.ClientSize = new System.Drawing.Size(774, 540);
+            this.Controls.Add(this.emptyQuotesLabel);
+            this.Controls.Add(this.emptyQuoteMessage);
+            this.Controls.Add(this.quoteVotersNum);
+            this.Controls.Add(this.quoteVotersNumLabel);
+            this.Controls.Add(this.quoteMethodLabel);
+            this.Controls.Add(this.quoteMethodDropDown);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
@@ -166,6 +242,7 @@
             this.Name = "ConfigForm";
             this.Text = "Config";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -182,5 +259,11 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox quoteMethodDropDown;
+        private System.Windows.Forms.Label quoteMethodLabel;
+        private System.Windows.Forms.Label quoteVotersNumLabel;
+        private System.Windows.Forms.NumericUpDown quoteVotersNum;
+        private System.Windows.Forms.TextBox emptyQuoteMessage;
+        private System.Windows.Forms.Label emptyQuotesLabel;
     }
 }

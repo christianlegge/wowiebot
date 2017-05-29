@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.helpText = new System.Windows.Forms.Label();
+            this.closeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // helpText
@@ -40,11 +41,22 @@
             this.helpText.TabIndex = 0;
             this.helpText.Text = "placeholder text";
             // 
+            // closeButton
+            // 
+            this.closeButton.Location = new System.Drawing.Point(316, 286);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 1;
+            this.closeButton.Text = "OK";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
             // CommandsHelpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 232);
+            this.ClientSize = new System.Drawing.Size(704, 321);
+            this.Controls.Add(this.closeButton);
             this.Controls.Add(this.helpText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -60,5 +72,6 @@
         #endregion
 
         private System.Windows.Forms.Label helpText;
+        private System.Windows.Forms.Button closeButton;
     }
 }

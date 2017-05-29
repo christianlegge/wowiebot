@@ -19,8 +19,17 @@ namespace wowiebot
         public ConfigForm()
         {
             InitializeComponent();
+
+            quoteMethodDropDown.DataSource = new string[] { "All quotes are added automatically",
+                                                            "Only moderators can add quotes",
+                                                            "Only the broadcaster can add quotes",
+                                                            "Quotes are added after being voted on by chat"};
+
             prefixTextBox.Text = Properties.Settings.Default.prefix;
             linkCheckBox.Checked = Properties.Settings.Default.enableLinkTitles;
+            quoteMethodDropDown.SelectedIndex = Properties.Settings.Default.quoteAddingMethod;
+            quoteVotersNum.Value = Properties.Settings.Default.quoteVotersNumber;
+            emptyQuoteMessage.Text = Properties.Settings.Default.emptyQuotesMessage;
             updateSaveButton();
             commandsDataTable = getDataTableFromSettings();
             
@@ -32,6 +41,8 @@ namespace wowiebot
             dataGridView1.Columns[1].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -41,12 +52,23 @@ namespace wowiebot
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.prefix = prefixTextBox.Text;
-            Properties.Settings.Default.enableLinkTitles = linkCheckBox.Checked;
-            string test = JsonConvert.SerializeObject(dataGridView1.DataSource);
-            Properties.Settings.Default.commandsDataTableJson = JsonConvert.SerializeObject(dataGridView1.DataSource);
-            Properties.Settings.Default.Save();
-            Close();
+            if (quoteMethodDropDown.SelectedIndex == 3 && ((DataTable)dataGridView1.DataSource).Select("Message LIKE '*$VOTEYES*'").Length == 0)
+            {
+                MessageBox.Show("You need to have a $VOTEYES command if you're adding quotes by voting!");
+            }
+
+            else
+            {
+                Properties.Settings.Default.prefix = prefixTextBox.Text;
+                Properties.Settings.Default.enableLinkTitles = linkCheckBox.Checked;
+                string test = JsonConvert.SerializeObject(dataGridView1.DataSource);
+                Properties.Settings.Default.commandsDataTableJson = JsonConvert.SerializeObject(dataGridView1.DataSource);
+                Properties.Settings.Default.quoteAddingMethod = quoteMethodDropDown.SelectedIndex;
+                Properties.Settings.Default.quoteVotersNumber = (int)quoteVotersNum.Value;
+                Properties.Settings.Default.emptyQuotesMessage = emptyQuoteMessage.Text;
+                Properties.Settings.Default.Save();
+                Close();
+            }
         }
 
         private void prefixTextBox_TextChanged(object sender, EventArgs e)
@@ -56,7 +78,7 @@ namespace wowiebot
 
         private void updateSaveButton()
         {
-            if (prefixTextBox.Text.Length == 0)
+            if (prefixTextBox.Text.Length == 0 || emptyQuoteMessage.Text.Length == 0)
             {
                 saveButton.Enabled = false;
             }
@@ -94,6 +116,29 @@ namespace wowiebot
         {
             CommandsHelpForm commandsHelpForm = new CommandsHelpForm();
             commandsHelpForm.Show();
+        }
+
+        private void quoteMethodDropDown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (quoteMethodDropDown.SelectedIndex == 3)
+            {
+                // voting
+                quoteVotersNum.Enabled = true;
+            }
+            else
+            {
+                quoteVotersNum.Enabled = false;
+            }
+        }
+
+        private void dataGridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["Show in commands list"].Value = false;
+        }
+
+        private void emptyQuoteMessage_TextChanged(object sender, EventArgs e)
+        {
+            updateSaveButton();
         }
     }
 }
