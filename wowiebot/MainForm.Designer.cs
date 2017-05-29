@@ -36,6 +36,7 @@
             this.useWowieBox = new System.Windows.Forms.CheckBox();
             this.configButton = new System.Windows.Forms.Button();
             this.serverOutTextBox = new System.Windows.Forms.TextBox();
+            this.updateButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // channelTextBox
@@ -91,7 +92,7 @@
             // 
             // configButton
             // 
-            this.configButton.Location = new System.Drawing.Point(368, 12);
+            this.configButton.Location = new System.Drawing.Point(368, 8);
             this.configButton.Name = "configButton";
             this.configButton.Size = new System.Drawing.Size(75, 23);
             this.configButton.TabIndex = 5;
@@ -102,7 +103,7 @@
             // serverOutTextBox
             // 
             this.serverOutTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.serverOutTextBox.Location = new System.Drawing.Point(12, 67);
+            this.serverOutTextBox.Location = new System.Drawing.Point(12, 64);
             this.serverOutTextBox.Multiline = true;
             this.serverOutTextBox.Name = "serverOutTextBox";
             this.serverOutTextBox.ReadOnly = true;
@@ -111,12 +112,24 @@
             this.serverOutTextBox.TabIndex = 6;
             this.serverOutTextBox.TabStop = false;
             // 
+            // updateButton
+            // 
+            this.updateButton.Location = new System.Drawing.Point(368, 35);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(75, 23);
+            this.updateButton.TabIndex = 7;
+            this.updateButton.Text = "Update!";
+            this.updateButton.UseVisualStyleBackColor = true;
+            this.updateButton.Visible = false;
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.connectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(455, 276);
+            this.Controls.Add(this.updateButton);
             this.Controls.Add(this.serverOutTextBox);
             this.Controls.Add(this.configButton);
             this.Controls.Add(this.useWowieBox);
@@ -129,6 +142,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "wowiebot launchpad";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,6 +157,7 @@
         private System.Windows.Forms.CheckBox useWowieBox;
         private System.Windows.Forms.Button configButton;
         private System.Windows.Forms.TextBox serverOutTextBox;
+        private System.Windows.Forms.Button updateButton;
     }
 }
 

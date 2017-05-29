@@ -12,3 +12,5 @@ D:\wowiebot\wowiebot\obj\Release\wowiebot.pdb
 D:\wowiebot\wowiebot\obj\Release\wowiebot.csprojResolveAssemblyReference.cache
 D:\wowiebot\wowiebot\obj\Release\wowiebot.ConfigForm.resources
 D:\wowiebot\wowiebot\obj\Release\wowiebot.EditStringsForm.resources
+D:\wowiebot\wowiebot\obj\Release\wowiebot.CommandsHelpForm.resources
+D:\wowiebot\wowiebot\obj\Release\wowiebot.UpdateForm.resources

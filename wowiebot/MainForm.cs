@@ -5,16 +5,23 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace wowiebot
 {
 
     public partial class MainForm : Form
     {
+        private const string thisVersion = "v2.1";
+        private string latestVersion;
+        private JObject releaseJson;
+
         public string loggedInUser = null;
         public string loggedInOauth = null;
         private OAuthForm childLoginBox = null;
@@ -39,6 +46,7 @@ namespace wowiebot
         public MainForm()
         {
             InitializeComponent();
+
 
             dcTimer.Tick += disconnectAction;
             dcTimer.Interval = 1500;
@@ -166,6 +174,7 @@ namespace wowiebot
                 useWowieBox.Enabled = false;
                 connectButton.Enabled = false;
                 configButton.Enabled = false;
+                updateButton.Enabled = false;
                 Properties.Settings.Default.prevChannel = channelTextBox.Text;
                 Properties.Settings.Default.Save();
                 
@@ -202,6 +211,7 @@ namespace wowiebot
                     channelTextBox.Enabled = true;
                     useWowieBox.Enabled = true;
                     configButton.Enabled = true;
+                    updateButton.Enabled = true;
                     updateConnectButton();
                 });
 
@@ -214,6 +224,7 @@ namespace wowiebot
             channelTextBox.Enabled = true;
             useWowieBox.Enabled = true;
             configButton.Enabled = true;
+            updateButton.Enabled = true;
             updateConnectButton();
             dcTimer.Stop();
         }
@@ -269,5 +280,42 @@ namespace wowiebot
             funcForm.StartPosition = FormStartPosition.CenterParent;
             funcForm.ShowDialog();
         }
+
+        private void checkForUpdates()
+        {
+            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.github.com/repos/scatterclegge/wowiebot/releases/latest");
+            apiRequest.Accept = "application/vnd.github.v3+json";
+            apiRequest.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
+
+            Stream apiStream;
+
+            apiStream = apiRequest.GetResponse().GetResponseStream();
+            StreamReader apiReader = new StreamReader(apiStream);
+            string jsonData = apiReader.ReadToEnd();
+            releaseJson = JObject.Parse(jsonData);
+            latestVersion = releaseJson.Property("tag_name").Value.ToString();
+            updateButton.Visible = latestVersion != thisVersion;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            checkForUpdates();
+        }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+           if (MessageBox.Show("There is an update to wowiebot!\n\nLatest version: " + latestVersion + "\nThis version: " + thisVersion + "\n\nUpdate? (Will restart automatically.)", "Update!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                JObject exeJson = releaseJson["assets"].Values<JObject>()
+                              .Where(m => m["name"].Value<string>() == "wowiebot.exe")
+                              .FirstOrDefault();
+                string downloadUrl = exeJson["browser_download_url"].ToString();
+                UpdateForm dpform = new UpdateForm(downloadUrl);
+                dpform.StartPosition = FormStartPosition.CenterScreen;
+                dpform.ShowDialog();
+            }
+
+        }
+
     }
 }
