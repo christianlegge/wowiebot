@@ -16,7 +16,7 @@ namespace wowiebot
 {
     class ChatHandler
     {
-        private static byte[] data;
+        private static byte[] data = new byte[512];
         private static string channel;
         private static string botNick;
         private static string botOauth;
@@ -40,6 +40,7 @@ namespace wowiebot
         private static String helpCommands;
         private static String sender;
         private static bool senderIsMod;
+        private static bool botIsMod;
         
         private static bool willDisconnect = false;
 
@@ -78,7 +79,7 @@ namespace wowiebot
             }
             catch (Exception e)
             {
-                mainForm.writeToServerOutputTextBox("Connection error.\r\n\r\n");
+                mainForm.writeToServerOutputTextBox("Connection error.\r\n");
                 MessageBox.Show(e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 1;
             }
@@ -89,57 +90,35 @@ namespace wowiebot
             // string oauth = "5bdocznijbholgvt3o9u6t5ui6okjs";
 
             string loginstring = "PASS oauth:" + botOauth + "\r\nNICK "+ botNick +"\r\n";
-            Byte[] login = System.Text.Encoding.ASCII.GetBytes(loginstring);
-            stream.Write(login, 0, login.Length);
-            Console.WriteLine("Sent login.\r\n");
-            mainForm.writeToServerOutputTextBox("Sent login.\r\n");
-            
-            Console.WriteLine(loginstring);
-            mainForm.writeToServerOutputTextBox(loginstring);
+            string toShow = "PASS oauth:" + "*****" + "\r\nNICK " + botNick + "\r\n";
+            sendToServer(loginstring);
+            Console.WriteLine(toShow);
+            mainForm.writeToServerOutputTextBox(toShow + "\r\n");
 
             // Receive the TcpServer.response.
-            // Buffer to store the response bytes.
-            data = new Byte[512];
+            mainForm.writeToServerOutputTextBox(readFromServer() + "\r\n");
 
             // String to store the response ASCII representation.
-            String responseData = String.Empty;
-
-            // Read the first batch of the TcpServer response bytes.
-            Int32 bytes = stream.Read(data, 0, data.Length);
-            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-            Console.WriteLine("Received WELCOME: \r\n\r\n{0}", responseData);
-            mainForm.writeToServerOutputTextBox("Received WELCOME: \r\n\r\n" + responseData);
-
+            
+            // Requesting tags capability for more info
             string tagReqString = "CAP REQ :twitch.tv/tags\r\n";
-            Console.WriteLine(tagReqString);
-            mainForm.writeToServerOutputTextBox(tagReqString);
-            Byte[] tagReq = System.Text.Encoding.ASCII.GetBytes(tagReqString);
-            stream.Write(tagReq, 0, tagReq.Length);
+            sendToServer(tagReqString);
 
+            // Read the request response
+            readFromServer();
 
             // send message to join channel
 
             string joinstring = "JOIN " + "#" + channel + "\r\n";
-            Byte[] join = System.Text.Encoding.ASCII.GetBytes(joinstring);
-            stream.Write(join, 0, join.Length);
-            Console.WriteLine("Sent channel join.\r\n");
-            mainForm.writeToServerOutputTextBox("Sent channel join.\r\n");
-            Console.WriteLine(joinstring);
-            mainForm.writeToServerOutputTextBox(joinstring);
+            sendToServer(joinstring);
+
+            mainForm.writeToServerOutputTextBox(readFromServer() + "\r\n");
 
             // PMs the channel to announce that it's joined and listening
             // These three lines are the example for how to send something to the channel
 
             string announcestring = channel + "!" + channel + "@" + channel +".tmi.twitch.tv PRIVMSG " + channel + " BOT ENABLED\r\n";
-            Byte[] announce = Encoding.ASCII.GetBytes(announcestring);
-            stream.Write(announce, 0, announce.Length);
-            
-            // Lets you know its working
-            
-            Console.WriteLine("TWITCH CHAT HAS BEGUN.\r\n\r\n");
-            mainForm.writeToServerOutputTextBox("TWITCH CHAT HAS BEGUN.");
-            Console.WriteLine("\r\nBE CAREFUL.\r\n");
-            mainForm.writeToServerOutputTextBox("\r\nBE CAREFUL.\r\n");
+            sendToServer(announcestring);
 
             helpCommands = "";
             for (int i = 0; i < validCommands.Count; i++)
@@ -172,7 +151,7 @@ namespace wowiebot
                         mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
                     }
 
-                    myCompleteMessage.AppendFormat("{0}", Encoding.ASCII.GetString(myReadBuffer, 0, numberOfBytesRead));
+                    myCompleteMessage.AppendFormat("{0}", Encoding.UTF8.GetString(myReadBuffer, 0, numberOfBytesRead));
                 }
                 
                 // when we've received data, do Things
@@ -180,15 +159,13 @@ namespace wowiebot
                 while (stream.DataAvailable);
 
                 // Print out the received message to the console.
-                Console.WriteLine(myCompleteMessage.ToString());
-                mainForm.writeToServerOutputTextBox(myCompleteMessage.ToString());
                 switch (myCompleteMessage.ToString())
                 {
                     // Every 5 minutes the Twitch server will send a PING, this is to respond with a PONG to keepalive
                     
                     case "PING :tmi.twitch.tv\r\n":
                         try { 
-                        Byte[] say = System.Text.Encoding.ASCII.GetBytes("PONG :tmi.twitch.tv\r\n");
+                        Byte[] say = System.Text.Encoding.UTF8.GetBytes("PONG :tmi.twitch.tv\r\n");
                         stream.Write(say, 0, say.Length);
                         Console.WriteLine("Ping? Pong!");
                         mainForm.writeToServerOutputTextBox("Ping? Pong!");
@@ -224,14 +201,16 @@ namespace wowiebot
                                     tochat = tochat + "\n";
                                 }
 
-                                // Ignore some well known bots
-                                if (sender != "moobot" && sender != "whale_bot")
+                                if (message[2].StartsWith("\u0001ACTION"))
                                 {
-                                    //  SendKeys.SendWait(tochat.TrimEnd('\n'));
+                                    message[2] = message[2].Replace("\u0001ACTION", "");
+                                    message[2] = message[2].Replace("\u0001", "");
+                                    mainForm.writeToServerOutputTextBox("* " + sender + " " + message[2]);
                                 }
-
-
-
+                                else
+                                {
+                                    mainForm.writeToServerOutputTextBox("<" + (sender == channel ? "~" : (senderIsMod ? "@" : "")) + sender + "> " + message[2]);
+                                }
 
                                 if (message[2].StartsWith(Properties.Settings.Default.prefix))
                                 {
@@ -398,8 +377,9 @@ namespace wowiebot
             }
 
 
-            Byte[] say = Encoding.ASCII.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
+            Byte[] say = Encoding.UTF8.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);
+            mainForm.writeToServerOutputTextBox("<" + botNick + "> " + message + "\r\n" );
         }
 
         private static void addQuote(string quote)
@@ -684,6 +664,22 @@ namespace wowiebot
             }
 
             return;
+        }
+
+        private static void sendToServer(string strToSend)
+        {
+            Byte[] bytesToSend = System.Text.Encoding.UTF8.GetBytes(strToSend);
+            stream.Write(bytesToSend, 0, bytesToSend.Length);
+        }
+
+        private static string readFromServer()
+        {
+            String responseData = String.Empty;
+
+            // Read the first batch of the TcpServer response bytes.
+            Int32 bytes = stream.Read(data, 0, data.Length);
+            responseData = System.Text.Encoding.UTF8.GetString(data, 0, bytes);
+            return responseData;
         }
     }
 }

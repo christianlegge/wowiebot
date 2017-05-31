@@ -137,7 +137,7 @@ namespace wowiebot
 
         private void ServerOutTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (serverOutTextBox.Text.Contains("HAS BEGUN") && connecting)
+            if (serverOutTextBox.Text.Contains("Welcome, GLHF!") && connecting)
             {
                 connecting = false;
                 connectButton.Enabled = true;
