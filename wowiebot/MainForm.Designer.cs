@@ -41,6 +41,7 @@
             // 
             // channelTextBox
             // 
+            this.channelTextBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.channelTextBox.Location = new System.Drawing.Point(178, 190);
             this.channelTextBox.MaxLength = 25;
             this.channelTextBox.Name = "channelTextBox";
@@ -50,6 +51,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(123, 193);
             this.label1.Name = "label1";
@@ -59,6 +61,7 @@
             // 
             // connectButton
             // 
+            this.connectButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.connectButton.Location = new System.Drawing.Point(98, 216);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(260, 48);
@@ -92,6 +95,7 @@
             // 
             // configButton
             // 
+            this.configButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.configButton.Location = new System.Drawing.Point(368, 8);
             this.configButton.Name = "configButton";
             this.configButton.Size = new System.Drawing.Size(75, 23);
@@ -102,6 +106,9 @@
             // 
             // serverOutTextBox
             // 
+            this.serverOutTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.serverOutTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.serverOutTextBox.Location = new System.Drawing.Point(12, 64);
             this.serverOutTextBox.Multiline = true;
@@ -114,6 +121,7 @@
             // 
             // updateButton
             // 
+            this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.updateButton.Location = new System.Drawing.Point(368, 35);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(75, 23);
@@ -137,9 +145,9 @@
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.channelTextBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(471, 315);
             this.Name = "MainForm";
             this.Text = "wowiebot launchpad";
             this.Load += new System.EventHandler(this.MainForm_Load);
