@@ -457,7 +457,7 @@ namespace wowiebot
                 {
                     sendMessage((Properties.Settings.Default.quoteVotersNumber - quoteAdders.Count).ToString() + " more!");
                 }
-                else if (quoteAdders.Count == 3)
+                else if (quoteAdders.Count == Properties.Settings.Default.quoteVotersNumber)
                 {
                     wowiebot.Properties.Settings.Default.quotes.Add(quoteToAdd);
                     wowiebot.Properties.Settings.Default.Save();
