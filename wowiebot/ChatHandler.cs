@@ -31,7 +31,7 @@ namespace wowiebot
         private static List<string> quoteAdders = new List<string>();
         private static string quoteToAdd;
         private static System.Timers.Timer quoteTimer = new System.Timers.Timer(60000);
-        private static List<string> eightBallChoices = new List<string>();
+        private static List<string> eightBallChoices;
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
