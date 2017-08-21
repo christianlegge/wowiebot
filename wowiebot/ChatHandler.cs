@@ -24,6 +24,8 @@ namespace wowiebot
         private static NetworkStream stream;
 
         private static List<string> quotes;
+        private static Dictionary<System.Timers.Timer, String> periodicMessageTimers;
+        private static Dictionary<System.Timers.Timer, System.Timers.Timer> offsetTimers;
         private static Random rnd = new Random();
         private static int lastQuote = -1;
         private static int lastChoice = -1;
@@ -37,6 +39,7 @@ namespace wowiebot
         private static string userID;
         private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" } );
         private static DataTable commandsTable;
+        private static DataTable periodicMessagesTable;
         private static String helpCommands;
         private static String sender;
         private static bool senderIsMod;
@@ -52,8 +55,11 @@ namespace wowiebot
             botOauth = pOauth;
 
             commandsTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.commandsDataTableJson);
+            periodicMessagesTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.periodicMessagesDataTableJson);
 
             populateValidCommands();
+
+            createPeriodicMessagesTimers();
 
             if (validCommands.Contains("title") || validCommands.Contains("uptime"))
             {
@@ -62,6 +68,53 @@ namespace wowiebot
 
             return runBot();
         }
+
+        private static void createPeriodicMessagesTimers()
+        {
+            periodicMessageTimers = new Dictionary<System.Timers.Timer, string>();
+            offsetTimers = new Dictionary<System.Timers.Timer, System.Timers.Timer>();
+            foreach (DataColumn col in periodicMessagesTable.Columns)
+            {
+                DataColumn x = col;
+            }
+            foreach (DataRow row in periodicMessagesTable.Rows)
+            {
+                System.Timers.Timer t = new System.Timers.Timer(row.Field<long>("Period")*100);
+                t.Elapsed += PeriodicMessageTimer_Elapsed;
+                if (row.Field<long>("Offset") > 0)
+                {
+                    System.Timers.Timer offsetTimer = new System.Timers.Timer(row.Field<long>("Offset") * 100);
+                    offsetTimer.Elapsed += OffsetTimer_Elapsed;
+                    offsetTimers.Add(offsetTimer, t);
+                    offsetTimer.Start();
+                }
+                else
+                {
+                    t.Start();
+                }
+                periodicMessageTimers.Add(t, row.Field<string>("Message"));
+            }
+        }
+
+        private static void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (stream != null)
+            {
+                sendMessage(periodicMessageTimers[offsetTimers[(System.Timers.Timer)sender]]);
+            }
+            offsetTimers[(System.Timers.Timer)sender].Start();
+            ((System.Timers.Timer)sender).Stop();
+        }
+
+        private static void PeriodicMessageTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (stream != null)
+            {
+                sendMessage(periodicMessageTimers[(System.Timers.Timer)sender]);
+            }
+        }
+
+
 
         public static int runBot()
         {

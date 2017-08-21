@@ -172,5 +172,17 @@ namespace wowiebot.Properties {
                 this["emptyQuotesMessage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string periodicMessagesDataTableJson {
+            get {
+                return ((string)(this["periodicMessagesDataTableJson"]));
+            }
+            set {
+                this["periodicMessagesDataTableJson"] = value;
+            }
+        }
     }
 }

@@ -53,5 +53,8 @@
     <Setting Name="emptyQuotesMessage" Type="System.String" Scope="User">
       <Value Profile="(Default)">No quotes. I guess $BROADCASTER isn't funny or quotable.</Value>
     </Setting>
+    <Setting Name="periodicMessagesDataTableJson" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

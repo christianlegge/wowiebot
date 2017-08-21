@@ -45,6 +45,7 @@
             this.quoteVotersNum = new System.Windows.Forms.NumericUpDown();
             this.emptyQuoteMessage = new System.Windows.Forms.TextBox();
             this.emptyQuotesLabel = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).BeginInit();
             this.SuspendLayout();
@@ -216,6 +217,16 @@
             this.emptyQuotesLabel.TabIndex = 22;
             this.emptyQuotesLabel.Text = "Message for when quotes are empty:";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(12, 232);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(114, 23);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "Periodic Messages";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.saveButton;
@@ -223,6 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(774, 540);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.emptyQuotesLabel);
             this.Controls.Add(this.emptyQuoteMessage);
             this.Controls.Add(this.quoteVotersNum);
@@ -268,5 +280,6 @@
         private System.Windows.Forms.NumericUpDown quoteVotersNum;
         private System.Windows.Forms.TextBox emptyQuoteMessage;
         private System.Windows.Forms.Label emptyQuotesLabel;
+        private System.Windows.Forms.Button button2;
     }
 }

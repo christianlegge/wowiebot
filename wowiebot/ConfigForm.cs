@@ -139,5 +139,12 @@ namespace wowiebot
         {
             updateSaveButton();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PeriodicMessagesForm periodicForm = new PeriodicMessagesForm();
+            periodicForm.StartPosition = FormStartPosition.CenterScreen;
+            periodicForm.ShowDialog();
+        }
     }
 }
