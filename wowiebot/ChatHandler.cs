@@ -44,6 +44,7 @@ namespace wowiebot
         private static String sender;
         private static bool senderIsMod;
         private static bool botIsMod;
+        private static int messagesBetweenPeriodics = 0;
         
         private static bool willDisconnect = false;
 
@@ -98,9 +99,10 @@ namespace wowiebot
 
         private static void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (stream != null)
+            if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
             {
                 sendMessage(periodicMessageTimers[offsetTimers[(System.Timers.Timer)sender]]);
+                messagesBetweenPeriodics = 0;
             }
             offsetTimers[(System.Timers.Timer)sender].Start();
             ((System.Timers.Timer)sender).Stop();
@@ -108,9 +110,10 @@ namespace wowiebot
 
         private static void PeriodicMessageTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (stream != null)
+            if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
             {
                 sendMessage(periodicMessageTimers[(System.Timers.Timer)sender]);
+                messagesBetweenPeriodics = 0;
             }
         }
 
@@ -247,6 +250,11 @@ namespace wowiebot
                                 sender = sendingUser[0];
                                 tochat = sender + ": " + message[2];
                                 senderIsMod = message[0].Contains("mod=1");
+
+                                if (sender != botNick)
+                                {
+                                    messagesBetweenPeriodics++;
+                                }
 
                                 // sometimes the carriage returns get lost (??)
                                 if (tochat.Contains("\n") == false)

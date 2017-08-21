@@ -14,3 +14,4 @@ D:\wowiebot\wowiebot\obj\Release\wowiebot.ConfigForm.resources
 D:\wowiebot\wowiebot\obj\Release\wowiebot.EditStringsForm.resources
 D:\wowiebot\wowiebot\obj\Release\wowiebot.CommandsHelpForm.resources
 D:\wowiebot\wowiebot\obj\Release\wowiebot.UpdateForm.resources
+D:\wowiebot\wowiebot\obj\Release\wowiebot.PeriodicMessagesForm.resources

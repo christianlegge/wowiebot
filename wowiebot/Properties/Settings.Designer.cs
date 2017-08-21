@@ -184,5 +184,17 @@ namespace wowiebot.Properties {
                 this["periodicMessagesDataTableJson"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int minimumMessagesBetweenPeriodic {
+            get {
+                return ((int)(this["minimumMessagesBetweenPeriodic"]));
+            }
+            set {
+                this["minimumMessagesBetweenPeriodic"] = value;
+            }
+        }
     }
 }

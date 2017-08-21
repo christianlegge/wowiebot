@@ -60,7 +60,6 @@ namespace wowiebot
             {
                 Properties.Settings.Default.prefix = prefixTextBox.Text;
                 Properties.Settings.Default.enableLinkTitles = linkCheckBox.Checked;
-                string test = JsonConvert.SerializeObject(dataGridView1.DataSource);
                 Properties.Settings.Default.commandsDataTableJson = JsonConvert.SerializeObject(dataGridView1.DataSource);
                 Properties.Settings.Default.quoteAddingMethod = quoteMethodDropDown.SelectedIndex;
                 Properties.Settings.Default.quoteVotersNumber = (int)quoteVotersNum.Value;
