@@ -79,11 +79,8 @@ namespace wowiebot
         {
             periodicMessageTimers = new Dictionary<System.Timers.Timer, string>();
             offsetTimers = new Dictionary<System.Timers.Timer, System.Timers.Timer>();
-            foreach (DataColumn col in periodicMessagesTable.Columns)
-            {
-                DataColumn x = col;
-            }
-            foreach (DataRow row in periodicMessagesTable.Rows)
+            DataRow[] periodicRows = periodicMessagesTable.Select("enabled = true");
+            foreach (DataRow row in periodicRows)
             {
                 System.Timers.Timer t = new System.Timers.Timer(row.Field<double>("Period") * 1000 * 60);
                 t.Elapsed += PeriodicMessageTimer_Elapsed;
