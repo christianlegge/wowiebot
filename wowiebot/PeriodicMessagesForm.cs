@@ -36,41 +36,10 @@ namespace wowiebot
         {
             if (Properties.Settings.Default.periodicMessagesDataTableJson == null || Properties.Settings.Default.periodicMessagesDataTableJson == "" || Properties.Settings.Default.periodicMessagesDataTableJson == "[]")
             {
-                loadDefaultPeriodicMessagesTable();
+                ((MainForm)ParentForm).loadDefaultPeriodicMessagesTable();
             }
             return JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.periodicMessagesDataTableJson);
 
-        }
-
-        public void loadDefaultPeriodicMessagesTable()
-        {
-            // return default table
-            DataTable table = new DataTable();
-            DataColumn enabled = new DataColumn("Enabled", typeof(bool));
-            DataColumn msg = new DataColumn("Message");
-            DataColumn period = new DataColumn("Period", typeof(double));
-            DataColumn offset = new DataColumn("Offset", typeof(double));
-
-            table.Columns.Add(enabled);
-            table.Columns.Add(msg);
-            table.Columns.Add(period);
-            table.Columns.Add(offset);
-            DataRow discordRow = table.NewRow();
-            DataRow twitterRow = table.NewRow();
-            discordRow.SetField<bool>(enabled, true);
-            discordRow.SetField<string>(msg, "Like this bot? You can get it for yourself! https://github.com/scatterclegge/wowiebot/releases");
-            discordRow.SetField<double>(period, 30);
-            discordRow.SetField<double>(offset, 0);
-            twitterRow.SetField<bool>(enabled, true);
-            twitterRow.SetField<string>(msg, "Be sure to leave a follow if you're enjoying the stream!");
-            twitterRow.SetField<double>(period, 30);
-            twitterRow.SetField<double>(offset, 15);
-            table.Rows.Add(discordRow);
-            table.Rows.Add(twitterRow);
-            String x = JsonConvert.SerializeObject(table);
-            Properties.Settings.Default.periodicMessagesDataTableJson = x;
-            Properties.Settings.Default.Save();
-            DataTable test = JsonConvert.DeserializeObject<DataTable>(x);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
