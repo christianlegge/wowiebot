@@ -110,6 +110,26 @@ namespace wowiebot
                 Properties.Settings.Default.periodicMessagesDataTableJson = x;
                 Properties.Settings.Default.Save();
             }
+
+            if (table.Columns[2].DataType == System.Type.GetType("System.Int64"))
+            {
+                DataColumn newPeriod = new DataColumn("New Period", typeof(double));
+                DataColumn newOffset = new DataColumn("New Offset", typeof(double));
+                table.Columns.Add(newPeriod);
+                table.Columns.Add(newOffset);
+                foreach (DataRow row in table.Rows)
+                {
+                    row.SetField<double>("New Period", Convert.ToDouble(row.Field<Int64>("Period")));
+                    row.SetField<double>("New Offset", Convert.ToDouble(row.Field<Int64>("Offset")));
+                }
+                table.Columns.Remove("Period");
+                table.Columns.Remove("Offset");
+                table.Columns[2].ColumnName = "Period";
+                table.Columns[3].ColumnName = "Offset";
+                String x = JsonConvert.SerializeObject(table);
+                Properties.Settings.Default.periodicMessagesDataTableJson = x;
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void validateEnabledColumnCommands(DataTable table)
@@ -295,7 +315,7 @@ namespace wowiebot
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message + e.StackTrace, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             if (retVal == 1)
             {

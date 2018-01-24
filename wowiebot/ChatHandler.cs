@@ -733,6 +733,17 @@ namespace wowiebot
         public static void disconnect()
         {
             willDisconnect = true;
+            foreach (KeyValuePair<System.Timers.Timer, System.Timers.Timer> timer in offsetTimers)
+            {
+                timer.Key.Enabled = false;
+                timer.Value.Enabled = false;
+            }
+            offsetTimers.Clear();
+            foreach (KeyValuePair<System.Timers.Timer,string> timer in periodicMessageTimers)
+            {
+                timer.Key.Enabled = false;
+            }
+            periodicMessageTimers.Clear();
         }
 
         private static void populateValidCommands()
