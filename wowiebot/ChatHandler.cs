@@ -85,11 +85,11 @@ namespace wowiebot
             }
             foreach (DataRow row in periodicMessagesTable.Rows)
             {
-                System.Timers.Timer t = new System.Timers.Timer(row.Field<long>("Period") * 1000 * 60);
+                System.Timers.Timer t = new System.Timers.Timer(row.Field<double>("Period") * 1000 * 60);
                 t.Elapsed += PeriodicMessageTimer_Elapsed;
-                if (row.Field<long>("Offset") > 0)
+                if (row.Field<double>("Offset") > 0)
                 {
-                    System.Timers.Timer offsetTimer = new System.Timers.Timer(row.Field<long>("Offset") * 1000 * 60);
+                    System.Timers.Timer offsetTimer = new System.Timers.Timer(row.Field<double>("Offset") * 1000 * 60);
                     offsetTimer.Elapsed += OffsetTimer_Elapsed;
                     offsetTimers.Add(offsetTimer, t);
                     offsetTimer.Start();
