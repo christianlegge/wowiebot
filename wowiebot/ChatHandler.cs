@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using org.mariuszgromada.math.mxparser;
 
 namespace wowiebot
 {
@@ -22,7 +23,6 @@ namespace wowiebot
         private static string botOauth;
         private static MainForm mainForm;
         private static NetworkStream stream;
-
         private static List<string> quotes;
         private static Dictionary<System.Timers.Timer, String> periodicMessageTimers;
         private static Dictionary<System.Timers.Timer, System.Timers.Timer> offsetTimers;
@@ -37,7 +37,7 @@ namespace wowiebot
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
-        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" });
+        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS" });
         private static DataTable commandsTable;
         private static DataTable periodicMessagesTable;
         private static String helpCommands;
@@ -434,6 +434,11 @@ namespace wowiebot
                         case "8BALL":
                             message = message.Replace("$8BALL", get8BallResponse());
                             break;
+                        case "CALCULATOR":
+                            Expression e = new Expression(commandArgs);
+                            string x = e.calculate().ToString();
+                            message = message.Replace("$CALCULATOR", x);
+                            break;
                         case "COMMANDS":
                             message = message.Replace("$COMMANDS", helpCommands);
                             break;
@@ -446,6 +451,13 @@ namespace wowiebot
             Byte[] say = Encoding.UTF8.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);
             mainForm.writeToServerOutputTextBox("<" + botNick + "> " + message + "\r\n");
+        }
+
+        private static void calculateAndSendResponse(string message, string commandArgs)
+        {
+            Expression e = new Expression(commandArgs);
+            string x = e.calculate().ToString();
+            sendMessage(message.Replace("$CALCULATOR", x));
         }
 
         private static void addQuote(string quote)
