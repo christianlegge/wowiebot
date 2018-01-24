@@ -37,7 +37,7 @@ namespace wowiebot
         private static List<string> validCommands = new List<string>();
         private static List<bool> displayCommandsInHelp = new List<bool>();
         private static string userID;
-        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" } );
+        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "COMMANDS" });
         private static DataTable commandsTable;
         private static DataTable periodicMessagesTable;
         private static String helpCommands;
@@ -45,7 +45,7 @@ namespace wowiebot
         private static bool senderIsMod;
         private static bool botIsMod;
         private static int messagesBetweenPeriodics = 0;
-        
+
         private static bool willDisconnect = false;
 
         public static int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
@@ -57,6 +57,11 @@ namespace wowiebot
 
             commandsTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.commandsDataTableJson);
             periodicMessagesTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.periodicMessagesDataTableJson);
+
+            if (periodicMessagesTable == null)
+            {
+                periodicMessagesTable = new DataTable();
+            }
 
             populateValidCommands();
 
@@ -80,11 +85,11 @@ namespace wowiebot
             }
             foreach (DataRow row in periodicMessagesTable.Rows)
             {
-                System.Timers.Timer t = new System.Timers.Timer(row.Field<long>("Period")*1000*60);
+                System.Timers.Timer t = new System.Timers.Timer(row.Field<long>("Period") * 1000 * 60);
                 t.Elapsed += PeriodicMessageTimer_Elapsed;
                 if (row.Field<long>("Offset") > 0)
                 {
-                    System.Timers.Timer offsetTimer = new System.Timers.Timer(row.Field<long>("Offset")*1000*60);
+                    System.Timers.Timer offsetTimer = new System.Timers.Timer(row.Field<long>("Offset") * 1000 * 60);
                     offsetTimer.Elapsed += OffsetTimer_Elapsed;
                     offsetTimers.Add(offsetTimer, t);
                     offsetTimer.Start();
@@ -139,13 +144,13 @@ namespace wowiebot
                 MessageBox.Show(e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 1;
             }
-            
+
 
             // Send the message to the connected TcpServer. 
 
             // string oauth = "5bdocznijbholgvt3o9u6t5ui6okjs";
 
-            string loginstring = "PASS oauth:" + botOauth + "\r\nNICK "+ botNick +"\r\n";
+            string loginstring = "PASS oauth:" + botOauth + "\r\nNICK " + botNick + "\r\n";
             string toShow = "PASS oauth:" + "*****" + "\r\nNICK " + botNick + "\r\n";
             sendToServer(loginstring);
             Console.WriteLine(toShow);
@@ -155,7 +160,7 @@ namespace wowiebot
             mainForm.writeToServerOutputTextBox(readFromServer() + "\r\n");
 
             // String to store the response ASCII representation.
-            
+
             // Requesting tags capability for more info
             string tagReqString = "CAP REQ :twitch.tv/tags\r\n";
             sendToServer(tagReqString);
@@ -173,7 +178,7 @@ namespace wowiebot
             // PMs the channel to announce that it's joined and listening
             // These three lines are the example for how to send something to the channel
 
-            string announcestring = channel + "!" + channel + "@" + channel +".tmi.twitch.tv PRIVMSG " + channel + " BOT ENABLED\r\n";
+            string announcestring = channel + "!" + channel + "@" + channel + ".tmi.twitch.tv PRIVMSG " + channel + " BOT ENABLED\r\n";
             sendToServer(announcestring);
 
             helpCommands = "";
@@ -190,7 +195,7 @@ namespace wowiebot
 
             while (!willDisconnect)
             {
-                
+
                 // build a buffer to read the incoming TCP stream to, convert to a string
 
                 byte[] myReadBuffer = new byte[1024];
@@ -209,22 +214,23 @@ namespace wowiebot
 
                     myCompleteMessage.AppendFormat("{0}", Encoding.UTF8.GetString(myReadBuffer, 0, numberOfBytesRead));
                 }
-                
+
                 // when we've received data, do Things
-                
+
                 while (stream.DataAvailable);
 
                 // Print out the received message to the console.
                 switch (myCompleteMessage.ToString())
                 {
                     // Every 5 minutes the Twitch server will send a PING, this is to respond with a PONG to keepalive
-                    
+
                     case "PING :tmi.twitch.tv\r\n":
-                        try { 
-                        Byte[] say = System.Text.Encoding.UTF8.GetBytes("PONG :tmi.twitch.tv\r\n");
-                        stream.Write(say, 0, say.Length);
-                        Console.WriteLine("Ping? Pong!");
-                        mainForm.writeToServerOutputTextBox("Ping? Pong!");
+                        try
+                        {
+                            Byte[] say = System.Text.Encoding.UTF8.GetBytes("PONG :tmi.twitch.tv\r\n");
+                            stream.Write(say, 0, say.Length);
+                            //Console.WriteLine("Ping? Pong!");
+                            //mainForm.writeToServerOutputTextBox("Ping? Pong!");
                         }
                         catch (Exception e)
                         {
@@ -232,15 +238,17 @@ namespace wowiebot
                             mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
                         }
                         break;
-                        
+
                     // If it's not a ping, it's probably something we care about.  Try to parse it for a message.
                     default:
                         try
                         {
                             string messageParser = myCompleteMessage.ToString();
-                            char[] spl = {':'};
-                            string[] message = messageParser.Split(spl, 3);
-                            string[] preamble = message[1].Split(' ');
+                            string chatMessage = messageParser.Substring(messageParser.LastIndexOf(":") + 1);
+                            messageParser = messageParser.Remove(messageParser.LastIndexOf(":"));
+                            string preambleFull = messageParser.Substring(messageParser.LastIndexOf(":") + 1);
+                            messageParser = messageParser.Remove(messageParser.LastIndexOf(":"));
+                            string[] preamble = preambleFull.Split(' ');
                             string tochat;
 
                             // This means it's a message to the channel.  Yes, PRIVMSG is IRC for messaging a channel too
@@ -248,8 +256,8 @@ namespace wowiebot
                             {
                                 string[] sendingUser = preamble[0].Split('!');
                                 sender = sendingUser[0];
-                                tochat = sender + ": " + message[2];
-                                senderIsMod = message[0].Contains("mod=1");
+                                tochat = sender + ": " + chatMessage;
+                                senderIsMod = messageParser.Contains("mod=1");
 
                                 if (sender != botNick)
                                 {
@@ -262,31 +270,31 @@ namespace wowiebot
                                     tochat = tochat + "\n";
                                 }
 
-                                if (message[2].StartsWith("\u0001ACTION"))
+                                if (chatMessage.StartsWith("\u0001ACTION"))
                                 {
-                                    message[2] = message[2].Replace("\u0001ACTION", "");
-                                    message[2] = message[2].Replace("\u0001", "");
-                                    mainForm.writeToServerOutputTextBox("* " + sender + " " + message[2]);
+                                    chatMessage = chatMessage.Replace("\u0001ACTION", "");
+                                    chatMessage = chatMessage.Replace("\u0001", "");
+                                    mainForm.writeToServerOutputTextBox("* " + sender + " " + chatMessage);
                                 }
                                 else
                                 {
-                                    mainForm.writeToServerOutputTextBox("<" + (sender == channel ? "~" : (senderIsMod ? "@" : "")) + sender + "> " + message[2]);
+                                    mainForm.writeToServerOutputTextBox("<" + (sender == channel ? "~" : (senderIsMod ? "@" : "")) + sender + "> " + chatMessage);
                                 }
 
-                                if (message[2].StartsWith(Properties.Settings.Default.prefix))
+                                if (chatMessage.StartsWith(Properties.Settings.Default.prefix))
                                 {
                                     string command;
-                                    if (message[2].Contains(" "))
-                                        command = message[2].Substring(1, message[2].IndexOf(" ") - 1);
+                                    if (chatMessage.Contains(" "))
+                                        command = chatMessage.Substring(1, chatMessage.IndexOf(" ") - 1);
                                     else
-                                        command = message[2].Substring(1, message[2].Length - 3);
+                                        command = chatMessage.Substring(1, chatMessage.Length - 3);
 
                                     command = command.ToLower();
 
                                     if (validCommands.Contains(command))
                                     {
                                         string msg = commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Message");
-                                        sendMessage(msg, message[2].Substring(message[2].IndexOf(" ") + 1));
+                                        sendMessage(msg, chatMessage.Substring(chatMessage.IndexOf(" ") + 1));
                                     }
 
                                     else if (command == "wowie" && botNick == "wowiebot")
@@ -298,7 +306,7 @@ namespace wowiebot
                                 if (Properties.Settings.Default.enableLinkTitles)
                                 {
                                     Regex regx = new Regex(@"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase);
-                                    MatchCollection mactches = regx.Matches(message[2]);
+                                    MatchCollection mactches = regx.Matches(chatMessage);
                                     foreach (Match match in mactches)
                                     {
                                         WebClient x = new WebClient();
@@ -323,15 +331,15 @@ namespace wowiebot
                                         }
                                     }
                                 }
-                                
+
                             }
                             // A user joined.
                             else if (preamble[1] == "JOIN")
                             {
                                 string[] sendingUser = preamble[0].Split('!');
                                 tochat = "JOINED: " + sendingUser[0];
-                            //    Console.WriteLine(tochat);
-                               // SendKeys.SendWait(tochat.TrimEnd('\n'));
+                                //    Console.WriteLine(tochat);
+                                // SendKeys.SendWait(tochat.TrimEnd('\n'));
                             }
                         }
                         // This is a disgusting catch for something going wrong that keeps it all running.  I'm sorry.
@@ -440,7 +448,7 @@ namespace wowiebot
 
             Byte[] say = Encoding.UTF8.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);
-            mainForm.writeToServerOutputTextBox("<" + botNick + "> " + message + "\r\n" );
+            mainForm.writeToServerOutputTextBox("<" + botNick + "> " + message + "\r\n");
         }
 
         private static void addQuote(string quote)
@@ -496,14 +504,14 @@ namespace wowiebot
             {
                 addingQuote = true;
                 quoteTimer.Start();
-                sendMessage((Properties.Settings.Default.quoteVotersNumber - 1).ToString() + 
+                sendMessage((Properties.Settings.Default.quoteVotersNumber - 1).ToString() +
                              " other " + (Properties.Settings.Default.quoteVotersNumber > 2 ? "people need" : "person needs") + " to agree by typing " +
-                             Properties.Settings.Default.prefix + 
-                             commandsTable.Select("Message LIKE '*$VOTEYES*'")[0].Field<string>("Command") + 
+                             Properties.Settings.Default.prefix +
+                             commandsTable.Select("Message LIKE '*$VOTEYES*'")[0].Field<string>("Command") +
                              " to add the quote! Ends in one minute.");
                 quoteAdders.Add(sender);
             }
-           
+
         }
 
         private static void voteYes()
