@@ -725,7 +725,7 @@ namespace wowiebot
         private static void populateValidCommands()
         {
 
-            DataRow[] commands = commandsTable.Select();
+            DataRow[] commands = commandsTable.Select("enabled = true");
             foreach (DataRow i in commands)
             {
                 validCommands.Add(i.Field<string>("Command"));

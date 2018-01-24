@@ -52,7 +52,7 @@ namespace wowiebot
             dcTimer.Interval = 1500;
             channelTextBox.Text = Properties.Settings.Default.prevChannel;
             serverOutTextBox.TextChanged += ServerOutTextBox_TextChanged;
-      
+
             if (Properties.Settings.Default.userCookie != "" && Properties.Settings.Default.oauthCookie != "")
             {
                 useWowieBox.Checked = false;
@@ -66,7 +66,7 @@ namespace wowiebot
             }
 
             loginPopoutButton.Enabled = !useWowieBox.Checked;
-            
+
             connectButton.Enabled = channelTextBox.TextLength >= 4;
 
             if (useWowieBox.Checked)
@@ -82,10 +82,12 @@ namespace wowiebot
         {
             // return default table
             DataTable table = new DataTable();
+            DataColumn enabled = new DataColumn("Enabled", typeof(bool));
             DataColumn cmd = new DataColumn("Command");
             DataColumn msg = new DataColumn("Message");
             DataColumn showInHelp = new DataColumn("Show in commands list", typeof(bool));
-            
+
+            table.Columns.Add(enabled);
             table.Columns.Add(cmd);
             table.Columns.Add(msg);
             table.Columns.Add(showInHelp);
@@ -97,27 +99,36 @@ namespace wowiebot
             DataRow discordRow = table.NewRow();
             DataRow eightBallRow = table.NewRow();
             DataRow helpRow = table.NewRow();
+
+            quoteRow.SetField<bool>(enabled, true);
             quoteRow.SetField<string>(cmd, "quote");
             quoteRow.SetField<string>(msg, "[$QNUM]: $QUOTE");
             quoteRow.SetField<bool>(showInHelp, true);
+            addquoteRow.SetField<bool>(enabled, true);
             addquoteRow.SetField<string>(cmd, "addquote");
             addquoteRow.SetField<string>(msg, "$ADDQUOTE");
             addquoteRow.SetField<bool>(showInHelp, true);
+            voteyesRow.SetField<bool>(enabled, true);
             voteyesRow.SetField<string>(cmd, "yes");
             voteyesRow.SetField<string>(msg, "$VOTEYES");
             voteyesRow.SetField<bool>(showInHelp, false);
+            titleRow.SetField<bool>(enabled, true);
             titleRow.SetField<string>(cmd, "title");
             titleRow.SetField<string>(msg, "$BROADCASTER is playing $GAME: \"$TITLE\"");
             titleRow.SetField<bool>(showInHelp, true);
+            uptimeRow.SetField<bool>(enabled, true);
             uptimeRow.SetField<string>(cmd, "uptime");
             uptimeRow.SetField<string>(msg, "$BROADCASTER has been live for $UPHOURS hours and $UPMINUTES minutes.");
             uptimeRow.SetField<bool>(showInHelp, true);
+            discordRow.SetField<bool>(enabled, true);
             discordRow.SetField<string>(cmd, "discord");
             discordRow.SetField<string>(msg, "Join my discord server! http://discord.gg/XXXXXX");
             discordRow.SetField<bool>(showInHelp, true);
+            eightBallRow.SetField<bool>(enabled, true);
             eightBallRow.SetField<string>(cmd, "8ball");
             eightBallRow.SetField<string>(msg, "$8BALL");
             eightBallRow.SetField<bool>(showInHelp, true);
+            helpRow.SetField<bool>(enabled, true);
             helpRow.SetField<string>(cmd, "help");
             helpRow.SetField<string>(msg, "Use me in the following ways: $COMMANDS");
             helpRow.SetField<bool>(showInHelp, false);
@@ -165,9 +176,9 @@ namespace wowiebot
                 writeToServerOutputTextBox("Starting connection.\r\n\r\n");
                 connecting = true;
                 Task connectTask = new Task(new Action(connectTask_fn));
-                
+
                 connectTask.Start();
-                
+
                 connected = true;
                 loginPopoutButton.Enabled = false;
                 channelTextBox.Enabled = false;
@@ -177,7 +188,7 @@ namespace wowiebot
                 updateButton.Enabled = false;
                 Properties.Settings.Default.prevChannel = channelTextBox.Text;
                 Properties.Settings.Default.Save();
-                
+
             }
             else
             {
@@ -191,7 +202,7 @@ namespace wowiebot
 
         private void connectTask_fn()
         {
-            
+
             int retVal = 999;
             try
             {
@@ -304,7 +315,7 @@ namespace wowiebot
 
         private void updateButton_Click(object sender, EventArgs e)
         {
-           if (MessageBox.Show("There is an update to wowiebot!\n\nLatest version: " + latestVersion + "\nThis version: " + thisVersion + "\n\nUpdate? (Will restart automatically.)", "Update!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("There is an update to wowiebot!\n\nLatest version: " + latestVersion + "\nThis version: " + thisVersion + "\n\nUpdate? (Will restart automatically.)", "Update!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 JObject exeJson = releaseJson["assets"].Values<JObject>()
                               .Where(m => m["name"].Value<string>() == "wowiebot.exe")
