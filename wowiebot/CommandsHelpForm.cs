@@ -28,6 +28,7 @@ $TITLE: The current title of the broadcaster's stream
 $UPHOURS: Whole number of hours the broadcaster has been live
 $UPMINUTES: Whole number of minutes the broadcaster has been live
 $8BALL: A random choice from the 8-Ball Choices
+$CALCULATOR: Evaluates a mathematical expression
 $COMMANDS: A list of all commands with ""Show in commands list"" checked
 
 These variables don't get replaced by things, but change the command to do something else.
