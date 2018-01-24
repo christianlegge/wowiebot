@@ -252,7 +252,7 @@ namespace wowiebot
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "Exception thrown", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             if (retVal == 1)
             {

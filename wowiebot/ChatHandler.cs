@@ -539,11 +539,7 @@ namespace wowiebot
             if (!quoteAdders.Contains(sender))
             {
                 quoteAdders.Add(sender);
-                if (quoteAdders.Count < Properties.Settings.Default.quoteVotersNumber)
-                {
-                    sendMessage((Properties.Settings.Default.quoteVotersNumber - quoteAdders.Count).ToString() + " more!");
-                }
-                else if (quoteAdders.Count == Properties.Settings.Default.quoteVotersNumber)
+                if (quoteAdders.Count == Properties.Settings.Default.quoteVotersNumber)
                 {
                     wowiebot.Properties.Settings.Default.quotes.Add(quoteToAdd);
                     wowiebot.Properties.Settings.Default.Save();
