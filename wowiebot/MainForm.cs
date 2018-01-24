@@ -60,15 +60,30 @@ namespace wowiebot
                 loggedInOauth = Properties.Settings.Default.oauthCookie;
                 updateConnectButton();
             }
+
+            DataTable commandsDataTable;
             if (Properties.Settings.Default.commandsDataTableJson == null || Properties.Settings.Default.commandsDataTableJson == "" || Properties.Settings.Default.commandsDataTableJson == "[]")
             {
-                loadDefaultCommandsTable();
+                commandsDataTable = loadDefaultCommandsTable();
+            }
+            else
+            {
+                commandsDataTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.commandsDataTableJson);
             }
 
+            validateEnabledColumnCommands(commandsDataTable);
+
+            DataTable periodicDataTable;
             if (Properties.Settings.Default.periodicMessagesDataTableJson == null || Properties.Settings.Default.periodicMessagesDataTableJson == "" || Properties.Settings.Default.periodicMessagesDataTableJson == "[]")
             {
-                loadDefaultPeriodicMessagesTable();
+                periodicDataTable = loadDefaultPeriodicMessagesTable();
             }
+            else
+            {
+                periodicDataTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.periodicMessagesDataTableJson);
+            }
+
+            validateEnabledColumnPeriodic(periodicDataTable);
 
             loginPopoutButton.Enabled = !useWowieBox.Checked;
 
@@ -83,7 +98,35 @@ namespace wowiebot
             }
         }
 
-        public void loadDefaultCommandsTable()
+        private void validateEnabledColumnPeriodic(DataTable table)
+        {
+            if (table.Columns[0].ColumnName != "Enabled")
+            {
+                DataColumn enabled = new DataColumn("Enabled", typeof(bool));
+                enabled.DefaultValue = true;
+                table.Columns.Add(enabled);
+                enabled.SetOrdinal(0);
+                String x = JsonConvert.SerializeObject(table);
+                Properties.Settings.Default.periodicMessagesDataTableJson = x;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void validateEnabledColumnCommands(DataTable table)
+        {
+            if (table.Columns[0].ColumnName != "Enabled")
+            {
+                DataColumn enabled = new DataColumn("Enabled", typeof(bool));
+                enabled.DefaultValue = true;
+                table.Columns.Add(enabled);
+                enabled.SetOrdinal(0);
+                String x = JsonConvert.SerializeObject(table);
+                Properties.Settings.Default.commandsDataTableJson = x;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public DataTable loadDefaultCommandsTable()
         {
             // return default table
             DataTable table = new DataTable();
@@ -137,7 +180,7 @@ namespace wowiebot
             calculatorRow.SetField<bool>(enabled, true);
             calculatorRow.SetField<string>(cmd, "calc");
             calculatorRow.SetField<string>(msg, "Answer: $CALCULATOR");
-            calculatorRow.SetField<bool>(showInHelp, false);
+            calculatorRow.SetField<bool>(showInHelp, true);
             helpRow.SetField<bool>(enabled, true);
             helpRow.SetField<string>(cmd, "help");
             helpRow.SetField<string>(msg, "Use me in the following ways: $COMMANDS");
@@ -154,10 +197,10 @@ namespace wowiebot
             String x = JsonConvert.SerializeObject(table);
             Properties.Settings.Default.commandsDataTableJson = x;
             Properties.Settings.Default.Save();
-            DataTable test = JsonConvert.DeserializeObject<DataTable>(x);
+            return table;
         }
 
-        public void loadDefaultPeriodicMessagesTable()
+        public DataTable loadDefaultPeriodicMessagesTable()
         {
             // return default table
             DataTable table = new DataTable();
@@ -185,7 +228,7 @@ namespace wowiebot
             String x = JsonConvert.SerializeObject(table);
             Properties.Settings.Default.periodicMessagesDataTableJson = x;
             Properties.Settings.Default.Save();
-            DataTable test = JsonConvert.DeserializeObject<DataTable>(x);
+            return table;
         }
 
         private void ServerOutTextBox_TextChanged(object sender, EventArgs e)
