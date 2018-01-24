@@ -215,7 +215,7 @@ namespace wowiebot
         {
             if (!connected)
             {
-                writeToServerOutputTextBox("Starting connection.\r\n\r\n");
+                writeToServerOutputTextBox("Starting connection...\r\n\r\n");
                 connecting = true;
                 Task connectTask = new Task(new Action(connectTask_fn));
 
@@ -267,7 +267,7 @@ namespace wowiebot
                     updateButton.Enabled = true;
                     updateConnectButton();
                 });
-
+                writeToServerOutputTextBox("Connection failed.\r\n\r\n");
             }
         }
 
@@ -342,7 +342,15 @@ namespace wowiebot
 
             Stream apiStream;
 
-            apiStream = apiRequest.GetResponse().GetResponseStream();
+            try
+            {
+                apiStream = apiRequest.GetResponse().GetResponseStream();
+            }
+            catch (Exception e)
+            {
+                updateButton.Visible = false;
+                return;
+            }
             StreamReader apiReader = new StreamReader(apiStream);
             string jsonData = apiReader.ReadToEnd();
             releaseJson = JObject.Parse(jsonData);

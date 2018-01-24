@@ -69,10 +69,19 @@ namespace wowiebot
 
             if (validCommands.Contains("title") || validCommands.Contains("uptime"))
             {
-                getUserIDFromAPI();
+                try
+                {
+                    getUserIDFromAPI();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + e.StackTrace, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 1;
+                }
             }
 
             return runBot();
+
         }
 
         private static void createPeriodicMessagesTimers()
@@ -137,8 +146,7 @@ namespace wowiebot
             }
             catch (Exception e)
             {
-                mainForm.writeToServerOutputTextBox("Connection error.\r\n");
-                MessageBox.Show(e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message + e.StackTrace, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 1;
             }
 
