@@ -237,7 +237,7 @@ namespace wowiebot
                 ChatHandler.disconnect();
                 connected = false;
                 connectButton.Enabled = false;
-                writeToServerOutputTextBox("\r\nDisconnected.\r\n\r\n");
+                writeToServerOutputTextBox("Disconnected.\r\n\r\n");
                 dcTimer.Start();
             }
         }
