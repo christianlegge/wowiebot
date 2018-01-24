@@ -22,10 +22,11 @@ namespace wowiebot
             periodicMessagesDataTable = getDataTableFromSettings();
 
             dataGridView1.DataSource = periodicMessagesDataTable;
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[0].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             minimumMessagesNum.Value = Properties.Settings.Default.minimumMessagesBetweenPeriodic;
