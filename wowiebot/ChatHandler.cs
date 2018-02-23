@@ -51,7 +51,7 @@ namespace wowiebot
         public static int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
         {
             mainForm = pMainForm;
-            channel = pChannel;
+            channel = pChannel.ToLower();
             botNick = pNick;
             botOauth = pOauth;
 

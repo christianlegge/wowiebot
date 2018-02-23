@@ -18,7 +18,7 @@ namespace wowiebot
 
     public partial class MainForm : Form
     {
-        private const string thisVersion = "v2.3.2";
+        private const string thisVersion = "v2.3.3";
         private string latestVersion;
         private JObject releaseJson;
 
