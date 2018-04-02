@@ -45,6 +45,7 @@ namespace wowiebot
         private static bool senderIsMod;
         private static bool botIsMod;
         private static int messagesBetweenPeriodics = 0;
+        private static StreamReader streamReader;
 
         private static bool willDisconnect = false;
 
@@ -150,6 +151,7 @@ namespace wowiebot
                 return 1;
             }
 
+            streamReader = new StreamReader(stream, Encoding.UTF8);
 
             // Send the message to the connected TcpServer. 
 
@@ -203,26 +205,7 @@ namespace wowiebot
 
                 // build a buffer to read the incoming TCP stream to, convert to a string
 
-                byte[] myReadBuffer = new byte[1024];
-                StringBuilder myCompleteMessage = new StringBuilder();
-                int numberOfBytesRead = 0;
-
-                // Incoming message may be larger than the buffer size.
-                do
-                {
-                    try { numberOfBytesRead = stream.Read(myReadBuffer, 0, myReadBuffer.Length); }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("OH SHIT SOMETHING WENT WRONG\r\n", e);
-                        mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
-                    }
-
-                    myCompleteMessage.AppendFormat("{0}", Encoding.UTF8.GetString(myReadBuffer, 0, numberOfBytesRead));
-                }
-
-                // when we've received data, do Things
-
-                while (stream.DataAvailable);
+                ChatMessage myCompleteMessage = receiveMessage();
 
                 // Print out the received message to the console.
                 switch (myCompleteMessage.ToString())
@@ -292,7 +275,7 @@ namespace wowiebot
                                     if (chatMessage.Contains(" "))
                                         command = chatMessage.Substring(1, chatMessage.IndexOf(" ") - 1);
                                     else
-                                        command = chatMessage.Substring(1, chatMessage.Length - 3);
+                                        command = chatMessage.Substring(1, chatMessage.Length - 1);
 
                                     command = command.ToLower();
 
@@ -368,6 +351,11 @@ namespace wowiebot
             stream.Close();
             client.Close();
             return 0;
+        }
+
+        private static ChatMessage receiveMessage()
+        {
+            return new ChatMessage(streamReader.ReadLine());
         }
 
         private static void QuoteTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -489,7 +477,6 @@ namespace wowiebot
             }
 
             quoteToAdd = quote;
-            quoteToAdd = quoteToAdd.Remove(quoteToAdd.Length - 2);
 
             if (Properties.Settings.Default.quoteAddingMethod == 0)
             {

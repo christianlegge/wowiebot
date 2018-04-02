@@ -18,7 +18,7 @@ namespace wowiebot
         {
             SetBrowserFeatureControl();
             InitializeComponent();
-            webBrowser1.Navigate("http://www.youtube.com/embed/0vWeFdRALJk");
+            webBrowser1.Navigate("http://www.youtube.com/embed/7lEOJUnJyk8");
         }
 
         private void SetBrowserFeatureControl()

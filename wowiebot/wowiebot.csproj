@@ -60,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatMessage.cs" />
+    <Compile Include="ChatMessageJoin.cs" />
+    <Compile Include="ChatMessagePrivmsg.cs" />
     <Compile Include="CommandsHelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
