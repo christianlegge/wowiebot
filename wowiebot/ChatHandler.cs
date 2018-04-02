@@ -17,39 +17,50 @@ namespace wowiebot
 {
     class ChatHandler
     {
-        private static byte[] data = new byte[512];
-        private static string channel;
-        private static string botNick;
-        private static string botOauth;
-        private static MainForm mainForm;
-        private static NetworkStream stream;
-        private static List<string> quotes;
-        private static Dictionary<System.Timers.Timer, String> periodicMessageTimers;
-        private static Dictionary<System.Timers.Timer, System.Timers.Timer> offsetTimers;
-        private static Random rnd = new Random();
-        private static int lastQuote = -1;
-        private static int lastChoice = -1;
-        private static bool addingQuote = false;
-        private static List<string> quoteAdders = new List<string>();
-        private static string quoteToAdd;
-        private static System.Timers.Timer quoteTimer = new System.Timers.Timer(60000);
-        private static List<string> eightBallChoices;
-        private static List<string> validCommands = new List<string>();
-        private static List<bool> displayCommandsInHelp = new List<bool>();
-        private static string userID;
-        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS" });
-        private static DataTable commandsTable;
-        private static DataTable periodicMessagesTable;
-        private static String helpCommands;
-        private static String sender;
-        private static bool senderIsMod;
-        private static bool botIsMod;
-        private static int messagesBetweenPeriodics = 0;
-        private static StreamReader streamReader;
+        private static ChatHandler instance = new ChatHandler();
+        public static ChatHandler getInstance()
+        {
+            return instance;
+        }
 
-        private static bool willDisconnect = false;
+        private byte[] data = new byte[512];
+        private string channel;
+        private string botNick;
+        private string botOauth;
+        private MainForm mainForm;
+        private NetworkStream stream;
+        private List<string> quotes;
+        private Dictionary<System.Timers.Timer, String> periodicMessageTimers;
+        private Dictionary<System.Timers.Timer, System.Timers.Timer> offsetTimers;
+        private Random rnd = new Random();
+        private int lastQuote = -1;
+        private int lastChoice = -1;
+        private bool addingQuote = false;
+        private List<string> quoteAdders = new List<string>();
+        private string quoteToAdd;
+        private System.Timers.Timer quoteTimer = new System.Timers.Timer(60000);
+        private List<string> eightBallChoices;
+        public List<string> validCommands = new List<string>();
+        private List<bool> displayCommandsInHelp = new List<bool>();
+        private string userID;
+        private List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS" });
+        public DataTable commandsTable;
+        private DataTable periodicMessagesTable;
+        private String helpCommands;
+        private String sender;
+        private bool senderIsMod;
+        private bool botIsMod;
+        public int messagesBetweenPeriodics = 0;
+        private StreamReader streamReader;
 
-        public static int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
+        private bool willDisconnect = false;
+
+        public void writeLineToFormBox(string msg)
+        {
+            mainForm.writeToServerOutputTextBox(msg + "\r\n");
+        }
+
+        public int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
         {
             mainForm = pMainForm;
             channel = pChannel.ToLower();
@@ -85,7 +96,7 @@ namespace wowiebot
 
         }
 
-        private static void createPeriodicMessagesTimers()
+        private void createPeriodicMessagesTimers()
         {
             periodicMessageTimers = new Dictionary<System.Timers.Timer, string>();
             offsetTimers = new Dictionary<System.Timers.Timer, System.Timers.Timer>();
@@ -109,7 +120,7 @@ namespace wowiebot
             }
         }
 
-        private static void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
             {
@@ -120,7 +131,7 @@ namespace wowiebot
             ((System.Timers.Timer)sender).Stop();
         }
 
-        private static void PeriodicMessageTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void PeriodicMessageTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
             {
@@ -131,7 +142,7 @@ namespace wowiebot
 
 
 
-        public static int runBot()
+        public int runBot()
         {
             TcpClient client;
             try
@@ -202,147 +213,8 @@ namespace wowiebot
 
             while (!willDisconnect)
             {
-
-                // build a buffer to read the incoming TCP stream to, convert to a string
-
-                ChatMessage myCompleteMessage = receiveMessage();
-
-                // Print out the received message to the console.
-                switch (myCompleteMessage.ToString())
-                {
-                    // Every 5 minutes the Twitch server will send a PING, this is to respond with a PONG to keepalive
-
-                    case "PING :tmi.twitch.tv\r\n":
-                        try
-                        {
-                            Byte[] say = System.Text.Encoding.UTF8.GetBytes("PONG :tmi.twitch.tv\r\n");
-                            stream.Write(say, 0, say.Length);
-                            //Console.WriteLine("Ping? Pong!");
-                            //mainForm.writeToServerOutputTextBox("Ping? Pong!");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("OH SHIT SOMETHING WENT WRONG\r\n", e);
-                            mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
-                        }
-                        break;
-
-                    // If it's not a ping, it's probably something we care about.  Try to parse it for a message.
-                    default:
-                        try
-                        {
-                            string messageParser = myCompleteMessage.ToString();
-                            string chatMessage = messageParser.Substring(messageParser.LastIndexOf(":") + 1);
-                            messageParser = messageParser.Remove(messageParser.LastIndexOf(":"));
-                            string preambleFull = messageParser.Substring(messageParser.LastIndexOf(":") + 1);
-                            messageParser = messageParser.Remove(messageParser.LastIndexOf(":"));
-                            string[] preamble = preambleFull.Split(' ');
-                            string tochat;
-
-                            // This means it's a message to the channel.  Yes, PRIVMSG is IRC for messaging a channel too
-                            if (preamble[1] == "PRIVMSG")
-                            {
-                                string[] sendingUser = preamble[0].Split('!');
-                                sender = sendingUser[0];
-                                tochat = sender + ": " + chatMessage;
-                                senderIsMod = messageParser.Contains("mod=1");
-
-                                if (sender != botNick)
-                                {
-                                    messagesBetweenPeriodics++;
-                                }
-
-                                // sometimes the carriage returns get lost (??)
-                                if (tochat.Contains("\n") == false)
-                                {
-                                    tochat = tochat + "\n";
-                                }
-
-                                if (chatMessage.StartsWith("\u0001ACTION"))
-                                {
-                                    chatMessage = chatMessage.Replace("\u0001ACTION", "");
-                                    chatMessage = chatMessage.Replace("\u0001", "");
-                                    mainForm.writeToServerOutputTextBox("* " + sender + " " + chatMessage);
-                                }
-                                else
-                                {
-                                    mainForm.writeToServerOutputTextBox("<" + (sender == channel ? "~" : (senderIsMod ? "@" : "")) + sender + "> " + chatMessage);
-                                }
-
-                                if (chatMessage.StartsWith(Properties.Settings.Default.prefix))
-                                {
-                                    string command;
-                                    if (chatMessage.Contains(" "))
-                                        command = chatMessage.Substring(1, chatMessage.IndexOf(" ") - 1);
-                                    else
-                                        command = chatMessage.Substring(1, chatMessage.Length - 1);
-
-                                    command = command.ToLower();
-
-                                    if (validCommands.Contains(command))
-                                    {
-                                        string msg = commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Message");
-                                        sendMessage(msg, chatMessage.Substring(chatMessage.IndexOf(" ") + 1));
-                                    }
-
-                                    else if (command == "wowie" && botNick == "wowiebot")
-                                    {
-                                        sendMessage("wowie");
-                                    }
-                                }
-
-                                if (Properties.Settings.Default.enableLinkTitles)
-                                {
-                                    Regex regx = new Regex(@"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase);
-                                    MatchCollection mactches = regx.Matches(chatMessage);
-                                    foreach (Match match in mactches)
-                                    {
-                                        WebClient x = new WebClient();
-                                        string source;
-                                        //WebRequest req = WebRequest.Create(match.Value);
-                                        try
-                                        {
-                                            x.Headers.Add("Accept-Language", " en-US");
-                                            x.Headers.Add("Accept", " text/html, application/xhtml+xml, */*");
-                                            x.Headers.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)");
-                                            source = HttpUtility.HtmlDecode(x.DownloadString(match.Value));
-                                        }
-                                        catch
-                                        {
-                                            continue;
-                                        }
-                                        string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-                                        title = Regex.Replace(title, @"[^\u0000-\u007F]+", string.Empty);
-                                        if (title != null && title != "")
-                                        {
-                                            sendMessage(sender + " posted: " + title);
-                                        }
-                                    }
-                                }
-
-                            }
-                            // A user joined.
-                            else if (preamble[1] == "JOIN")
-                            {
-                                string[] sendingUser = preamble[0].Split('!');
-                                tochat = "JOINED: " + sendingUser[0];
-                                //    Console.WriteLine(tochat);
-                                // SendKeys.SendWait(tochat.TrimEnd('\n'));
-                            }
-                        }
-                        // This is a disgusting catch for something going wrong that keeps it all running.  I'm sorry.
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("OH SHIT SOMETHING WENT WRONG\r\n", e);
-                            mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
-                        }
-
-                        // Uncomment the following for raw message output for debugging
-                        //
-                        // Console.WriteLine("Raw output: " + message[0] + "::" + message[1] + "::" + message[2]);
-                        // Console.WriteLine("You received the following message : " + myCompleteMessage);
-                        break;
-                }
+                ChatMessage msg = receiveMessage();
+                msg.handleMessage();
             }
 
             addingQuote = false;
@@ -353,12 +225,75 @@ namespace wowiebot
             return 0;
         }
 
-        private static ChatMessage receiveMessage()
+        public void sendPong()
         {
-            return new ChatMessage(streamReader.ReadLine());
+            try
+            {
+                Byte[] say = System.Text.Encoding.UTF8.GetBytes("PONG :tmi.twitch.tv\r\n");
+                stream.Write(say, 0, say.Length);
+                //Console.WriteLine("Ping? Pong!");
+                //mainForm.writeToServerOutputTextBox("Ping? Pong!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("OH SHIT SOMETHING WENT WRONG\r\n", e);
+                mainForm.writeToServerOutputTextBox("OH SHIT SOMETHING WENT WRONG\r\n");
+            }
         }
 
-        private static void QuoteTimer_Elapsed(object sender, ElapsedEventArgs e)
+        public void printLinkTitles(string chatMessage)
+        {
+            Regex regx = new Regex(@"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase);
+            MatchCollection mactches = regx.Matches(chatMessage);
+            foreach (Match match in mactches)
+            {
+                WebClient x = new WebClient();
+                string source;
+                //WebRequest req = WebRequest.Create(match.Value);
+                try
+                {
+                    x.Headers.Add("Accept-Language", " en-US");
+                    x.Headers.Add("Accept", " text/html, application/xhtml+xml, */*");
+                    x.Headers.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)");
+                    source = HttpUtility.HtmlDecode(x.DownloadString(match.Value));
+                }
+                catch
+                {
+                    continue;
+                }
+                string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                title = Regex.Replace(title, @"[^\u0000-\u007F]+", string.Empty);
+                if (title != null && title != "")
+                {
+                    sendMessage(sender + " posted: " + title);
+                }
+            }
+        }
+
+        private ChatMessage receiveMessage()
+        {
+            string rawMessage = streamReader.ReadLine();
+            Regex privmsgRegex = new Regex("");
+
+            ChatMessage chatMessage;
+
+            if (rawMessage.Equals("PING :tmi.twitch.tv"))
+            {
+                chatMessage = new ChatMessagePing(rawMessage);
+            }
+            else if (rawMessage.Contains("PRIVMSG"))
+            {
+                chatMessage = new ChatMessagePrivmsg(rawMessage);
+            }
+            else
+            {
+                chatMessage = new ChatMessage(rawMessage);
+            }
+
+            return chatMessage;
+        }
+
+        private void QuoteTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             sendMessage("Time's up. I guess no one thought that quote was funny.");
             quoteAdders.Clear();
@@ -366,12 +301,12 @@ namespace wowiebot
             quoteTimer.Stop();
         }
 
-        private static void sendMessage(string message)
+        public void sendMessage(string message)
         {
             sendMessage(message, "");
         }
 
-        private static void sendMessage(string message, string commandArgs)
+        public void sendMessage(string message, string commandArgs)
         {
             TimeSpan uptime = new TimeSpan(0);
             JObject broadcastData = null;
@@ -449,14 +384,14 @@ namespace wowiebot
             mainForm.writeToServerOutputTextBox("<" + botNick + "> " + message + "\r\n");
         }
 
-        private static void calculateAndSendResponse(string message, string commandArgs)
+        private void calculateAndSendResponse(string message, string commandArgs)
         {
             Expression e = new Expression(commandArgs);
             string x = e.calculate().ToString();
             sendMessage(message.Replace("$CALCULATOR", x));
         }
 
-        private static void addQuote(string quote)
+        private void addQuote(string quote)
         {
             if (Properties.Settings.Default.quotes == null)
             {
@@ -518,7 +453,7 @@ namespace wowiebot
 
         }
 
-        private static void voteYes()
+        private void voteYes()
         {
             if (!addingQuote)
                 return;
@@ -550,12 +485,22 @@ namespace wowiebot
 
         }
 
-        private static List<String> getMods(string pChannel)
+        public string getBotNick()
+        {
+            return botNick;
+        }
+
+        public string getChannel()
+        {
+            return channel;
+        }
+
+        private List<String> getMods(string pChannel)
         {
             return null;
         }
 
-        private static String get8BallResponse()
+        private String get8BallResponse()
         {
             if (Properties.Settings.Default.choices8Ball == null)
             {
@@ -580,8 +525,8 @@ namespace wowiebot
             lastChoice = p;
             return eightBallChoices[p];
         }
-
-        private static TimeSpan getUptime()
+        
+        private TimeSpan getUptime()
         {
             HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/streams/" + userID);
             apiRequest.Accept = "application/vnd.twitchtv.v5+json";
@@ -617,7 +562,7 @@ namespace wowiebot
 
         }
 
-        private static String getQuote()
+        private String getQuote()
         {
             if (Properties.Settings.Default.quotes == null)
             {
@@ -644,7 +589,7 @@ namespace wowiebot
             return quotes[q];
         }
 
-        private static JObject getBroadcastDataFromAPI()
+        private JObject getBroadcastDataFromAPI()
         {
             HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/channels/" + userID);
             apiRequest.Accept = "application/vnd.twitchtv.v5+json";
@@ -669,7 +614,7 @@ namespace wowiebot
             sendMessage(channel + " is streaming " + parsed.Property("game").Value.ToString() + ": \"" + parsed.Property("status").Value.ToString() + "\"");
         }
 
-        private static String getQuote(int i)
+        private String getQuote(int i)
         {
             if (Properties.Settings.Default.quotes == null)
             {
@@ -693,7 +638,7 @@ namespace wowiebot
             }
         }
 
-        private static void getUserIDFromAPI()
+        private void getUserIDFromAPI()
         {
             HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/users?login=" + channel);
             apiRequest.Accept = "application/vnd.twitchtv.v5+json";
@@ -717,7 +662,7 @@ namespace wowiebot
             userID = userParsed.GetValue("_id").ToString();
         }
 
-        public static void disconnect()
+        public void disconnect()
         {
             willDisconnect = true;
             foreach (KeyValuePair<System.Timers.Timer, System.Timers.Timer> timer in offsetTimers)
@@ -733,7 +678,7 @@ namespace wowiebot
             periodicMessageTimers.Clear();
         }
 
-        private static void populateValidCommands()
+        private void populateValidCommands()
         {
 
             DataRow[] commands = commandsTable.Select("enabled = true");
@@ -746,13 +691,13 @@ namespace wowiebot
             return;
         }
 
-        private static void sendToServer(string strToSend)
+        private void sendToServer(string strToSend)
         {
             Byte[] bytesToSend = System.Text.Encoding.UTF8.GetBytes(strToSend);
             stream.Write(bytesToSend, 0, bytesToSend.Length);
         }
 
-        private static string readFromServer()
+        private string readFromServer()
         {
             String responseData = String.Empty;
 

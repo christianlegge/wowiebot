@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatMessage.cs" />
-    <Compile Include="ChatMessageJoin.cs" />
+    <Compile Include="ChatMessagePing.cs" />
     <Compile Include="ChatMessagePrivmsg.cs" />
     <Compile Include="CommandsHelpForm.cs">
       <SubType>Form</SubType>
@@ -85,6 +85,7 @@
     <Compile Include="PeriodicMessagesForm.Designer.cs">
       <DependentUpon>PeriodicMessagesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuoteHandler.cs" />
     <Compile Include="SongRequest.cs" />
     <Compile Include="SongRequestQueue.cs" />
     <Compile Include="UpdateForm.cs">

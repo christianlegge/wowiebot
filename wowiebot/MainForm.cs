@@ -299,7 +299,7 @@ namespace wowiebot
             }
             else
             {
-                ChatHandler.disconnect();
+                ChatHandler.getInstance().disconnect();
                 connected = false;
                 connectButton.Enabled = false;
                 writeToServerOutputTextBox("Disconnected.\r\n\r\n");
@@ -313,7 +313,7 @@ namespace wowiebot
             int retVal = 999;
             try
             {
-                retVal = ChatHandler.start(this, channelTextBox.Text, loggedInUser, loggedInOauth);
+                retVal = ChatHandler.getInstance().start(this, channelTextBox.Text, loggedInUser, loggedInOauth);
             }
             catch (Exception e)
             {
