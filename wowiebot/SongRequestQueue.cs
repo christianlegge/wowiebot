@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace wowiebot
 {
-    class SongRequestQueue
+    public class SongRequestQueue
     {
-        
+        private Queue<SongRequest> queue;
+
+        public SongRequestQueue()
+        {
+            queue = new Queue<SongRequest>();
+        }
+
+        public void queueSong(SongRequest sr)
+        {
+            queue.Enqueue(sr);
+        }
     }
 }
