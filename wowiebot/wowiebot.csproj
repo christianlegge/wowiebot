@@ -38,9 +38,11 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MathParser.org-mXparser.Net452, Version=4.1.1.0, Culture=neutral, PublicKeyToken=0fbab7add73ed6e2, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathParser.org-mXparser.4.1.1\lib\net452\MathParser.org-mXparser.Net452.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -76,6 +78,8 @@
     <Compile Include="PeriodicMessagesForm.Designer.cs">
       <DependentUpon>PeriodicMessagesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SongRequest.cs" />
+    <Compile Include="SongRequestQueue.cs" />
     <Compile Include="UpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +107,12 @@
       <DependentUpon>EditStringsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WowiebotApplication.cs" />
+    <Compile Include="YoutubeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YoutubeForm.Designer.cs">
+      <DependentUpon>YoutubeForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CommandsHelpForm.resx">
       <DependentUpon>CommandsHelpForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +144,9 @@
     <EmbeddedResource Include="EditStringsForm.resx">
       <DependentUpon>EditStringsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="YoutubeForm.resx">
+      <DependentUpon>YoutubeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -155,12 +168,12 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\packages\Fody.1.28.3\build\Fody.targets')" />
+  <Import Project="..\packages\Fody.3.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.1.28.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.28.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.3.0.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.0.0\build\Fody.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

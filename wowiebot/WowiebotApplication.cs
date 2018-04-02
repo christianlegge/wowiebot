@@ -8,6 +8,7 @@ namespace wowiebot
 {
     class WowiebotApplication
     {
+        [STAThread]
         static void Main(string[] args)
         {
             Application.EnableVisualStyles();

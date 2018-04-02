@@ -47,6 +47,8 @@ namespace wowiebot
         {
             InitializeComponent();
 
+            YoutubeForm ytForm = new YoutubeForm();
+            ytForm.Show();
 
             dcTimer.Tick += disconnectAction;
             dcTimer.Interval = 1500;
