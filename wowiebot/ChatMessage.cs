@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
-namespace wowiebot
+﻿namespace wowiebot
 {
-    class ChatMessage
+    public class ChatMessage
     {
         protected string rawMessage { get; set; }
 

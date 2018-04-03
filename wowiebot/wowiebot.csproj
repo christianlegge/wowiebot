@@ -85,6 +85,7 @@
     <Compile Include="PeriodicMessagesForm.Designer.cs">
       <DependentUpon>PeriodicMessagesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Quote.cs" />
     <Compile Include="QuoteHandler.cs" />
     <Compile Include="SongRequest.cs" />
     <Compile Include="SongRequestQueue.cs" />

@@ -17,28 +17,18 @@ namespace wowiebot
 {
     class ChatHandler
     {
+        #region Fields
         private static ChatHandler instance = new ChatHandler();
-        public static ChatHandler getInstance()
-        {
-            return instance;
-        }
-
         private byte[] data = new byte[512];
         private string channel;
         private string botNick;
         private string botOauth;
         private MainForm mainForm;
         private NetworkStream stream;
-        private List<string> quotes;
         private Dictionary<System.Timers.Timer, String> periodicMessageTimers;
         private Dictionary<System.Timers.Timer, System.Timers.Timer> offsetTimers;
-        private Random rnd = new Random();
-        private int lastQuote = -1;
+        public static Random rnd = new Random();
         private int lastChoice = -1;
-        private bool addingQuote = false;
-        private List<string> quoteAdders = new List<string>();
-        private string quoteToAdd;
-        private System.Timers.Timer quoteTimer = new System.Timers.Timer(60000);
         private List<string> eightBallChoices;
         public List<string> validCommands = new List<string>();
         private List<bool> displayCommandsInHelp = new List<bool>();
@@ -52,8 +42,13 @@ namespace wowiebot
         private bool botIsMod;
         public int messagesBetweenPeriodics = 0;
         private StreamReader streamReader;
-
         private bool willDisconnect = false;
+        #endregion
+
+        public static ChatHandler getInstance()
+        {
+            return instance;
+        }
 
         public void writeLineToFormBox(string msg)
         {
@@ -139,9 +134,7 @@ namespace wowiebot
                 messagesBetweenPeriodics = 0;
             }
         }
-
-
-
+        
         public int runBot()
         {
             TcpClient client;
@@ -217,8 +210,7 @@ namespace wowiebot
                 msg.handleMessage();
             }
 
-            addingQuote = false;
-            quoteTimer.Stop();
+            QuoteHandler.getInstance().deconstruct();
 
             stream.Close();
             client.Close();
@@ -292,96 +284,17 @@ namespace wowiebot
 
             return chatMessage;
         }
-
-        private void QuoteTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            sendMessage("Time's up. I guess no one thought that quote was funny.");
-            quoteAdders.Clear();
-            addingQuote = false;
-            quoteTimer.Stop();
-        }
-
+        
         public void sendMessage(string message)
         {
-            sendMessage(message, "");
-        }
-
-        public void sendMessage(string message, string commandArgs)
-        {
-            TimeSpan uptime = new TimeSpan(0);
-            JObject broadcastData = null;
-            foreach (String cmd in messageVars)
-            {
-                if (message.Contains("$" + cmd))
-                {
-                    switch (cmd)
-                    {
-                        case "QUOTE":
-                            message = message.Replace("$QUOTE", getQuote());
-                            break;
-                        case "QNUM":
-                            message = message.Replace("$QNUM", (lastQuote + 1).ToString());
-                            break;
-                        case "ADDQUOTE":
-                            addQuote(commandArgs);
-                            return;
-                        case "VOTEYES":
-                            voteYes();
-                            return;
-                        case "BROADCASTER":
-                            message = message.Replace("$BROADCASTER", channel);
-                            break;
-                        case "SENDER":
-                            message = message.Replace("$SENDER", sender);
-                            break;
-                        case "GAME":
-                            if (broadcastData == null)
-                            {
-                                broadcastData = getBroadcastDataFromAPI();
-                            }
-                            message = message.Replace("$GAME", broadcastData.Property("game").Value.ToString());
-                            break;
-                        case "TITLE":
-                            if (broadcastData == null)
-                            {
-                                broadcastData = getBroadcastDataFromAPI();
-                            }
-                            message = message.Replace("$TITLE", broadcastData.Property("status").Value.ToString());
-                            break;
-                        case "UPHOURS":
-                            if (uptime.Ticks == 0)
-                            {
-                                uptime = getUptime();
-                            }
-                            message = message.Replace("$UPHOURS", uptime.Hours.ToString());
-                            break;
-                        case "UPMINUTES":
-                            if (uptime.Ticks == 0)
-                            {
-                                uptime = getUptime();
-                            }
-                            message = message.Replace("$UPMINUTES", uptime.Minutes.ToString());
-                            break;
-                        case "8BALL":
-                            message = message.Replace("$8BALL", get8BallResponse());
-                            break;
-                        case "CALCULATOR":
-                            Expression e = new Expression(commandArgs);
-                            string x = e.calculate().ToString();
-                            message = message.Replace("$CALCULATOR", x);
-                            break;
-                        case "COMMANDS":
-                            message = message.Replace("$COMMANDS", helpCommands);
-                            break;
-
-                    }
-                }
-            }
-
-
             Byte[] say = Encoding.UTF8.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);
             mainForm.writeToServerOutputTextBox("<" + botNick + "> " + message + "\r\n");
+        }
+
+        public string getVoteYesCommand()
+        {
+            return commandsTable.Select("Message LIKE '*$VOTEYES*'")[0].Field<string>("Command");
         }
 
         private void calculateAndSendResponse(string message, string commandArgs)
@@ -390,101 +303,7 @@ namespace wowiebot
             string x = e.calculate().ToString();
             sendMessage(message.Replace("$CALCULATOR", x));
         }
-
-        private void addQuote(string quote)
-        {
-            if (Properties.Settings.Default.quotes == null)
-            {
-                Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-                Properties.Settings.Default.Save();
-            }
-            if (quotes == null)
-            {
-                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
-                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
-                quotes = new List<string>(arrQuotes);
-                quoteTimer.Elapsed += QuoteTimer_Elapsed;
-            }
-            if (addingQuote)
-            {
-                sendMessage("Finish adding the current quote first.");
-                return;
-            }
-
-            quoteToAdd = quote;
-
-            if (Properties.Settings.Default.quoteAddingMethod == 0)
-            {
-                Properties.Settings.Default.quotes.Add(quoteToAdd);
-                Properties.Settings.Default.Save();
-                quotes.Add(quoteToAdd);
-                sendMessage("Quote added.");
-                return;
-            }
-
-            else if (Properties.Settings.Default.quoteAddingMethod == 1 || Properties.Settings.Default.quoteAddingMethod == 2)
-            {
-                if (sender == channel || (senderIsMod && Properties.Settings.Default.quoteAddingMethod == 1))
-                {
-                    Properties.Settings.Default.quotes.Add(quoteToAdd);
-                    Properties.Settings.Default.Save();
-                    quotes.Add(quoteToAdd);
-                    sendMessage("Quote added.");
-                    return;
-                }
-                else
-                {
-                    sendMessage("You don't have permission to do that.");
-                    return;
-                }
-            }
-
-            else if (Properties.Settings.Default.quoteAddingMethod == 3)
-            {
-                addingQuote = true;
-                quoteTimer.Start();
-                sendMessage((Properties.Settings.Default.quoteVotersNumber - 1).ToString() +
-                             " other " + (Properties.Settings.Default.quoteVotersNumber > 2 ? "people need" : "person needs") + " to agree by typing " +
-                             Properties.Settings.Default.prefix +
-                             commandsTable.Select("Message LIKE '*$VOTEYES*'")[0].Field<string>("Command") +
-                             " to add the quote! Ends in one minute.");
-                quoteAdders.Add(sender);
-            }
-
-        }
-
-        private void voteYes()
-        {
-            if (!addingQuote)
-                return;
-
-            if (!quoteAdders.Contains(sender))
-            {
-                quoteAdders.Add(sender);
-                if (quoteAdders.Count == Properties.Settings.Default.quoteVotersNumber)
-                {
-                    wowiebot.Properties.Settings.Default.quotes.Add(quoteToAdd);
-                    wowiebot.Properties.Settings.Default.Save();
-                    quoteAdders.Clear();
-                    quotes.Add(quoteToAdd);
-                    addingQuote = false;
-                    quoteTimer.Stop();
-                    sendMessage("Quote added.");
-                }
-            }
-
-            else if (quoteAdders[0] == sender)
-            {
-                sendMessage("Yeah, you added the quote. I got it.");
-            }
-
-            else
-            {
-                sendMessage("You already voted, dingus.");
-            }
-
-        }
-
+        
         public string getBotNick()
         {
             return botNick;
@@ -500,7 +319,12 @@ namespace wowiebot
             return null;
         }
 
-        private String get8BallResponse()
+        public string getHelpCommands()
+        {
+            return helpCommands;
+        }
+
+        public String get8BallResponse()
         {
             if (Properties.Settings.Default.choices8Ball == null)
             {
@@ -526,7 +350,7 @@ namespace wowiebot
             return eightBallChoices[p];
         }
         
-        private TimeSpan getUptime()
+        public TimeSpan getUptime()
         {
             HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/streams/" + userID);
             apiRequest.Accept = "application/vnd.twitchtv.v5+json";
@@ -539,6 +363,12 @@ namespace wowiebot
             StreamReader apiReader = new StreamReader(apiStream);
             string jsonData = apiReader.ReadToEnd();
             JObject parsed = JObject.Parse(jsonData);
+
+            if (parsed.Property("stream").Value.ToString() == "")
+            {
+                return new TimeSpan(-1);
+            }
+
             JObject streamParsed = JObject.Parse(parsed.Property("stream").Value.ToString());
 
             apiReader.Close();
@@ -561,35 +391,8 @@ namespace wowiebot
             sendMessage(channel + " has been live for " + uptime.Hours + " hours and " + uptime.Minutes + " minutes.");
 
         }
-
-        private String getQuote()
-        {
-            if (Properties.Settings.Default.quotes == null)
-            {
-                Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-                Properties.Settings.Default.Save();
-            }
-            if (quotes == null)
-            {
-                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
-                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
-                quotes = new List<string>(arrQuotes);
-                quoteTimer.Elapsed += QuoteTimer_Elapsed;
-            }
-            if (quotes.Count == 0)
-            {
-                return "No quotes. I guess " + channel + " just isn't funny or quotable.";
-            }
-            int q;
-            do
-            {
-                q = rnd.Next(quotes.Count);
-            } while (q == lastQuote && quotes.Count > 1);
-            lastQuote = q;
-            return quotes[q];
-        }
-
-        private JObject getBroadcastDataFromAPI()
+        
+        public JObject getBroadcastDataFromAPI()
         {
             HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/channels/" + userID);
             apiRequest.Accept = "application/vnd.twitchtv.v5+json";
@@ -614,28 +417,9 @@ namespace wowiebot
             sendMessage(channel + " is streaming " + parsed.Property("game").Value.ToString() + ": \"" + parsed.Property("status").Value.ToString() + "\"");
         }
 
-        private String getQuote(int i)
+        public List<string> getMessageVars()
         {
-            if (Properties.Settings.Default.quotes == null)
-            {
-                Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
-                Properties.Settings.Default.Save();
-            }
-            if (quotes == null)
-            {
-                string[] arrQuotes = new string[Properties.Settings.Default.quotes.Count];
-                Properties.Settings.Default.quotes.CopyTo(arrQuotes, 0);
-                quotes = new List<string>(arrQuotes);
-                quoteTimer.Elapsed += QuoteTimer_Elapsed;
-            }
-            if (quotes.Count > i)
-            {
-                return quotes[i];
-            }
-            else
-            {
-                return "Index out of range.";
-            }
+            return messageVars;
         }
 
         private void getUserIDFromAPI()
