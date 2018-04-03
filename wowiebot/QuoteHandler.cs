@@ -31,6 +31,10 @@ namespace wowiebot
 
         public void addQuote(string quote, string sender, bool senderIsMod)
         {
+            if (quote.Trim() == "")
+            {
+                return;
+            }
             if (Properties.Settings.Default.quotes == null)
             {
                 Properties.Settings.Default.quotes = new System.Collections.Specialized.StringCollection();
