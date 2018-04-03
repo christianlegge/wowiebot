@@ -56,7 +56,8 @@ namespace wowiebot
                         if (senderHasPermission())
                         {
                             string msg = ChatHandler.getInstance().commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Message");
-                            msg = replaceVariables(msg, sentMessage.Substring(sentMessage.IndexOf(" ") + 1));
+                            string args = getCommandArguments(sentMessage);
+                            msg = replaceVariables(msg, args);
                             ChatHandler.getInstance().sendMessage(msg);
                         }
 
@@ -76,6 +77,12 @@ namespace wowiebot
             {
                 ChatHandler.getInstance().printLinkTitles(sentMessage);
             }
+        }
+
+        private string getCommandArguments(string msg)
+        {
+            string[] splitMsg = msg.Split(" ".ToCharArray(), 2);
+            return splitMsg.Length == 1 ? "" : splitMsg[1];
         }
 
         private bool senderHasPermission()
