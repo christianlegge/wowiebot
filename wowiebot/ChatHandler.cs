@@ -287,6 +287,10 @@ namespace wowiebot
         
         public void sendMessage(string message)
         {
+            if (message == null)
+            {
+                return;
+            }
             Byte[] say = Encoding.UTF8.GetBytes("PRIVMSG #" + channel + " :" + message + "\r\n");
             stream.Write(say, 0, say.Length);
             mainForm.writeToServerOutputTextBox("<" + botNick + "> " + message + "\r\n");

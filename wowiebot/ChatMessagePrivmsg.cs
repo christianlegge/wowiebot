@@ -25,41 +25,29 @@ namespace wowiebot
 
         public override void handleMessage()
         {
-            string messageParser = rawMessage;
-            string chatMessage = messageParser.Substring(messageParser.LastIndexOf(":") + 1);
-            messageParser = messageParser.Remove(messageParser.LastIndexOf(":"));
-            string preambleFull = messageParser.Substring(messageParser.LastIndexOf(":") + 1);
-            messageParser = messageParser.Remove(messageParser.LastIndexOf(":"));
-            string[] preamble = preambleFull.Split(' ');
-
-            string[] sendingUser = preamble[0].Split('!');
-
             if (sender != ChatHandler.getInstance().getBotNick())
             {
                 ChatHandler.getInstance().messagesBetweenPeriodics++;
             }
 
-
-
-            if (chatMessage.StartsWith("\u0001ACTION"))
+            if (sentMessage.StartsWith("\u0001ACTION"))
             {
-                chatMessage = chatMessage.Replace("\u0001ACTION", "");
-                chatMessage = chatMessage.Replace("\u0001", "");
-                ChatHandler.getInstance().writeLineToFormBox("* " + sender + " " + chatMessage);
+                sentMessage = sentMessage.Replace("\u0001ACTION", "");
+                sentMessage = sentMessage.Replace("\u0001", "");
+                ChatHandler.getInstance().writeLineToFormBox("* " + sender + " " + sentMessage);
             }
             else
             {
-                ChatHandler.getInstance().writeLineToFormBox("<" + (senderIsBroadcaster ? "~" : (senderIsMod ? "@" : "")) + sender + "> " + chatMessage);
+                ChatHandler.getInstance().writeLineToFormBox("<" + (senderIsBroadcaster ? "~" : (senderIsMod ? "@" : "")) + sender + "> " + sentMessage);
             }
 
-            if (chatMessage.StartsWith(Properties.Settings.Default.prefix))
+            if (sentMessage.StartsWith(Properties.Settings.Default.prefix))
             {
-                
                     string command;
-                    if (chatMessage.Contains(" "))
-                        command = chatMessage.Substring(1, chatMessage.IndexOf(" ") - 1);
+                    if (sentMessage.Contains(" "))
+                        command = sentMessage.Substring(1, sentMessage.IndexOf(" ") - 1);
                     else
-                        command = chatMessage.Substring(1, chatMessage.Length - 1);
+                        command = sentMessage.Substring(1, sentMessage.Length - 1);
 
                     command = command.ToLower();
 
@@ -68,7 +56,7 @@ namespace wowiebot
                         if (senderHasPermission())
                         {
                             string msg = ChatHandler.getInstance().commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Message");
-                            msg = replaceVariables(msg, chatMessage.Substring(chatMessage.IndexOf(" ") + 1));
+                            msg = replaceVariables(msg, sentMessage.Substring(sentMessage.IndexOf(" ") + 1));
                             ChatHandler.getInstance().sendMessage(msg);
                         }
 
@@ -86,7 +74,7 @@ namespace wowiebot
 
             if (Properties.Settings.Default.enableLinkTitles)
             {
-                ChatHandler.getInstance().printLinkTitles(chatMessage);
+                ChatHandler.getInstance().printLinkTitles(sentMessage);
             }
         }
 
