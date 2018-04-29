@@ -87,8 +87,6 @@
     </Compile>
     <Compile Include="Quote.cs" />
     <Compile Include="QuoteHandler.cs" />
-    <Compile Include="SongRequest.cs" />
-    <Compile Include="SongRequestQueue.cs" />
     <Compile Include="UpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,12 +114,6 @@
       <DependentUpon>EditStringsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WowiebotApplication.cs" />
-    <Compile Include="YoutubeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="YoutubeForm.Designer.cs">
-      <DependentUpon>YoutubeForm.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="CommandsHelpForm.resx">
       <DependentUpon>CommandsHelpForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,9 +144,6 @@
     </Compile>
     <EmbeddedResource Include="EditStringsForm.resx">
       <DependentUpon>EditStringsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="YoutubeForm.resx">
-      <DependentUpon>YoutubeForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>

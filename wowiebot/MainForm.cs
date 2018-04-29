@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.IO;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -46,9 +41,6 @@ namespace wowiebot
         public MainForm()
         {
             InitializeComponent();
-
-            YoutubeForm ytForm = new YoutubeForm();
-            ytForm.Show();
 
             dcTimer.Tick += disconnectAction;
             dcTimer.Interval = 1500;
