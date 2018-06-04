@@ -43,7 +43,7 @@
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(316, 286);
+            this.closeButton.Location = new System.Drawing.Point(316, 302);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 23);
             this.closeButton.TabIndex = 1;
@@ -55,7 +55,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 321);
+            this.ClientSize = new System.Drawing.Size(704, 337);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.helpText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

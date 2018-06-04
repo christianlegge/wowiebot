@@ -16,6 +16,7 @@ namespace wowiebot
         {
             InitializeComponent();
             helpText.Text = @"This is the list of bot commands. When a user enters a command in the chat, the bot will respond with the message in the table.
+Commands are case insensitive.
 
 You can use variables in the message that the bot will replace with other data. You can use any of:
 
