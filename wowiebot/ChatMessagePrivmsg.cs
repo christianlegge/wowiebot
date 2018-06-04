@@ -15,7 +15,7 @@ namespace wowiebot
 
         public ChatMessagePrivmsg(string rawMessage) : base(rawMessage)
         {
-            Regex regex = new Regex("@badges=(?<badges>.*);color=(?<color>.*);display-name=(?<displayname>.*);emotes=(?<emotes>.*);id=(?<id>.*);mod=(?<mod>.*);room-id=(?<roomid>.*);subscriber=(?<subscriber>.*);tmi-sent-ts=(?<tmisentts>.*);turbo=(?<turbo>.*);user-id=(?<userid>.*);user-type=(?<usertype>.*) :(?<sender>.*)!(.*)@(.*).tmi.twitch.tv PRIVMSG #(.*) :(?<message>.*)");
+            Regex regex = new Regex("@badges=(?<badges>.*);color=(?<color>.*);display-name=(?<displayname>.*);emotes=(?<emotes>.*);id=(?<id>.*);mod=(?<mod>.*);room-id=(?<roomid>.*);subscriber=(?<subscriber>.*);tmi-sent-ts=(?<tmisentts>.*);turbo=(?<turbo>.*);user-id=(?<userid>.*);user-type=(?<usertype>.*) :(?<sender>.*)!(.*)@(.*).tmi.twitch.tv PRIVMSG #(.*?) :(?<message>.*)");
             Match match = regex.Match(rawMessage);
             sender = match.Groups["sender"].Value;
             sentMessage = match.Groups["message"].Value;
