@@ -230,7 +230,7 @@ namespace wowiebot
             DataRow discordRow = table.NewRow();
             DataRow twitterRow = table.NewRow();
             discordRow.SetField<bool>(enabled, true);
-            discordRow.SetField<string>(msg, "Like this bot? You can get it for yourself! https://github.com/scatterclegge/wowiebot/releases");
+            discordRow.SetField<string>(msg, "Like this bot? You can get it for yourself! https://github.com/scattertv/wowiebot/releases");
             discordRow.SetField<double>(period, 30);
             discordRow.SetField<double>(offset, 0);
             twitterRow.SetField<bool>(enabled, true);
@@ -393,7 +393,11 @@ namespace wowiebot
 
         private void checkForUpdates()
         {
-            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.github.com/repos/scatterclegge/wowiebot/releases/latest");
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+                                                | SecurityProtocolType.Tls11
+                                                | SecurityProtocolType.Tls12
+                                                | SecurityProtocolType.Ssl3;
+            HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.github.com/repos/scattertv/wowiebot/releases/latest");
             apiRequest.Accept = "application/vnd.github.v3+json";
             apiRequest.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
 
