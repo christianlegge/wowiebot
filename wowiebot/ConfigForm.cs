@@ -33,7 +33,6 @@ namespace wowiebot
             updateSaveButton();
             commandsDataTable = getDataTableFromSettings();
 
-            
             dataGridView1.DataSource = commandsDataTable;
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -52,9 +51,14 @@ namespace wowiebot
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            List<string> dupes = dupeCommands();
             if (quoteMethodDropDown.SelectedIndex == 3 && ((DataTable)dataGridView1.DataSource).Select("Message LIKE '*$VOTEYES*'").Length == 0)
             {
-                MessageBox.Show("You need to have a $VOTEYES command if you're adding quotes by voting!");
+                MessageBox.Show("You need to have a $VOTEYES command if you're adding quotes by voting!", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (dupes.Count > 0)
+            {
+                MessageBox.Show("You have duplicate commands: " + String.Join(", ", dupes), "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             else
@@ -68,6 +72,20 @@ namespace wowiebot
                 Properties.Settings.Default.Save();
                 Close();
             }
+        }
+
+        private List<string> dupeCommands()
+        {
+            List<string> cmds = new List<string>();
+            foreach(DataRow row in ((DataTable)dataGridView1.DataSource).Rows)
+            {
+                cmds.Add((string)row["Command"].ToString().ToLower());
+            }
+            var duplicates = cmds.GroupBy(x => x)
+                             .Where(g => g.Count() > 1)
+                             .Select(g => g.Key)
+                             .ToList();
+            return duplicates;
         }
 
         private void prefixTextBox_TextChanged(object sender, EventArgs e)
