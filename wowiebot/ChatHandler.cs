@@ -472,7 +472,7 @@ namespace wowiebot
             DataRow[] commands = commandsTable.Select("enabled = true");
             foreach (DataRow i in commands)
             {
-                validCommands.Add(i.Field<string>("Command"));
+                validCommands.Add(i.Field<string>("Command").ToLower());
                 displayCommandsInHelp.Add(i.Field<bool>("Show in commands list"));
             }
 
