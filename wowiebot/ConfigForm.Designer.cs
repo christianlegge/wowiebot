@@ -46,6 +46,8 @@
             this.emptyQuoteMessage = new System.Windows.Forms.TextBox();
             this.emptyQuotesLabel = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.exportButton = new System.Windows.Forms.Button();
+            this.importButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).BeginInit();
             this.SuspendLayout();
@@ -227,6 +229,26 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // exportButton
+            // 
+            this.exportButton.Location = new System.Drawing.Point(12, 333);
+            this.exportButton.Name = "exportButton";
+            this.exportButton.Size = new System.Drawing.Size(103, 23);
+            this.exportButton.TabIndex = 24;
+            this.exportButton.Text = "Export Settings";
+            this.exportButton.UseVisualStyleBackColor = true;
+            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
+            // 
+            // importButton
+            // 
+            this.importButton.Location = new System.Drawing.Point(12, 362);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(103, 23);
+            this.importButton.TabIndex = 25;
+            this.importButton.Text = "Import Settings";
+            this.importButton.UseVisualStyleBackColor = true;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.saveButton;
@@ -234,6 +256,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(774, 540);
+            this.Controls.Add(this.importButton);
+            this.Controls.Add(this.exportButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.emptyQuotesLabel);
             this.Controls.Add(this.emptyQuoteMessage);
@@ -281,5 +305,7 @@
         private System.Windows.Forms.TextBox emptyQuoteMessage;
         private System.Windows.Forms.Label emptyQuotesLabel;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button exportButton;
+        private System.Windows.Forms.Button importButton;
     }
 }

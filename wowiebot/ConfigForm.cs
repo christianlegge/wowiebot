@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace wowiebot
 {
@@ -186,6 +187,58 @@ namespace wowiebot
             PeriodicMessagesForm periodicForm = new PeriodicMessagesForm();
             periodicForm.StartPosition = FormStartPosition.CenterScreen;
             periodicForm.ShowDialog();
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            WowiebotSettings ws = new WowiebotSettings();
+            ws.loadFromSettings();
+            ws.id = "YesImWowiebotSettings";
+            string jsonSettings = JsonConvert.SerializeObject(ws);
+
+            SaveFileDialog fd = new SaveFileDialog();
+            fd.FileName = "wowiebot_settings.json";
+            fd.Filter = "JSON text (*.json)|*.json|All files (*.*)|*.*";
+            DialogResult result = fd.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(fd.FileName))
+                {
+                    sw.Write(jsonSettings);
+                }
+            }
+        }
+
+        private void importButton_Click(object sender, EventArgs e)
+        {
+            string jsonSettings;
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.FileName = "wowiebot_settings.json";
+            fd.Filter = "JSON text (*.json)|*.json|All files (*.*)|*.*";
+            DialogResult result = fd.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                using (StreamReader sr = new StreamReader(fd.FileName))
+                {
+                    jsonSettings = sr.ReadToEnd();
+                }
+
+                try
+                {
+                    var settings = JsonConvert.DeserializeObject<WowiebotSettings>(jsonSettings);
+
+                    if (MessageBox.Show("You will permanently lose all your current settings as they will be overwritten with the imported ones! Are you sure?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        settings.saveToSettings();
+                        this.Close();
+                    }
+                }
+                catch(Exception)
+                {
+                    MessageBox.Show("Error importing settings! No data was lost.");
+                }
+            }
         }
     }
 }

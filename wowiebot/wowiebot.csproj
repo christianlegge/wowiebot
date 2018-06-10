@@ -114,6 +114,7 @@
       <DependentUpon>EditStringsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WowiebotApplication.cs" />
+    <Compile Include="WowiebotSettings.cs" />
     <EmbeddedResource Include="CommandsHelpForm.resx">
       <DependentUpon>CommandsHelpForm.cs</DependentUpon>
     </EmbeddedResource>
