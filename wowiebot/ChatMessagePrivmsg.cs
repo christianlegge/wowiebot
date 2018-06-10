@@ -43,36 +43,39 @@ namespace wowiebot
 
             if (sentMessage.StartsWith(Properties.Settings.Default.prefix))
             {
-                    string command;
-                    if (sentMessage.Contains(" "))
-                        command = sentMessage.Substring(1, sentMessage.IndexOf(" ") - 1);
-                    else
-                        command = sentMessage.Substring(1, sentMessage.Length - 1);
+                string command;
+                if (sentMessage.Contains(" "))
+                    command = sentMessage.Substring(1, sentMessage.IndexOf(" ") - 1);
+                else
+                    command = sentMessage.Substring(1, sentMessage.Length - 1);
 
-                    command = command.ToLower();
+                command = command.ToLower();
 
-                    if (ChatHandler.getInstance().validCommands.Contains(command))
+                try
+                {
+                    string msg = ChatHandler.getInstance().getMessageFromCommand(command);
+
+                    if (senderHasPermission())
                     {
-                        if (senderHasPermission())
-                        {
-                            string msg = ChatHandler.getInstance().commandsTable.Select("Command = '" + command + "'")[0].Field<string>("Message");
-                            string args = getCommandArguments(sentMessage);
-                            msg = replaceVariables(msg, args);
-                            ChatHandler.getInstance().sendMessage(msg);
-                        }
-
-                        else
-                        {
-                            ChatHandler.getInstance().sendMessage("You don't have permission to do that.");
-                        }
+                        string args = getCommandArguments(sentMessage);
+                        msg = replaceVariables(msg, args);
+                        ChatHandler.getInstance().sendMessage(msg);
                     }
 
-                else if (command == "wowie" && ChatHandler.getInstance().getBotNick() == "wowiebot")
+                    else
+                    {
+                        ChatHandler.getInstance().sendMessage("You don't have permission to do that.");
+                    }
+                }
+                catch (Exception e)
                 {
-                    ChatHandler.getInstance().sendMessage("wowie");
+                    if (command == "wowie" && ChatHandler.getInstance().getBotNick() == "wowiebot")
+                    {
+                        ChatHandler.getInstance().sendMessage("wowie");
+                    }
                 }
             }
-
+            
             if (Properties.Settings.Default.enableLinkTitles)
             {
                 ChatHandler.getInstance().printLinkTitles(sentMessage);
@@ -175,7 +178,7 @@ namespace wowiebot
                             commandText = commandText.Replace("$CALCULATOR", x);
                             break;
                         case "COMMANDS":
-                            commandText = commandText.Replace("$COMMANDS", ChatHandler.getInstance().getHelpCommands());
+                            commandText = commandText.Replace("$COMMANDS", ChatHandler.getInstance().commandsForHelp);
                             break;
 
                     }

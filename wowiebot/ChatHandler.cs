@@ -30,19 +30,20 @@ namespace wowiebot
         public static Random rnd = new Random();
         private int lastChoice = -1;
         private List<string> eightBallChoices;
+        public Dictionary<string,string> commandsDictionary;
         public List<string> validCommands = new List<string>();
         private List<bool> displayCommandsInHelp = new List<bool>();
         private string userID;
         private List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS" });
         public DataTable commandsTable;
         private DataTable periodicMessagesTable;
-        private String helpCommands;
         private String sender;
         private bool senderIsMod;
         private bool botIsMod;
         public int messagesBetweenPeriodics = 0;
         private StreamReader streamReader;
         private bool willDisconnect = false;
+        public string commandsForHelp { get; private set; }
         #endregion
 
         public static ChatHandler getInstance()
@@ -69,8 +70,8 @@ namespace wowiebot
             {
                 periodicMessagesTable = new DataTable();
             }
-
-            populateValidCommands();
+            
+            buildCommandsDictionary();
 
             createPeriodicMessagesTimers();
 
@@ -89,6 +90,34 @@ namespace wowiebot
 
             return runBot();
 
+        }
+
+        public string getMessageFromCommand(string cmd)
+        {
+            return commandsDictionary[cmd];
+        }
+
+        private void buildCommandsDictionary()
+        {
+            commandsDictionary = new Dictionary<string, string>();
+            string prefix = Properties.Settings.Default.prefix;
+            DataRow[] commands = commandsTable.Select("enabled = true");
+            foreach (DataRow i in commands)
+            {
+                string cmd = i.Field<string>("Command").ToLower();
+                string msg = i.Field<string>("Message");
+                string[] aliases = cmd.Split(',');
+                foreach (string s in aliases)
+                {
+                    commandsDictionary.Add(s.Trim(), msg);
+                }
+                if(i.Field<bool>("Show in commands list"))
+                {
+                    commandsForHelp += prefix + aliases[0] + ", ";
+                }
+            }
+      
+            commandsForHelp = commandsForHelp.Substring(0, commandsForHelp.Length - 2);
         }
 
         private void createPeriodicMessagesTimers()
@@ -191,16 +220,6 @@ namespace wowiebot
 
             string announcestring = channel + "!" + channel + "@" + channel + ".tmi.twitch.tv PRIVMSG " + channel + " BOT ENABLED\r\n";
             sendToServer(announcestring);
-
-            helpCommands = "";
-            for (int i = 0; i < validCommands.Count; i++)
-            {
-                if (displayCommandsInHelp[i])
-                {
-                    helpCommands += Properties.Settings.Default.prefix + validCommands[i] + ", ";
-                }
-            }
-            helpCommands = helpCommands.Substring(0, helpCommands.Length - 2);
 
             willDisconnect = false;
 
@@ -321,11 +340,6 @@ namespace wowiebot
         private List<String> getMods(string pChannel)
         {
             return null;
-        }
-
-        public string getHelpCommands()
-        {
-            return helpCommands;
         }
 
         public String get8BallResponse()
@@ -464,19 +478,6 @@ namespace wowiebot
                 timer.Key.Enabled = false;
             }
             periodicMessageTimers.Clear();
-        }
-
-        private void populateValidCommands()
-        {
-
-            DataRow[] commands = commandsTable.Select("enabled = true");
-            foreach (DataRow i in commands)
-            {
-                validCommands.Add(i.Field<string>("Command").ToLower());
-                displayCommandsInHelp.Add(i.Field<bool>("Show in commands list"));
-            }
-
-            return;
         }
 
         private void sendToServer(string strToSend)
