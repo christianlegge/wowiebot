@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace wowiebot
 {
@@ -52,6 +53,8 @@ namespace wowiebot
         private void saveButton_Click(object sender, EventArgs e)
         {
             List<string> dupes = dupeCommands();
+            string invalid = invalidCommandIfExists();
+
             if (quoteMethodDropDown.SelectedIndex == 3 && ((DataTable)dataGridView1.DataSource).Select("Message LIKE '*$VOTEYES*'").Length == 0)
             {
                 MessageBox.Show("You need to have a $VOTEYES command if you're adding quotes by voting!", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -59,6 +62,10 @@ namespace wowiebot
             else if (dupes.Count > 0)
             {
                 MessageBox.Show("You have duplicate commands: " + String.Join(", ", dupes), "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (invalid != null)
+            {
+                MessageBox.Show("You have an invalid command: " + invalid + " \n\nFormat: <name> [ , <alias> [ , <alias> ...", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             else
@@ -72,6 +79,22 @@ namespace wowiebot
                 Properties.Settings.Default.Save();
                 Close();
             }
+        }
+
+        private string invalidCommandIfExists()
+        {
+            List<string> cmds = new List<string>();
+            Regex r = new Regex(@"^\w+(?:\s*,\s*\w+\s*)*$"); 
+            foreach (DataRow row in ((DataTable)dataGridView1.DataSource).Rows)
+            {
+                string s = row["Command"].ToString();
+                Match m = r.Match(s);
+                if (!m.Success)
+                {
+                    return s;
+                }
+            }
+            return null;
         }
 
         private List<string> dupeCommands()
