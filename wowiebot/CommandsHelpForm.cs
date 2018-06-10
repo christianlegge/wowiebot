@@ -16,7 +16,9 @@ namespace wowiebot
         {
             InitializeComponent();
             helpText.Text = @"This is the list of bot commands. When a user enters a command in the chat, the bot will respond with the message in the table.
-Commands are case insensitive.
+Commands are case insensitive and can contain alphanumeric characters and underscores.
+You can enter multiple commands in the Command field separated by commas. Each of the commands will be used to trigger the 
+message and the first will appear in the $COMMANDS list, if Show in commands list is enabled.
 
 You can use variables in the message that the bot will replace with other data. You can use any of:
 
