@@ -44,6 +44,7 @@ namespace wowiebot
         private StreamReader streamReader;
         private bool willDisconnect = false;
         public string commandsForHelp { get; private set; }
+        private bool apiCallNeeded = false;
         #endregion
 
         public static ChatHandler getInstance()
@@ -75,7 +76,7 @@ namespace wowiebot
 
             createPeriodicMessagesTimers();
 
-            if (validCommands.Contains("title") || validCommands.Contains("uptime"))
+            if (apiCallNeeded)
             {
                 try
                 {
@@ -106,6 +107,10 @@ namespace wowiebot
             {
                 string cmd = i.Field<string>("Command").ToLower();
                 string msg = i.Field<string>("Message");
+                if (!apiCallNeeded && (msg.Contains("$GAME") || msg.Contains("$TITLE") || msg.Contains("$UPHOURS") || msg.Contains("$UPMINUTES")))
+                {
+                    apiCallNeeded = true;
+                }
                 string[] aliases = cmd.Split(',');
                 foreach (string s in aliases)
                 {
