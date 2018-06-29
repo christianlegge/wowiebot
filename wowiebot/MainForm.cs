@@ -90,6 +90,9 @@ namespace wowiebot
                 updateConnectButton();
 
             }
+
+            SongRequestForm f = new SongRequestForm();
+            f.Show();
         }
 
         private void validateEnabledColumnPeriodic(DataTable table)
@@ -438,6 +441,5 @@ namespace wowiebot
             }
 
         }
-
     }
 }
