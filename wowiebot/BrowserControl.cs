@@ -20,6 +20,7 @@ namespace wowiebot
     {
         ChromiumWebBrowser browser;
         public event EventHandler VideoFinished;
+        public event EventHandler PlayerReady;
 
         string playVideoScript = @"playVideo('{0}');";
         string stopVideoScript = @"stopVideo();";
@@ -56,6 +57,10 @@ namespace wowiebot
             browser.GetMainFrame().EvaluateScriptAsync(stopVideoScript);
             VideoFinished(this, null);
         }
+        public void playerReady()
+        {
+            PlayerReady(this, null);
+        }
     }
 
     public class BoundJsHandler
@@ -63,6 +68,10 @@ namespace wowiebot
         public void videoFinished()
         {
             MessageBox.Show("a");
+        }
+        public void playerReady()
+        {
+
         }
     }
 }

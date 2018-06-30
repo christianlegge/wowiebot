@@ -43,14 +43,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.thumbPictureBox.Location = new System.Drawing.Point(4, 4);
             this.thumbPictureBox.Name = "thumbPictureBox";
-            this.thumbPictureBox.Size = new System.Drawing.Size(206, 121);
+            this.thumbPictureBox.Size = new System.Drawing.Size(144, 121);
             this.thumbPictureBox.TabIndex = 0;
             this.thumbPictureBox.TabStop = false;
             // 
             // titleLabel
             // 
             this.titleLabel.AutoSize = true;
-            this.titleLabel.Location = new System.Drawing.Point(217, 4);
+            this.titleLabel.Location = new System.Drawing.Point(154, 4);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(23, 13);
             this.titleLabel.TabIndex = 1;
@@ -59,7 +59,7 @@
             // uploaderLabel
             // 
             this.uploaderLabel.AutoSize = true;
-            this.uploaderLabel.Location = new System.Drawing.Point(217, 21);
+            this.uploaderLabel.Location = new System.Drawing.Point(154, 21);
             this.uploaderLabel.Name = "uploaderLabel";
             this.uploaderLabel.Size = new System.Drawing.Size(48, 13);
             this.uploaderLabel.TabIndex = 2;
@@ -69,7 +69,7 @@
             // 
             this.durationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.durationLabel.AutoSize = true;
-            this.durationLabel.Location = new System.Drawing.Point(506, 4);
+            this.durationLabel.Location = new System.Drawing.Point(454, 4);
             this.durationLabel.Name = "durationLabel";
             this.durationLabel.Size = new System.Drawing.Size(45, 13);
             this.durationLabel.TabIndex = 3;
@@ -78,7 +78,7 @@
             // viewsLabel
             // 
             this.viewsLabel.AutoSize = true;
-            this.viewsLabel.Location = new System.Drawing.Point(515, 21);
+            this.viewsLabel.Location = new System.Drawing.Point(465, 21);
             this.viewsLabel.Name = "viewsLabel";
             this.viewsLabel.Size = new System.Drawing.Size(34, 13);
             this.viewsLabel.TabIndex = 4;
@@ -86,7 +86,7 @@
             // 
             // removeButton
             // 
-            this.removeButton.Location = new System.Drawing.Point(217, 79);
+            this.removeButton.Location = new System.Drawing.Point(154, 47);
             this.removeButton.Name = "removeButton";
             this.removeButton.Size = new System.Drawing.Size(75, 23);
             this.removeButton.TabIndex = 5;

@@ -16,14 +16,18 @@ namespace wowiebot
         List<SongRequestControl> srControls = new List<SongRequestControl>();
         SongRequestForm parentForm;
 
-        public SongRequestQueueControl(SongRequestForm parent)
+        public SongRequestQueueControl()
         {
             InitializeComponent();
-
-            parentForm = parent;
-            parentForm.VideoFinished += ParentForm_VideoFinished;
+            
             q = new SongRequestQueue();
             q.QueueChanged += Q_QueueChanged;
+        }
+
+        public void setParent(SongRequestForm p)
+        {
+            parentForm = p;
+            parentForm.VideoFinished += ParentForm_VideoFinished;
         }
 
         private void ParentForm_VideoFinished(object sender, EventArgs e)
@@ -37,6 +41,10 @@ namespace wowiebot
         public void queueSong(SongRequest sr)
         {
             q.queueSong(sr);
+            if (q.Count() == 1 && parentForm.isAutoplayOn())
+            {
+                playNext();
+            }
         }
 
         public void queueSong(string srString)

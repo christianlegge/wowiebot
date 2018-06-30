@@ -30,7 +30,7 @@
         {
             this.toQueueTextBox = new System.Windows.Forms.TextBox();
             this.queueButton = new System.Windows.Forms.Button();
-            this.songRequestQueueControl1 = new wowiebot.SongRequestQueueControl(this);
+            this.songRequestQueueControl1 = new wowiebot.SongRequestQueueControl();
             this.autoplayCheckBox = new System.Windows.Forms.CheckBox();
             this.playNextButton = new System.Windows.Forms.Button();
             this.SuspendLayout();

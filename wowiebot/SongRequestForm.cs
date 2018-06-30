@@ -26,7 +26,10 @@ namespace wowiebot
         {
             InitializeComponent();
 
+            songRequestQueueControl1.setParent(this);
+
             playNextButton.Enabled = false;
+            queueButton.Enabled = false;
 
             AppDomain.CurrentDomain.AssemblyResolve += Resolver;
 
@@ -38,7 +41,17 @@ namespace wowiebot
                 Location = new Point(20, 20),
             };
             browser.VideoFinished += Browser_VideoFinished;
+            browser.PlayerReady += Browser_PlayerReady;
             this.Controls.Add(browser);
+        }
+
+        private void Browser_PlayerReady(object sender, EventArgs e)
+        {
+            VoidVoidDelegate d = delegate
+            {
+                queueButton.Enabled = true;
+            };
+            this.Invoke(d);
         }
 
         private void Browser_VideoFinished(object sender, EventArgs e)
