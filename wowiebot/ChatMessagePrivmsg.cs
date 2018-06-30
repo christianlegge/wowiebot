@@ -196,10 +196,11 @@ namespace wowiebot
                                 Match m = r.Match(commandArgs);
                                 string id = m.Groups["id"].Value;
                                 MainForm.songRequestForm.queueSong(new SongRequest(id));
+                                return "Queued.";
                             }
                             else
                             {
-                                commandText = "Invalid link";
+                                commandText = "Invalid link.";
                             }
                             break;
                     }
