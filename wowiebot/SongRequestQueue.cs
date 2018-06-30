@@ -8,7 +8,7 @@ namespace wowiebot
 {
     public class SongRequestQueue
     {
-        private Queue<SongRequest> q = new Queue<SongRequest>();
+        private List<SongRequest> q = new List<SongRequest>();
         public event EventHandler QueueChanged;
 
         public SongRequestQueue()
@@ -18,7 +18,7 @@ namespace wowiebot
 
         public void queueSong(SongRequest sr)
         {
-            q.Enqueue(sr);
+            q.Add(sr);
             QueueChanged(this, null);
         }
 
@@ -28,7 +28,8 @@ namespace wowiebot
             {
                 throw new Exception("No song was playing");
             }
-            q.Dequeue();
+            q.RemoveAt(0);
+            QueueChanged(this, null);
             if (q.Count == 0)
             {
                 return null;
@@ -41,7 +42,8 @@ namespace wowiebot
             List<SongRequest> l = new List<SongRequest> { sr };
             if (q.Contains(sr))
             {
-                q.Except(new List<SongRequest> { sr });
+                q.Remove(sr);
+                QueueChanged(this, null);
             }
         }
 

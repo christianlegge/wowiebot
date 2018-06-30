@@ -35,16 +35,17 @@ namespace wowiebot
         private void Q_QueueChanged(object sender, EventArgs e)
         {
             foreach (SongRequestControl src in srControls)
-            {
+            { 
                 Controls.Remove(src);
             }
             int height = 0;
             foreach (SongRequest sr in q)
             {
-                SongRequestControl src = new SongRequestControl(sr);
+                SongRequestControl src = new SongRequestControl(sr, q);
                 src.Location = new Point(0, height);
                 height = height + src.Height;
                 Controls.Add(src);
+                srControls.Add(src);
             }
         }
     }

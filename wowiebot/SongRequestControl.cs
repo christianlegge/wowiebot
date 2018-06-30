@@ -12,11 +12,15 @@ namespace wowiebot
 {
     public partial class SongRequestControl : UserControl
     {
-        SongRequest sr;
+        SongRequest songRequest;
+        SongRequestQueue parentQueue;
 
-        public SongRequestControl(SongRequest sr)
+        public SongRequestControl(SongRequest sr, SongRequestQueue parent)
         {
             InitializeComponent();
+
+            songRequest = sr;
+            parentQueue = parent;
 
             titleLabel.Text = sr.title;
             durationLabel.Text = sr.duration.ToString();
@@ -27,7 +31,7 @@ namespace wowiebot
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-
+            parentQueue.removeSong(songRequest);
         }
     }
 }
