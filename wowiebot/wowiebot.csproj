@@ -47,6 +47,24 @@
       <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Google.Apis, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.34.0\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.34.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.34.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.34.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.34.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.YouTube.v3, Version=1.34.0.1226, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.YouTube.v3.1.34.0.1226\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
+    </Reference>
     <Reference Include="MathParser.org-mXparser.Net452, Version=4.1.1.0, Culture=neutral, PublicKeyToken=0fbab7add73ed6e2, processorArchitecture=MSIL">
       <HintPath>..\packages\MathParser.org-mXparser.4.1.1\lib\net452\MathParser.org-mXparser.Net452.dll</HintPath>
     </Reference>
@@ -98,11 +116,25 @@
     </Compile>
     <Compile Include="Quote.cs" />
     <Compile Include="QuoteHandler.cs" />
+    <Compile Include="SongRequest.cs" />
+    <Compile Include="SongRequestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SongRequestControl.Designer.cs">
+      <DependentUpon>SongRequestControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SongRequestForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SongRequestForm.Designer.cs">
       <DependentUpon>SongRequestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SongRequestQueue.cs" />
+    <Compile Include="SongRequestQueueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SongRequestQueueControl.Designer.cs">
+      <DependentUpon>SongRequestQueueControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UpdateForm.cs">
       <SubType>Form</SubType>
@@ -140,6 +172,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PeriodicMessagesForm.resx">
       <DependentUpon>PeriodicMessagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SongRequestControl.resx">
+      <DependentUpon>SongRequestControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SongRequestForm.resx">
+      <DependentUpon>SongRequestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SongRequestQueueControl.resx">
+      <DependentUpon>SongRequestQueueControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateForm.resx">
       <DependentUpon>UpdateForm.cs</DependentUpon>

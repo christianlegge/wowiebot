@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using Google.Apis.YouTube.v3;
 
 namespace wowiebot
 {
@@ -27,8 +28,12 @@ namespace wowiebot
 
             LoadApp();
 
-            browser = new BrowserControl("https://www.youtube.com/embed/AgBByp1nCl4");
-            browser.Size = new Size(640, 480);
+            SongRequest sr = new SongRequest("AgBByp1nCl4");
+
+            browser = new BrowserControl("https://www.youtube.com/embed/AgBByp1nCl4")
+            {
+                Dock = DockStyle.Fill
+            };
             this.Controls.Add(browser);
         }
 
@@ -64,6 +69,11 @@ namespace wowiebot
             }
 
             return null;
+        }
+
+        private void queueButton_Click(object sender, EventArgs e)
+        {
+            songRequestQueueControl1.queueSong(toQueueTextBox.Text);
         }
     }
 
