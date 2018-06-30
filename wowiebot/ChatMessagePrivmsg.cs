@@ -88,6 +88,11 @@ namespace wowiebot
             return splitMsg.Length == 1 ? "" : splitMsg[1];
         }
 
+        private bool isValidYoutubeLink(string url)
+        {
+            return url.Contains("youtu");
+        }
+
         private bool senderHasPermission()
         {
             return true;
@@ -180,7 +185,23 @@ namespace wowiebot
                         case "COMMANDS":
                             commandText = commandText.Replace("$COMMANDS", ChatHandler.getInstance().commandsForHelp);
                             break;
-
+                        case "SONGREQ":
+                            if (MainForm.songRequestForm == null)
+                            {
+                                commandText = "Unable to load video. Please tell the streamer to open the Song Requests window.";
+                            }
+                            else if (isValidYoutubeLink(commandArgs))
+                            {
+                                Regex r = new Regex(@".*\b(?<id>[A-Za-z0-9-_]{11})\b.*");
+                                Match m = r.Match(commandArgs);
+                                string id = m.Groups["id"].Value;
+                                MainForm.songRequestForm.queueSong(new SongRequest(id));
+                            }
+                            else
+                            {
+                                commandText = "Invalid link";
+                            }
+                            break;
                     }
                 }
             }

@@ -37,6 +37,7 @@
             this.configButton = new System.Windows.Forms.Button();
             this.serverOutTextBox = new System.Windows.Forms.TextBox();
             this.updateButton = new System.Windows.Forms.Button();
+            this.songRequestButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // channelTextBox
@@ -131,12 +132,23 @@
             this.updateButton.Visible = false;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
+            // songRequestButton
+            // 
+            this.songRequestButton.Location = new System.Drawing.Point(168, 12);
+            this.songRequestButton.Name = "songRequestButton";
+            this.songRequestButton.Size = new System.Drawing.Size(125, 23);
+            this.songRequestButton.TabIndex = 8;
+            this.songRequestButton.Text = "Song Requests";
+            this.songRequestButton.UseVisualStyleBackColor = true;
+            this.songRequestButton.Click += new System.EventHandler(this.songRequestButton_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.connectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(455, 276);
+            this.Controls.Add(this.songRequestButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.serverOutTextBox);
             this.Controls.Add(this.configButton);
@@ -166,6 +178,7 @@
         private System.Windows.Forms.Button configButton;
         private System.Windows.Forms.TextBox serverOutTextBox;
         private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.Button songRequestButton;
     }
 }
 

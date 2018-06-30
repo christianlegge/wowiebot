@@ -13,6 +13,8 @@ namespace wowiebot
 
     public partial class MainForm : Form
     {
+        public static SongRequestForm songRequestForm = null;
+
         private const string thisVersion = "v2.3.4";
         private string latestVersion;
         private JObject releaseJson;
@@ -90,9 +92,6 @@ namespace wowiebot
                 updateConnectButton();
 
             }
-
-            SongRequestForm f = new SongRequestForm();
-            f.Show();
         }
 
         private void validateEnabledColumnPeriodic(DataTable table)
@@ -440,6 +439,19 @@ namespace wowiebot
                 dpform.ShowDialog();
             }
 
+        }
+
+        private void songRequestButton_Click(object sender, EventArgs e)
+        {
+            songRequestForm = new SongRequestForm();
+            songRequestForm.FormClosed += SongRequestForm_FormClosed;
+            songRequestForm.Show();
+        }
+
+        private void SongRequestForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            songRequestForm.FormClosed -= SongRequestForm_FormClosed;
+            songRequestForm = null;
         }
     }
 }

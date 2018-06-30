@@ -29,7 +29,7 @@ namespace wowiebot
             songRequestQueueControl1.setParent(this);
 
             playNextButton.Enabled = false;
-            queueButton.Enabled = false;
+      //      queueButton.Enabled = false;
 
             AppDomain.CurrentDomain.AssemblyResolve += Resolver;
 
@@ -49,7 +49,7 @@ namespace wowiebot
         {
             VoidVoidDelegate d = delegate
             {
-                queueButton.Enabled = true;
+     //           queueButton.Enabled = true;
             };
             this.Invoke(d);
         }
@@ -106,7 +106,7 @@ namespace wowiebot
 
         private void queueButton_Click(object sender, EventArgs e)
         {
-            songRequestQueueControl1.queueSong(toQueueTextBox.Text);
+   //         songRequestQueueControl1.queueSong(toQueueTextBox.Text);
         }
 
         public void playVideo(string id)
@@ -118,6 +118,11 @@ namespace wowiebot
         public bool isAutoplayOn()
         {
             return autoplayCheckBox.Checked;
+        }
+
+        public void queueSong(SongRequest sr)
+        {
+            songRequestQueueControl1.queueSong(sr);
         }
 
         delegate void VoidVoidDelegate();
