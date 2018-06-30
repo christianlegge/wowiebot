@@ -37,7 +37,7 @@ namespace wowiebot
 
             browser = new BrowserControl()
             {
-                Size = new Size(300, 200),
+                Size = new Size(400, 225),
                 Location = new Point(20, 20),
             };
             browser.VideoFinished += Browser_VideoFinished;

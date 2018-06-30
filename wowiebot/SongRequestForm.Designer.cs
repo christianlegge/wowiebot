@@ -38,7 +38,7 @@
             this.autoplayCheckBox.AutoSize = true;
             this.autoplayCheckBox.Checked = true;
             this.autoplayCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoplayCheckBox.Location = new System.Drawing.Point(50, 276);
+            this.autoplayCheckBox.Location = new System.Drawing.Point(50, 289);
             this.autoplayCheckBox.Name = "autoplayCheckBox";
             this.autoplayCheckBox.Size = new System.Drawing.Size(67, 17);
             this.autoplayCheckBox.TabIndex = 3;
@@ -47,7 +47,7 @@
             // 
             // playNextButton
             // 
-            this.playNextButton.Location = new System.Drawing.Point(50, 247);
+            this.playNextButton.Location = new System.Drawing.Point(50, 260);
             this.playNextButton.Name = "playNextButton";
             this.playNextButton.Size = new System.Drawing.Size(118, 23);
             this.playNextButton.TabIndex = 4;
@@ -61,16 +61,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.songRequestQueueControl1.AutoScroll = true;
             this.songRequestQueueControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.songRequestQueueControl1.Location = new System.Drawing.Point(391, 12);
+            this.songRequestQueueControl1.Location = new System.Drawing.Point(445, 12);
             this.songRequestQueueControl1.Name = "songRequestQueueControl1";
-            this.songRequestQueueControl1.Size = new System.Drawing.Size(574, 292);
+            this.songRequestQueueControl1.Size = new System.Drawing.Size(596, 326);
             this.songRequestQueueControl1.TabIndex = 0;
             // 
             // SongRequestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 316);
+            this.ClientSize = new System.Drawing.Size(1053, 350);
             this.Controls.Add(this.playNextButton);
             this.Controls.Add(this.autoplayCheckBox);
             this.Controls.Add(this.songRequestQueueControl1);

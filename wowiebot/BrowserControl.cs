@@ -31,7 +31,7 @@ namespace wowiebot
 
             browser = new ChromiumWebBrowser()
             {
-                Size = new Size(310, 210),
+                Size = new Size(410, 235),
             };
 
             var assembly = Assembly.GetExecutingAssembly();
