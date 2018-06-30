@@ -19,21 +19,32 @@ namespace wowiebot
     public partial class SongRequestForm : Form
     {
         BrowserControl browser;
+        public event EventHandler VideoFinished;
+        public bool songIsPlaying = false;
 
         public SongRequestForm()
         {
             InitializeComponent();
 
+            playNextButton.Enabled = false;
+
             AppDomain.CurrentDomain.AssemblyResolve += Resolver;
 
             LoadApp();
 
-            browser = new BrowserControl("https://www.youtube.com/embed/AgBByp1nCl4")
+            browser = new BrowserControl()
             {
                 Size = new Size(300, 200),
                 Location = new Point(20, 20),
             };
+            browser.VideoFinished += Browser_VideoFinished;
             this.Controls.Add(browser);
+        }
+
+        private void Browser_VideoFinished(object sender, EventArgs e)
+        {
+            songIsPlaying = false;
+            VideoFinished(this, null);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -50,6 +61,11 @@ namespace wowiebot
             Cef.Initialize(settings, performDependencyCheck: false, browserProcessHandler: null);
 
       
+        }
+
+        internal void playNext()
+        {
+            
         }
 
         // Will attempt to load missing assembly from either x86 or x64 subdir
@@ -70,6 +86,11 @@ namespace wowiebot
             return null;
         }
 
+        internal void setSkipEnabled(bool v)
+        {
+            playNextButton.Enabled = v;
+        }
+
         private void queueButton_Click(object sender, EventArgs e)
         {
             songRequestQueueControl1.queueSong(toQueueTextBox.Text);
@@ -77,7 +98,27 @@ namespace wowiebot
 
         public void playVideo(string id)
         {
+            songIsPlaying = true;
             browser.playVideo(id);
+        }
+
+        public bool isAutoplayOn()
+        {
+            return autoplayCheckBox.Checked;
+        }
+
+        delegate void VoidVoidDelegate();
+
+        private void playNextButton_Click(object sender, EventArgs e)
+        {
+            if (!songIsPlaying)
+            {
+                songRequestQueueControl1.playNext();
+            }
+            else
+            {
+                browser.stopVideo();
+            }
         }
     }
 

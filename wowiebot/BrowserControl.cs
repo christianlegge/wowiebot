@@ -19,10 +19,12 @@ namespace wowiebot
     public partial class BrowserControl : UserControl
     {
         ChromiumWebBrowser browser;
+        public event EventHandler VideoFinished;
 
         string playVideoScript = @"playVideo('{0}');";
+        string stopVideoScript = @"stopVideo();";
 
-        public BrowserControl(string url)
+        public BrowserControl()
         {
             InitializeComponent();
 
@@ -34,7 +36,7 @@ namespace wowiebot
             browser.LoadHtml(File.ReadAllText(@".\player.html"));
 
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
-            browser.RegisterAsyncJsObject("boundAsync", new BoundJsHandler());
+            browser.RegisterAsyncJsObject("boundAsync", this);
 
             this.Controls.Add(browser);
         }
@@ -44,14 +46,23 @@ namespace wowiebot
             browser.GetMainFrame().EvaluateScriptAsync(String.Format(playVideoScript, id));
         }
 
+        public void videoFinished()
+        {
+            VideoFinished(this, null);
+        }
 
+        internal void stopVideo()
+        {
+            browser.GetMainFrame().EvaluateScriptAsync(stopVideoScript);
+            VideoFinished(this, null);
+        }
     }
 
     public class BoundJsHandler
     {
         public void videoFinished()
         {
-            MessageBox.Show("Video finished");
+            MessageBox.Show("a");
         }
     }
 }

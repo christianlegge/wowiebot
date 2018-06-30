@@ -13,7 +13,7 @@ namespace wowiebot
 
         public SongRequestQueue()
         {
-
+           
         }
 
         public void queueSong(SongRequest sr)
@@ -47,9 +47,19 @@ namespace wowiebot
             }
         }
 
+        internal SongRequest getNextSong()
+        {
+            return q.First();
+        }
+
         public IEnumerator<SongRequest> GetEnumerator()
         {
             return q.GetEnumerator();
+        }
+
+        internal int Count()
+        {
+            return q.Count;
         }
     }
 }
