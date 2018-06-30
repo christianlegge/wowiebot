@@ -33,8 +33,16 @@ namespace wowiebot
             {
                 Size = new Size(310, 210),
             };
-            
-            browser.LoadHtml(Properties.Resources.player);
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "wowiebot.player.html";
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+                browser.LoadHtml(result);
+            }
 
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
             browser.RegisterAsyncJsObject("boundAsync", this);

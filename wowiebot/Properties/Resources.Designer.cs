@@ -59,27 +59,5 @@ namespace wowiebot.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///  &lt;body style=&quot;margin:0;padding:0;&quot;&gt;
-        ///    &lt;!-- 1. The &lt;iframe&gt; (and video player) will replace this &lt;div&gt; tag. --&gt;
-        ///    &lt;div id=&quot;player&quot;&gt;&lt;/div&gt;
-        ///	&lt;script&gt;
-        ///      // 2. This code loads the IFrame Player API code asynchronously.
-        ///      var tag = document.createElement(&apos;script&apos;);
-        ///
-        ///      tag.src = &quot;https://www.youtube.com/iframe_api&quot;;
-        ///      var firstScriptTag = document.getElementsByTagName(&apos;script&apos;)[0];
-        ///      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        ///
-        ///      //  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string player {
-            get {
-                return ResourceManager.GetString("player", resourceCulture);
-            }
-        }
     }
 }

@@ -28,21 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.songRequestQueueControl1 = new wowiebot.SongRequestQueueControl();
             this.autoplayCheckBox = new System.Windows.Forms.CheckBox();
             this.playNextButton = new System.Windows.Forms.Button();
+            this.songRequestQueueControl1 = new wowiebot.SongRequestQueueControl();
             this.SuspendLayout();
-            // 
-            // songRequestQueueControl1
-            // 
-            this.songRequestQueueControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.songRequestQueueControl1.AutoScroll = true;
-            this.songRequestQueueControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.songRequestQueueControl1.Location = new System.Drawing.Point(391, 12);
-            this.songRequestQueueControl1.Name = "songRequestQueueControl1";
-            this.songRequestQueueControl1.Size = new System.Drawing.Size(574, 292);
-            this.songRequestQueueControl1.TabIndex = 0;
             // 
             // autoplayCheckBox
             // 
@@ -66,6 +55,17 @@
             this.playNextButton.UseVisualStyleBackColor = true;
             this.playNextButton.Click += new System.EventHandler(this.playNextButton_Click);
             // 
+            // songRequestQueueControl1
+            // 
+            this.songRequestQueueControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.songRequestQueueControl1.AutoScroll = true;
+            this.songRequestQueueControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.songRequestQueueControl1.Location = new System.Drawing.Point(391, 12);
+            this.songRequestQueueControl1.Name = "songRequestQueueControl1";
+            this.songRequestQueueControl1.Size = new System.Drawing.Size(574, 292);
+            this.songRequestQueueControl1.TabIndex = 0;
+            // 
             // SongRequestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -74,8 +74,9 @@
             this.Controls.Add(this.playNextButton);
             this.Controls.Add(this.autoplayCheckBox);
             this.Controls.Add(this.songRequestQueueControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SongRequestForm";
-            this.Text = "SongRequestForm";
+            this.Text = "Song Requests";
             this.ResumeLayout(false);
             this.PerformLayout();
 
