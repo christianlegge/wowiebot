@@ -163,6 +163,7 @@ namespace wowiebot
             DataRow discordRow = table.NewRow();
             DataRow eightBallRow = table.NewRow();
             DataRow calculatorRow = table.NewRow();
+            DataRow songreqRow = table.NewRow();
             DataRow helpRow = table.NewRow();
 
             quoteRow.SetField<bool>(enabled, true);
@@ -197,6 +198,10 @@ namespace wowiebot
             calculatorRow.SetField<string>(cmd, "calc");
             calculatorRow.SetField<string>(msg, "Answer: $CALCULATOR");
             calculatorRow.SetField<bool>(showInHelp, true);
+            songreqRow.SetField<bool>(enabled, true);
+            songreqRow.SetField<string>(cmd, "sr");
+            songreqRow.SetField<string>(msg, "$SONGREQ");
+            songreqRow.SetField<bool>(showInHelp, true);
             helpRow.SetField<bool>(enabled, true);
             helpRow.SetField<string>(cmd, "help");
             helpRow.SetField<string>(msg, "Use me in the following ways: $COMMANDS");
@@ -209,6 +214,7 @@ namespace wowiebot
             table.Rows.Add(discordRow);
             table.Rows.Add(eightBallRow);
             table.Rows.Add(calculatorRow);
+            table.Rows.Add(songreqRow);
             table.Rows.Add(helpRow);
             String x = JsonConvert.SerializeObject(table);
             Properties.Settings.Default.commandsDataTableJson = x;
