@@ -24,7 +24,7 @@ namespace wowiebot
 
             titleLabel.Text = sr.title;
             durationLabel.Text = sr.duration.ToString();
-            viewsLabel.Text = sr.duration.ToString() + " views";
+            viewsLabel.Text = sr.views.ToString() + " views";
             uploaderLabel.Text = sr.uploader;
             thumbPictureBox.ImageLocation = sr.thumbUrl;
         }

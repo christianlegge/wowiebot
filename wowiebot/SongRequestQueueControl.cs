@@ -14,10 +14,13 @@ namespace wowiebot
     {
         SongRequestQueue q;
         List<SongRequestControl> srControls = new List<SongRequestControl>();
+        SongRequestForm parentForm;
 
-        public SongRequestQueueControl()
+        public SongRequestQueueControl(SongRequestForm parent)
         {
             InitializeComponent();
+
+            parentForm = parent;
             q = new SongRequestQueue();
             q.QueueChanged += Q_QueueChanged;
         }
@@ -25,11 +28,12 @@ namespace wowiebot
         public void queueSong(SongRequest sr)
         {
             q.queueSong(sr);
+            parentForm.playVideo(sr.id);
         }
 
         public void queueSong(string srString)
         {
-            q.queueSong(new SongRequest(srString));
+            queueSong(new SongRequest(srString));
         }
 
         private void Q_QueueChanged(object sender, EventArgs e)

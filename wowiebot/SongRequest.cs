@@ -23,11 +23,13 @@ namespace wowiebot
         public TimeSpan duration;
         public ulong? views;
         public string thumbUrl;
+        public string id;
 
-        public SongRequest(string id)
+        public SongRequest(string videoId)
         {
             VideosResource.ListRequest list = youtubeService.Videos.List("snippet,contentDetails,statistics");
-            list.Id = id;
+            list.Id = videoId;
+            id = videoId;
             VideoListResponse response = list.Execute();
             title = response.Items.First().Snippet.Title;
             uploader = response.Items.First().Snippet.ChannelTitle;

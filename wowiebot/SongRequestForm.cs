@@ -28,11 +28,10 @@ namespace wowiebot
 
             LoadApp();
 
-            SongRequest sr = new SongRequest("AgBByp1nCl4");
-
             browser = new BrowserControl("https://www.youtube.com/embed/AgBByp1nCl4")
             {
-                Dock = DockStyle.Fill
+                Size = new Size(300, 200),
+                Location = new Point(20, 20),
             };
             this.Controls.Add(browser);
         }
@@ -74,6 +73,11 @@ namespace wowiebot
         private void queueButton_Click(object sender, EventArgs e)
         {
             songRequestQueueControl1.queueSong(toQueueTextBox.Text);
+        }
+
+        public void playVideo(string id)
+        {
+            browser.playVideo(id);
         }
     }
 

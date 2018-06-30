@@ -28,19 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.songRequestQueueControl1 = new wowiebot.SongRequestQueueControl();
             this.toQueueTextBox = new System.Windows.Forms.TextBox();
             this.queueButton = new System.Windows.Forms.Button();
+            this.songRequestQueueControl1 = new wowiebot.SongRequestQueueControl(this);
             this.SuspendLayout();
-            // 
-            // songRequestQueueControl1
-            // 
-            this.songRequestQueueControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.songRequestQueueControl1.Location = new System.Drawing.Point(433, 12);
-            this.songRequestQueueControl1.Name = "songRequestQueueControl1";
-            this.songRequestQueueControl1.Size = new System.Drawing.Size(392, 505);
-            this.songRequestQueueControl1.TabIndex = 0;
             // 
             // toQueueTextBox
             // 
@@ -59,11 +50,22 @@
             this.queueButton.UseVisualStyleBackColor = true;
             this.queueButton.Click += new System.EventHandler(this.queueButton_Click);
             // 
+            // songRequestQueueControl1
+            // 
+            this.songRequestQueueControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.songRequestQueueControl1.AutoScroll = true;
+            this.songRequestQueueControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.songRequestQueueControl1.Location = new System.Drawing.Point(391, 12);
+            this.songRequestQueueControl1.Name = "songRequestQueueControl1";
+            this.songRequestQueueControl1.Size = new System.Drawing.Size(574, 505);
+            this.songRequestQueueControl1.TabIndex = 0;
+            // 
             // SongRequestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 529);
+            this.ClientSize = new System.Drawing.Size(977, 529);
             this.Controls.Add(this.queueButton);
             this.Controls.Add(this.toQueueTextBox);
             this.Controls.Add(this.songRequestQueueControl1);
