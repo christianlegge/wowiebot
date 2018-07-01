@@ -27,6 +27,7 @@ namespace wowiebot
             viewsLabel.Text = sr.views.ToString() + " views";
             uploaderLabel.Text = sr.uploader;
             thumbPictureBox.ImageLocation = sr.thumbUrl;
+            requestedLabel.Text += sr.requester;
         }
 
         private void removeButton_Click(object sender, EventArgs e)

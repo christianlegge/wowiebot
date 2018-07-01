@@ -24,10 +24,12 @@ namespace wowiebot
         public ulong? views;
         public string thumbUrl;
         public string id;
+        public string requester;
 
-        public SongRequest(string videoId)
+        public SongRequest(string videoId, string whoRequested)
         {
             VideosResource.ListRequest list = youtubeService.Videos.List("snippet,contentDetails,statistics");
+            requester = whoRequested;
             list.Id = videoId;
             id = videoId;
             VideoListResponse response = list.Execute();

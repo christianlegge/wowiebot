@@ -195,7 +195,7 @@ namespace wowiebot
                                 Regex r = new Regex(@".*\b(?<id>[A-Za-z0-9-_]{11})\b.*");
                                 Match m = r.Match(commandArgs);
                                 string id = m.Groups["id"].Value;
-                                MainForm.songRequestForm.queueSong(new SongRequest(id));
+                                MainForm.songRequestForm.queueSong(new SongRequest(id, sender));
                                 return "Queued.";
                             }
                             else

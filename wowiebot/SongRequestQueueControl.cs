@@ -47,9 +47,9 @@ namespace wowiebot
             }
         }
 
-        public void queueSong(string srString)
+        public void queueSong(string srString, string requester)
         {
-            queueSong(new SongRequest(srString));
+            queueSong(new SongRequest(srString, requester));
         }
 
         private void Q_QueueChanged(object sender, EventArgs e)

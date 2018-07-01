@@ -34,6 +34,7 @@
             this.durationLabel = new System.Windows.Forms.Label();
             this.viewsLabel = new System.Windows.Forms.Label();
             this.removeButton = new System.Windows.Forms.Button();
+            this.requestedLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.thumbPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +87,7 @@
             // 
             // removeButton
             // 
-            this.removeButton.Location = new System.Drawing.Point(154, 47);
+            this.removeButton.Location = new System.Drawing.Point(154, 43);
             this.removeButton.Name = "removeButton";
             this.removeButton.Size = new System.Drawing.Size(75, 23);
             this.removeButton.TabIndex = 5;
@@ -94,10 +95,20 @@
             this.removeButton.UseVisualStyleBackColor = true;
             this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
             // 
+            // requestedLabel
+            // 
+            this.requestedLabel.AutoSize = true;
+            this.requestedLabel.Location = new System.Drawing.Point(154, 73);
+            this.requestedLabel.Name = "requestedLabel";
+            this.requestedLabel.Size = new System.Drawing.Size(79, 13);
+            this.requestedLabel.TabIndex = 6;
+            this.requestedLabel.Text = "Requested by: ";
+            // 
             // SongRequestControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.requestedLabel);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.viewsLabel);
             this.Controls.Add(this.durationLabel);
@@ -120,5 +131,6 @@
         private System.Windows.Forms.Label durationLabel;
         private System.Windows.Forms.Label viewsLabel;
         private System.Windows.Forms.Button removeButton;
+        private System.Windows.Forms.Label requestedLabel;
     }
 }
