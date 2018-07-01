@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Text.RegularExpressions;
+using System.Web;
 using Newtonsoft.Json.Linq;
 using org.mariuszgromada.math.mxparser;
 
@@ -88,9 +89,22 @@ namespace wowiebot
             return splitMsg.Length == 1 ? "" : splitMsg[1];
         }
 
-        private bool isValidYoutubeLink(string url)
+        private string getIdFromYoutubeLink(Uri url)
         {
-            return url.Contains("youtu");
+            Regex idRegex = new Regex("[A-Za-z0-9-_]{11}");
+            if (url.Host.EndsWith("youtu.be") && idRegex.IsMatch(url.AbsolutePath.Remove(0, 1)))
+            {
+                return url.AbsolutePath.Remove(0, 1);
+            }
+            else if (url.Host.EndsWith("youtube.com"))
+            {
+                var getParams = HttpUtility.ParseQueryString(url.Query);
+                if (idRegex.IsMatch(getParams["v"]))
+                {
+                    return getParams["v"];
+                }
+            }
+            return null;
         }
 
         private bool senderHasPermission()
@@ -186,15 +200,14 @@ namespace wowiebot
                             commandText = commandText.Replace("$COMMANDS", ChatHandler.getInstance().commandsForHelp);
                             break;
                         case "SONGREQ":
+                            Uri ytlink = new Uri(commandArgs);
+                            string id = getIdFromYoutubeLink(ytlink);
                             if (MainForm.songRequestForm == null)
                             {
                                 commandText = "Unable to load video. Please tell the streamer to open the Song Requests window.";
                             }
-                            else if (isValidYoutubeLink(commandArgs))
+                            else if (id != null)
                             {
-                                Regex r = new Regex(@".*\b(?<id>[A-Za-z0-9-_]{11})\b.*");
-                                Match m = r.Match(commandArgs);
-                                string id = m.Groups["id"].Value;
                                 SongRequest sr = new SongRequest(id, sender);
                                 if (sr.embeddable == false)
                                 {
@@ -205,7 +218,7 @@ namespace wowiebot
                             }
                             else
                             {
-                                commandText = "Invalid link.";
+                                commandText = "Unable to parse link.";
                             }
                             break;
                     }
