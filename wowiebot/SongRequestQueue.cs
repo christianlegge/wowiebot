@@ -47,7 +47,7 @@ namespace wowiebot
             }
         }
 
-        internal SongRequest getNextSong()
+        internal SongRequest First()
         {
             return q.First();
         }

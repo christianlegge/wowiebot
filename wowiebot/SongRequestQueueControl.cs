@@ -38,6 +38,11 @@ namespace wowiebot
             }
         }
 
+        internal void firstRemoved()
+        {
+            parentForm.firstRemoved();
+        }
+
         public void queueSong(SongRequest sr)
         {
             q.queueSong(sr);
@@ -45,6 +50,11 @@ namespace wowiebot
             {
                 playNext();
             }
+        }
+
+        internal void removeSong(SongRequest songRequest)
+        {
+            q.removeSong(songRequest);
         }
 
         public void queueSong(string srString, string requester)
@@ -63,7 +73,7 @@ namespace wowiebot
                 int height = 0;
                 foreach (SongRequest sr in q)
                 {
-                    SongRequestControl src = new SongRequestControl(sr, q);
+                    SongRequestControl src = new SongRequestControl(sr, this);
                     src.Location = new Point(0, height);
                     height = height + src.Height;
                     Controls.Add(src);
@@ -80,7 +90,12 @@ namespace wowiebot
 
         public void playNext()
         {
-            parentForm.playVideo(q.getNextSong().id);
+            parentForm.playVideo(q.First().id);
+        }
+
+        internal SongRequest First()
+        {
+            return q.First();
         }
 
         delegate void VoidVoidDelegate();

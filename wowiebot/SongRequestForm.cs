@@ -138,6 +138,14 @@ namespace wowiebot
                 browser.stopVideo();
             }
         }
+
+        public void firstRemoved()
+        {
+            if (songIsPlaying)
+            { 
+                browser.stopVideo();
+            }
+        }
     }
 
 }

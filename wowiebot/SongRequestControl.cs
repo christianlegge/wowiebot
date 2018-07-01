@@ -13,9 +13,9 @@ namespace wowiebot
     public partial class SongRequestControl : UserControl
     {
         SongRequest songRequest;
-        SongRequestQueue parentQueue;
+        SongRequestQueueControl parentQueue;
 
-        public SongRequestControl(SongRequest sr, SongRequestQueue parent)
+        public SongRequestControl(SongRequest sr, SongRequestQueueControl parent)
         {
             InitializeComponent();
 
@@ -32,6 +32,10 @@ namespace wowiebot
 
         private void removeButton_Click(object sender, EventArgs e)
         {
+            if (parentQueue.First().Equals(this.songRequest))
+            {
+                parentQueue.firstRemoved();
+            }
             parentQueue.removeSong(songRequest);
         }
     }
