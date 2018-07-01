@@ -25,10 +25,11 @@ namespace wowiebot
         public string thumbUrl;
         public string id;
         public string requester;
+        public bool? embeddable;
 
         public SongRequest(string videoId, string whoRequested)
         {
-            VideosResource.ListRequest list = youtubeService.Videos.List("snippet,contentDetails,statistics");
+            VideosResource.ListRequest list = youtubeService.Videos.List("snippet,contentDetails,statistics,status");
             requester = whoRequested;
             list.Id = videoId;
             id = videoId;
@@ -37,6 +38,7 @@ namespace wowiebot
             uploader = response.Items.First().Snippet.ChannelTitle;
             views = response.Items.First().Statistics.ViewCount;
             thumbUrl = response.Items.First().Snippet.Thumbnails.Default__.Url;
+            embeddable = response.Items.First().Status.Embeddable;
             duration = new TimeSpan();
             
             Regex r = new Regex(@"PT((?<hours>\d+)H)?((?<minutes>\d+)M)?((?<seconds>\d+)S)?");

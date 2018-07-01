@@ -195,7 +195,12 @@ namespace wowiebot
                                 Regex r = new Regex(@".*\b(?<id>[A-Za-z0-9-_]{11})\b.*");
                                 Match m = r.Match(commandArgs);
                                 string id = m.Groups["id"].Value;
-                                MainForm.songRequestForm.queueSong(new SongRequest(id, sender));
+                                SongRequest sr = new SongRequest(id, sender);
+                                if (sr.embeddable == false)
+                                {
+                                    return "That video is not embeddable and can't be played in the bot window. Sorry!";
+                                }
+                                MainForm.songRequestForm.queueSong(sr);
                                 return "Queued.";
                             }
                             else
