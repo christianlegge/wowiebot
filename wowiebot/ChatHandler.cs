@@ -34,7 +34,7 @@ namespace wowiebot
         public List<string> validCommands = new List<string>();
         private List<bool> displayCommandsInHelp = new List<bool>();
         private string userID;
-        private List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS", "SONGREQ" });
+        private List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS", "SONGREQ", "QUEUETIME" });
         public DataTable commandsTable;
         private DataTable periodicMessagesTable;
         private String sender;

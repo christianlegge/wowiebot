@@ -77,6 +77,11 @@ namespace wowiebot
       
         }
 
+        public TimeSpan getQueueLength()
+        {
+            return songRequestQueueControl1.getQueueLength();
+        }
+
         internal void playNext()
         {
             

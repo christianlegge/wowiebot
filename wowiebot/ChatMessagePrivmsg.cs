@@ -221,6 +221,9 @@ namespace wowiebot
                                 commandText = "Unable to parse link.";
                             }
                             break;
+                        case "QUEUETIME":
+                            commandText = commandText.Replace("$QUEUETIME", MainForm.songRequestForm.getQueueLength().ToString());
+                            break;
                     }
                 }
             }

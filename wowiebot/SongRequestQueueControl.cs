@@ -88,6 +88,11 @@ namespace wowiebot
             this.Invoke(d);
         }
 
+        internal TimeSpan getQueueLength()
+        {
+            return q.getQueueLength();
+        }
+
         public void playNext()
         {
             parentForm.playVideo(q.First().id);

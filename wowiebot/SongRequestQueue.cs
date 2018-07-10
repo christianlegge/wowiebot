@@ -52,6 +52,16 @@ namespace wowiebot
             return q.First();
         }
 
+        public TimeSpan getQueueLength()
+        {
+            TimeSpan t = new TimeSpan();
+            foreach (SongRequest s in q)
+            {
+                t = t.Add(s.duration);
+            }
+            return t;
+        }
+
         public IEnumerator<SongRequest> GetEnumerator()
         {
             return q.GetEnumerator();
