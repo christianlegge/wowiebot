@@ -33,11 +33,13 @@ $UPMINUTES: Whole number of minutes the broadcaster has been live
 $8BALL: A random choice from the 8-Ball Choices
 $CALCULATOR: Evaluates a mathematical expression
 $COMMANDS: A list of all commands with ""Show in commands list"" checked
+$QUEUETIME: Total length of all videos in the song request queue. Does nothing if Song Request window is not open
 
 These variables don't get replaced by things, but change the command to do something else.
 
 $ADDQUOTE: Makes the command add a quote
-$VOTEYES: Makes the command the ""agree"" command for adding quotes (only has an effect when using voting for quote adding)";
+$VOTEYES: Makes the command the ""agree"" command for adding quotes (only has an effect when using voting for quote adding)
+$SONGREQ: Expects a Youtube link. Adds the specified video to the song request queue";
         }
 
         private void closeButton_Click(object sender, EventArgs e)
