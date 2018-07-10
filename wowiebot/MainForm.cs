@@ -44,6 +44,8 @@ namespace wowiebot
         {
             InitializeComponent();
 
+            this.FormClosing += MainForm_FormClosing;
+
             dcTimer.Tick += disconnectAction;
             dcTimer.Interval = 1500;
             channelTextBox.Text = Properties.Settings.Default.prevChannel;
@@ -91,6 +93,17 @@ namespace wowiebot
                 loggedInOauth = "5bdocznijbholgvt3o9u6t5ui6okjs";
                 updateConnectButton();
 
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (connected)
+            {
+                if (MessageBox.Show("Disconnect and close wowiebot?", "", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
             }
         }
 
