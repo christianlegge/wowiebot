@@ -259,7 +259,10 @@ namespace wowiebot
             {
                 connecting = false;
                 connectButton.Enabled = true;
-                songRequestButton.Enabled = true;
+                if (songRequestForm == null)
+                {
+                    songRequestButton.Enabled = true;
+                }
                 connectButton.Text = "Disconnect";
             }
         }
@@ -452,14 +455,21 @@ namespace wowiebot
 
         private void songRequestButton_Click(object sender, EventArgs e)
         {
-            songRequestForm = new SongRequestForm();
-            songRequestForm.FormClosed += SongRequestForm_FormClosed;
+            songRequestButton.Enabled = false;
+            if (songRequestForm == null)
+            {
+                songRequestForm = new SongRequestForm();
+                songRequestForm.FormClosed += SongRequestForm_FormClosed;
+            }
             songRequestForm.Show();
         }
 
         private void SongRequestForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            songRequestForm.FormClosed -= SongRequestForm_FormClosed;
+            if (connected)
+            {
+                songRequestButton.Enabled = true;
+            }
             songRequestForm = null;
         }
     }

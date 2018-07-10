@@ -27,6 +27,8 @@ namespace wowiebot
         {
             InitializeComponent();
 
+            this.FormClosing += SongRequestForm_FormClosing;
+
             songRequestQueueControl1.setParent(this);
 
             playNextButton.Enabled = false;
@@ -44,6 +46,14 @@ namespace wowiebot
             browser.VideoFinished += Browser_VideoFinished;
             browser.PlayerReady += Browser_PlayerReady;
             this.Controls.Add(browser);
+        }
+
+        private void SongRequestForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Queue will be lost permanently if you close this window!", "Warning", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void Browser_PlayerReady(object sender, EventArgs e)
@@ -72,7 +82,10 @@ namespace wowiebot
                                                    "CefSharp.BrowserSubprocess.exe");
 
             // Make sure you set performDependencyCheck false
-            Cef.Initialize(settings, performDependencyCheck: false, browserProcessHandler: null);
+            if (!Cef.IsInitialized)
+            {
+                Cef.Initialize(settings, performDependencyCheck: false, browserProcessHandler: null);
+            }
 
       
         }
