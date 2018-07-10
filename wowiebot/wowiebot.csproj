@@ -108,6 +108,7 @@
     <Compile Include="BrowserControl.Designer.cs">
       <DependentUpon>BrowserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CefRequestHandler.cs" />
     <Compile Include="ChatMessage.cs" />
     <Compile Include="ChatMessagePing.cs" />
     <Compile Include="ChatMessagePrivmsg.cs" />

@@ -32,7 +32,10 @@ namespace wowiebot
             browser = new ChromiumWebBrowser()
             {
                 Size = new Size(410, 235),
+                RequestHandler = new CefRequestHandler(),
             };
+
+          //  browser.Load("https://www.whatismybrowser.com/detect/what-http-headers-is-my-browser-sending");
 
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = "wowiebot.player.html";
@@ -43,7 +46,7 @@ namespace wowiebot
                 string result = reader.ReadToEnd();
                 browser.LoadHtml(result);
             }
-
+            
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
             browser.RegisterAsyncJsObject("boundAsync", this);
 

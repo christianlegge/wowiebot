@@ -26,7 +26,7 @@ namespace wowiebot
         {
             if (q.Count == 0)
             {
-                throw new Exception("No song was playing");
+                return null;
             }
             q.RemoveAt(0);
             QueueChanged(this, null);
