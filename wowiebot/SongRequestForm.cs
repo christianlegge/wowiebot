@@ -21,6 +21,7 @@ namespace wowiebot
         BrowserControl browser;
         public event EventHandler VideoFinished;
         public bool songIsPlaying = false;
+        public bool browserReady = false;
 
         public SongRequestForm()
         {
@@ -49,7 +50,7 @@ namespace wowiebot
         {
             VoidVoidDelegate d = delegate
             {
-     //           queueButton.Enabled = true;
+                browserReady = true;
             };
             this.Invoke(d);
         }
@@ -122,6 +123,7 @@ namespace wowiebot
 
         public void queueSong(SongRequest sr)
         {
+            while (!browserReady);
             songRequestQueueControl1.queueSong(sr);
         }
 
