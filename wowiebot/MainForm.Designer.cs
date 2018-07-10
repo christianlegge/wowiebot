@@ -134,6 +134,7 @@
             // 
             // songRequestButton
             // 
+            this.songRequestButton.Enabled = false;
             this.songRequestButton.Location = new System.Drawing.Point(168, 12);
             this.songRequestButton.Name = "songRequestButton";
             this.songRequestButton.Size = new System.Drawing.Size(125, 23);

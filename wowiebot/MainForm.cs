@@ -259,6 +259,7 @@ namespace wowiebot
             {
                 connecting = false;
                 connectButton.Enabled = true;
+                songRequestButton.Enabled = true;
                 connectButton.Text = "Disconnect";
             }
         }
@@ -302,6 +303,7 @@ namespace wowiebot
                 ChatHandler.getInstance().disconnect();
                 connected = false;
                 connectButton.Enabled = false;
+                songRequestButton.Enabled = false;
                 writeToServerOutputTextBox("Disconnected.\r\n\r\n");
                 dcTimer.Start();
             }
@@ -330,6 +332,7 @@ namespace wowiebot
                     useWowieBox.Enabled = true;
                     configButton.Enabled = true;
                     updateButton.Enabled = true;
+                    songRequestButton.Enabled = false;
                     updateConnectButton();
                 });
                 writeToServerOutputTextBox("Connection failed.\r\n\r\n");
