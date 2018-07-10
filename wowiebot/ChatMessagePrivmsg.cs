@@ -76,7 +76,7 @@ namespace wowiebot
                 }
             }
             
-            if (Properties.Settings.Default.enableLinkTitles)
+            else if (Properties.Settings.Default.enableLinkTitles)
             {
                 ChatHandler.getInstance().printLinkTitles(sentMessage);
             }
