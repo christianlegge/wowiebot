@@ -12,12 +12,12 @@ namespace wowiebot
     {
         public bool CanGetCookies(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public bool CanSetCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, Cookie cookie)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public bool GetAuthCredentials(IWebBrowser browserControl, IBrowser browser, IFrame frame, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
@@ -37,7 +37,7 @@ namespace wowiebot
 
         public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
