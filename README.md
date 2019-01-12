@@ -8,7 +8,7 @@ wowiebot was developed using the framework [twitchat](https://github.com/chhopsk
 
 To use wowiebot, simply download and run the exe from the [latest release](https://github.com/scattertv/wowiebot/releases/latest). There's no install, just run the exe from anywhere. Configuration files will be created in `AppData\Local\wowiebot`.
 
-If you wish to use the wowiebot Twitch account, leave the "Log in as wowiebot" box checked. Otherwise, if you want to run the bot as my_awesome_bot or whatever other account you own, uncheck it and click Log In. You will need to provide your Oauth2 credentials; a link is provided to a page explaining how to do so. Once logged in, type the name of the channel you wish to connect to and click Connect as <username>.
+If you wish to use the wowiebot Twitch account, leave the "Log in as wowiebot" box checked. Otherwise, if you want to run the bot as my_awesome_bot or whatever other account you own, uncheck it and click Log In. You will need to provide your Oauth2 credentials; a link is provided to a page explaining how to do so. Once logged in, type the name of the channel you wish to connect to and click Connect as `<username>`.
 
 ## Configuration
 
