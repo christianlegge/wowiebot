@@ -11,7 +11,7 @@
 
         public virtual void handleMessage()
         {
-            ChatHandler.getInstance().writeLineToFormBox(rawMessage);
+            //ChatHandler.getInstance().writeLineToFormBox(rawMessage);
         }
 
         override public string ToString()

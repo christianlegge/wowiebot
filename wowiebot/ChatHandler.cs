@@ -217,8 +217,8 @@ namespace wowiebot
 
             string joinstring = "JOIN " + "#" + channel + "\r\n";
             sendToServer(joinstring);
-
-            mainForm.writeToServerOutputTextBox(readFromServer() + "\r\n");
+            readFromServer();
+            mainForm.writeToServerOutputTextBox("Joined channel #" + channel + ".\r\n");
 
             willDisconnect = false;
 
