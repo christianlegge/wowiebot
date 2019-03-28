@@ -220,12 +220,6 @@ namespace wowiebot
 
             mainForm.writeToServerOutputTextBox(readFromServer() + "\r\n");
 
-            // PMs the channel to announce that it's joined and listening
-            // These three lines are the example for how to send something to the channel
-
-            string announcestring = channel + "!" + channel + "@" + channel + ".tmi.twitch.tv PRIVMSG " + channel + " BOT ENABLED\r\n";
-            sendToServer(announcestring);
-
             willDisconnect = false;
 
             while (!willDisconnect)
