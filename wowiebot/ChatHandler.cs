@@ -207,7 +207,7 @@ namespace wowiebot
             // String to store the response ASCII representation.
 
             // Requesting tags capability for more info
-            string tagReqString = "CAP REQ :twitch.tv/tags\r\n";
+            string tagReqString = "CAP REQ :twitch.tv/membership twitch.tv/tags twitch.tv/commands\r\n";
             sendToServer(tagReqString);
 
             // Read the request response
