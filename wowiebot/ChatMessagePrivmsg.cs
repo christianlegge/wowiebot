@@ -58,7 +58,7 @@ namespace wowiebot
                 {
                     string msg = ChatHandler.getInstance().getMessageFromCommand(command);
 
-                    if (senderHasPermission())
+                    if (senderHasPermission(command))
                     {
                         string args = getCommandArguments(sentMessage);
                         msg = replaceVariables(msg, args);
@@ -91,9 +91,17 @@ namespace wowiebot
             return splitMsg.Length == 1 ? "" : splitMsg[1];
         }
 
-        private bool senderHasPermission()
+        private bool senderHasPermission(string commandName)
         {
-            return true;
+            List<string> allowedUsers = ChatHandler.getInstance().commandsDictionary[commandName].allowedUsers;
+            if (allowedUsers.Count == 0 || allowedUsers.Contains(sender) || (allowedUsers.Contains("$mod") && senderIsMod) || senderIsBroadcaster)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public string getSender()

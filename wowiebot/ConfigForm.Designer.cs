@@ -133,7 +133,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(273, 41);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 40;
-            this.dataGridView1.Size = new System.Drawing.Size(489, 486);
+            this.dataGridView1.Size = new System.Drawing.Size(812, 486);
             this.dataGridView1.TabIndex = 14;
             this.dataGridView1.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
             // 
@@ -255,7 +255,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(774, 540);
+            this.ClientSize = new System.Drawing.Size(1097, 540);
             this.Controls.Add(this.importButton);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.button2);

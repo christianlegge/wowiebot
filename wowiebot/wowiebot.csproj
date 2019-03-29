@@ -67,6 +67,7 @@
     <Compile Include="ChatMessage.cs" />
     <Compile Include="ChatMessagePing.cs" />
     <Compile Include="ChatMessagePrivmsg.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="CommandsHelpForm.cs">
       <SubType>Form</SubType>
     </Compile>

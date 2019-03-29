@@ -65,6 +65,16 @@ namespace wowiebot
                 commandsDataTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.commandsDataTableJson);
             }
 
+            if (!commandsDataTable.Columns.Contains("Permissions"))
+            {
+                DataColumn perms = new DataColumn("Permissions");
+                perms.DefaultValue = "";
+                commandsDataTable.Columns.Add(perms);
+                commandsDataTable.Columns["Permissions"].SetOrdinal(2);
+                Properties.Settings.Default.commandsDataTableJson = JsonConvert.SerializeObject(commandsDataTable);
+                Properties.Settings.Default.Save();
+            }
+
             validateEnabledColumnCommands(commandsDataTable);
 
             DataTable periodicDataTable;
@@ -146,11 +156,13 @@ namespace wowiebot
             DataTable table = new DataTable();
             DataColumn enabled = new DataColumn("Enabled", typeof(bool));
             DataColumn cmd = new DataColumn("Command");
+            DataColumn perms = new DataColumn("Permissions");
             DataColumn msg = new DataColumn("Message");
             DataColumn showInHelp = new DataColumn("Show in commands list", typeof(bool));
 
             table.Columns.Add(enabled);
             table.Columns.Add(cmd);
+            table.Columns.Add(perms);
             table.Columns.Add(msg);
             table.Columns.Add(showInHelp);
             DataRow quoteRow = table.NewRow();
