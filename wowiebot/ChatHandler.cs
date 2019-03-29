@@ -207,7 +207,7 @@ namespace wowiebot
             // String to store the response ASCII representation.
 
             // Requesting tags capability for more info
-            string tagReqString = "CAP REQ :twitch.tv/tags\r\n";
+            string tagReqString = "CAP REQ :twitch.tv/membership twitch.tv/tags twitch.tv/commands\r\n";
             sendToServer(tagReqString);
 
             // Read the request response
@@ -217,14 +217,8 @@ namespace wowiebot
 
             string joinstring = "JOIN " + "#" + channel + "\r\n";
             sendToServer(joinstring);
-
-            mainForm.writeToServerOutputTextBox(readFromServer() + "\r\n");
-
-            // PMs the channel to announce that it's joined and listening
-            // These three lines are the example for how to send something to the channel
-
-            string announcestring = channel + "!" + channel + "@" + channel + ".tmi.twitch.tv PRIVMSG " + channel + " BOT ENABLED\r\n";
-            sendToServer(announcestring);
+            readFromServer();
+            mainForm.writeToServerOutputTextBox("Joined channel #" + channel + ".\r\n");
 
             willDisconnect = false;
 

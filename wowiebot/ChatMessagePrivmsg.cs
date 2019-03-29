@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web;
 using Newtonsoft.Json.Linq;
@@ -13,14 +14,16 @@ namespace wowiebot
         private string sentMessage;
         private bool senderIsMod;
         private bool senderIsBroadcaster;
+        public Dictionary<string, string> tags = new Dictionary<string, string>();
 
         public ChatMessagePrivmsg(string rawMessage) : base(rawMessage)
         {
-            Regex regex = new Regex("@badges=(?<badges>.*);color=(?<color>.*);display-name=(?<displayname>.*);emotes=(?<emotes>.*);id=(?<id>.*);mod=(?<mod>.*);room-id=(?<roomid>.*);subscriber=(?<subscriber>.*);tmi-sent-ts=(?<tmisentts>.*);turbo=(?<turbo>.*);user-id=(?<userid>.*);user-type=(?<usertype>.*) :(?<sender>.*)!(.*)@(.*).tmi.twitch.tv PRIVMSG #(.*?) :(?<message>.*)");
-            Match match = regex.Match(rawMessage);
+            Regex r = new Regex(":(?<sender>.*)!(.*)@(.*).tmi.twitch.tv PRIVMSG #(.*?) :(?<message>.*)");
+            Match match = r.Match(rawMessage);
+            parseTags(rawMessage);
             sender = match.Groups["sender"].Value;
             sentMessage = match.Groups["message"].Value;
-            senderIsMod = match.Groups["mod"].Value.Equals("1");
+            senderIsMod = tags["mod"].Equals("1");
             senderIsBroadcaster = sender.Equals(ChatHandler.getInstance().getChannel());
         }
 
@@ -77,7 +80,7 @@ namespace wowiebot
                 }
             }
             
-            if (Properties.Settings.Default.enableLinkTitles)
+            else if (Properties.Settings.Default.enableLinkTitles)
             {
                 ChatHandler.getInstance().printLinkTitles(sentMessage);
             }
@@ -229,6 +232,20 @@ namespace wowiebot
             }
 
             return commandText;
+        }
+
+        private void parseTags(string message)
+        {
+            List<string> tagNames = new List<string>{ "badge-info", "badges", "bits", "color", "display-name", "emotes", "id", "message", "mod", "room-id", "subscriber", "tmi-sent-ts", "turbo", "user-id", "user-type"  };
+            string allTags = message.Remove(message.IndexOf("tmi.twitch.tv PRIVMSG #"));
+
+            foreach (string tag in tagNames)
+            {
+                Regex regex = new Regex("\\b"+tag+"=(.*?)[; ]");
+                Match match = regex.Match(allTags);
+                tags[tag] = match.Groups[1].Value;
+            }
+
         }
     }
 }

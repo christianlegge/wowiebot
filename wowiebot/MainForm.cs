@@ -15,7 +15,8 @@ namespace wowiebot
     {
         public static SongRequestForm songRequestForm = null;
 
-        private const string thisVersion = "v2.3.4";
+        private const string thisVersion = "v2.3.6";
+
         private string latestVersion;
         private JObject releaseJson;
 
