@@ -306,7 +306,7 @@ namespace wowiebot
         
         public void sendMessage(string message)
         {
-            if (message == null)
+            if (message == null || message == "")
             {
                 return;
             }

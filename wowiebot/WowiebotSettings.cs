@@ -19,6 +19,7 @@ namespace wowiebot
         public int quoteVotersNumber;
         public string emptyQuotesMessage;
         public string periodicMessagesDataTableJson;
+        public string noPermsMessage;
         public int minimumMessagesBetweenPeriodic;
 
         public WowiebotSettings()
@@ -39,6 +40,7 @@ namespace wowiebot
             emptyQuotesMessage = Properties.Settings.Default.emptyQuotesMessage;
             periodicMessagesDataTableJson = Properties.Settings.Default.periodicMessagesDataTableJson;
             minimumMessagesBetweenPeriodic = Properties.Settings.Default.minimumMessagesBetweenPeriodic;
+            noPermsMessage = Properties.Settings.Default.noPermsMessage;
         }
 
         public void saveToSettings()
@@ -82,6 +84,7 @@ namespace wowiebot
                 Properties.Settings.Default.periodicMessagesDataTableJson = periodicMessagesDataTableJson;
             }
             Properties.Settings.Default.minimumMessagesBetweenPeriodic = minimumMessagesBetweenPeriodic;
+            Properties.Settings.Default.noPermsMessage = noPermsMessage;
             Properties.Settings.Default.Save();
         }
     }

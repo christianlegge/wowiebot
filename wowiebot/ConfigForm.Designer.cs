@@ -48,6 +48,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.exportButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
+            this.noPermsMsgTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).BeginInit();
             this.SuspendLayout();
@@ -221,7 +223,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 250);
+            this.button2.Location = new System.Drawing.Point(12, 304);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(114, 23);
             this.button2.TabIndex = 23;
@@ -249,6 +251,22 @@
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
+            // noPermsMsgTextBox
+            // 
+            this.noPermsMsgTextBox.Location = new System.Drawing.Point(12, 259);
+            this.noPermsMsgTextBox.Name = "noPermsMsgTextBox";
+            this.noPermsMsgTextBox.Size = new System.Drawing.Size(255, 20);
+            this.noPermsMsgTextBox.TabIndex = 26;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 240);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(265, 13);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Message for lacking permissions (leave blank for none)";
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.saveButton;
@@ -256,6 +274,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(1097, 540);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.noPermsMsgTextBox);
             this.Controls.Add(this.importButton);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.button2);
@@ -307,5 +327,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button exportButton;
         private System.Windows.Forms.Button importButton;
+        private System.Windows.Forms.TextBox noPermsMsgTextBox;
+        private System.Windows.Forms.Label label2;
     }
 }

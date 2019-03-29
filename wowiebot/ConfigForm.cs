@@ -32,6 +32,7 @@ namespace wowiebot
             quoteMethodDropDown.SelectedIndex = Properties.Settings.Default.quoteAddingMethod;
             quoteVotersNum.Value = Properties.Settings.Default.quoteVotersNumber;
             emptyQuoteMessage.Text = Properties.Settings.Default.emptyQuotesMessage;
+            noPermsMsgTextBox.Text = Properties.Settings.Default.noPermsMessage;
             updateSaveButton();
             commandsDataTable = getDataTableFromSettings();
 
@@ -78,6 +79,7 @@ namespace wowiebot
                 Properties.Settings.Default.quoteAddingMethod = quoteMethodDropDown.SelectedIndex;
                 Properties.Settings.Default.quoteVotersNumber = (int)quoteVotersNum.Value;
                 Properties.Settings.Default.emptyQuotesMessage = emptyQuoteMessage.Text;
+                Properties.Settings.Default.noPermsMessage = noPermsMsgTextBox.Text;
                 Properties.Settings.Default.Save();
                 Close();
             }

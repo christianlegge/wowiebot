@@ -67,7 +67,7 @@ namespace wowiebot
 
                     else
                     {
-                        ChatHandler.getInstance().sendMessage("You don't have permission to do that.");
+                        ChatHandler.getInstance().sendMessage(Properties.Settings.Default.noPermsMessage);
                     }
                 }
                 catch (Exception e)
