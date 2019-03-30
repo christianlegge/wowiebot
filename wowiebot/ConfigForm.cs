@@ -32,15 +32,17 @@ namespace wowiebot
             quoteMethodDropDown.SelectedIndex = Properties.Settings.Default.quoteAddingMethod;
             quoteVotersNum.Value = Properties.Settings.Default.quoteVotersNumber;
             emptyQuoteMessage.Text = Properties.Settings.Default.emptyQuotesMessage;
+            noPermsMsgTextBox.Text = Properties.Settings.Default.noPermsMessage;
             updateSaveButton();
             commandsDataTable = getDataTableFromSettings();
 
             dataGridView1.DataSource = commandsDataTable;
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[2].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
 
@@ -77,6 +79,7 @@ namespace wowiebot
                 Properties.Settings.Default.quoteAddingMethod = quoteMethodDropDown.SelectedIndex;
                 Properties.Settings.Default.quoteVotersNumber = (int)quoteVotersNum.Value;
                 Properties.Settings.Default.emptyQuotesMessage = emptyQuoteMessage.Text;
+                Properties.Settings.Default.noPermsMessage = noPermsMsgTextBox.Text;
                 Properties.Settings.Default.Save();
                 Close();
             }

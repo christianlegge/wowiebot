@@ -30,7 +30,7 @@ namespace wowiebot
         public static Random rnd = new Random();
         private int lastChoice = -1;
         private List<string> eightBallChoices;
-        public Dictionary<string,string> commandsDictionary;
+        public Dictionary<string, Command> commandsDictionary;
         public List<string> validCommands = new List<string>();
         private List<bool> displayCommandsInHelp = new List<bool>();
         private string userID;
@@ -95,18 +95,19 @@ namespace wowiebot
 
         public string getMessageFromCommand(string cmd)
         {
-            return commandsDictionary[cmd];
+            return commandsDictionary[cmd].message;
         }
 
         private void buildCommandsDictionary()
         {
-            commandsDictionary = new Dictionary<string, string>();
+            commandsDictionary = new Dictionary<string, Command>();
             string prefix = Properties.Settings.Default.prefix;
             DataRow[] commands = commandsTable.Select("enabled = true");
             foreach (DataRow i in commands)
             {
                 string cmd = i.Field<string>("Command").ToLower();
                 string msg = i.Field<string>("Message");
+                List<string> allowedUsers = new List<string>(i.Field<string>("Permissions").Split(','));
                 if (!apiCallNeeded && (msg.Contains("$GAME") || msg.Contains("$TITLE") || msg.Contains("$UPHOURS") || msg.Contains("$UPMINUTES")))
                 {
                     apiCallNeeded = true;
@@ -114,7 +115,7 @@ namespace wowiebot
                 string[] aliases = cmd.Split(',');
                 foreach (string s in aliases)
                 {
-                    commandsDictionary.Add(s.Trim(), msg);
+                    commandsDictionary.Add(s.Trim(), new Command(msg, allowedUsers));
                 }
                 if(i.Field<bool>("Show in commands list"))
                 {
@@ -305,7 +306,7 @@ namespace wowiebot
         
         public void sendMessage(string message)
         {
-            if (message == null)
+            if (message == null || message == "")
             {
                 return;
             }

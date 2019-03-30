@@ -20,6 +20,10 @@ Commands are case insensitive and can contain alphanumeric characters and unders
 You can enter multiple commands in the Command field separated by commas. Each of the commands will be used to trigger the 
 message and the first will appear in the $COMMANDS list, if Show in commands list is enabled.
 
+Permissions is a comma-separated list of users that can run the command. Include $MOD to give all mods permission.
+If left blank, all users can run the command.
+Broadcaster can run all commands always. 
+
 You can use variables in the message that the bot will replace with other data. You can use any of:
 
 $QUOTE: A random quote from the list of quotes, or if the list is empty, a placeholder string
