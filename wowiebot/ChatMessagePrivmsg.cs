@@ -18,7 +18,7 @@ namespace wowiebot
 
         public ChatMessagePrivmsg(string rawMessage) : base(rawMessage)
         {
-            Regex r = new Regex(":(?<sender>.*)!(.*)@(.*).tmi.twitch.tv PRIVMSG #(.*?) :(?<message>.*)");
+            Regex r = new Regex(":(?<sender>[A-Za-z0-9_]*)!(.*)@(.*).tmi.twitch.tv PRIVMSG #(.*?) :(?<message>.*)");
             Match match = r.Match(rawMessage);
             parseTags(rawMessage);
             sender = match.Groups["sender"].Value;
