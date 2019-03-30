@@ -14,7 +14,6 @@
         player = new YT.Player('player', {
             height: '225',
             width: '400',
-            videoId: 'BTa2P8Z-O0w',
             events: {
                 'onReady': onPlayerReady,
                 'onStateChange': onPlayerStateChange
@@ -41,7 +40,7 @@
 	  
 	  function playVideo(id)
 	  {
-	 	player.loadVideoById(id);
+          player.loadVideoById(id);
       }
 		  
     </script>

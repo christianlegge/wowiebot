@@ -81,6 +81,8 @@ namespace wowiebot
                                                    Environment.Is64BitProcess ? "x64" : "x86",
                                                    "CefSharp.BrowserSubprocess.exe");
 
+            settings.CefCommandLineArgs["autoplay-policy"] = "no-user-gesture-required";
+
             // Make sure you set performDependencyCheck false
             if (!Cef.IsInitialized)
             {

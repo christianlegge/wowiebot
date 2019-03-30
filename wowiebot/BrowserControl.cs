@@ -38,7 +38,7 @@ namespace wowiebot
                 RequestHandler = new CefRequestHandler(),
             };
 
-          //  browser.Load("https://www.whatismybrowser.com/detect/what-http-headers-is-my-browser-sending");
+            //  browser.Load("https://www.whatismybrowser.com/detect/what-http-headers-is-my-browser-sending");
 
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = "wowiebot.player.html";
@@ -51,6 +51,7 @@ namespace wowiebot
             }
             
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+            
             var x = this.GetType();
             browser.RegisterAsyncJsObject("boundAsync", jsHandler);
 
