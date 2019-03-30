@@ -23,7 +23,7 @@ namespace wowiebot
 
         private void QuoteTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            ChatHandler.getInstance().sendMessage("Time's up. I guess no one thought that quote was funny.");
+            ChatHandler.sendMessage("Time's up. I guess no one thought that quote was funny.");
             quoteAdders.Clear();
             addingQuote = false;
             quoteTimer.Stop();
@@ -49,7 +49,7 @@ namespace wowiebot
             }
             if (addingQuote)
             {
-                ChatHandler.getInstance().sendMessage("Finish adding the current quote first.");
+                ChatHandler.sendMessage("Finish adding the current quote first.");
                 return;
             }
 
@@ -60,23 +60,23 @@ namespace wowiebot
                 Properties.Settings.Default.quotes.Add(quoteToAdd);
                 Properties.Settings.Default.Save();
                 quotes.Add(quoteToAdd);
-                ChatHandler.getInstance().sendMessage("Quote added.");
+                ChatHandler.sendMessage("Quote added.");
                 return;
             }
 
             else if (Properties.Settings.Default.quoteAddingMethod == 1 || Properties.Settings.Default.quoteAddingMethod == 2)
             {
-                if (sender == ChatHandler.getInstance().getChannel() || (senderIsMod && Properties.Settings.Default.quoteAddingMethod == 1))
+                if (sender == ChatHandler.getChannel() || (senderIsMod && Properties.Settings.Default.quoteAddingMethod == 1))
                 {
                     Properties.Settings.Default.quotes.Add(quoteToAdd);
                     Properties.Settings.Default.Save();
                     quotes.Add(quoteToAdd);
-                    ChatHandler.getInstance().sendMessage("Quote added.");
+                    ChatHandler.sendMessage("Quote added.");
                     return;
                 }
                 else
                 {
-                    ChatHandler.getInstance().sendMessage("You don't have permission to do that.");
+                    ChatHandler.sendMessage("You don't have permission to do that.");
                     return;
                 }
             }
@@ -85,10 +85,10 @@ namespace wowiebot
             {
                 addingQuote = true;
                 quoteTimer.Start();
-                ChatHandler.getInstance().sendMessage((Properties.Settings.Default.quoteVotersNumber - 1).ToString() +
+                ChatHandler.sendMessage((Properties.Settings.Default.quoteVotersNumber - 1).ToString() +
                              " other " + (Properties.Settings.Default.quoteVotersNumber > 2 ? "people need" : "person needs") + " to agree by typing " +
                              Properties.Settings.Default.prefix +
-                             ChatHandler.getInstance().getVoteYesCommand() +
+                             ChatHandler.getVoteYesCommand() +
                              " to add the quote! Ends in one minute.");
                 quoteAdders.Add(sender);
             }
@@ -111,18 +111,18 @@ namespace wowiebot
                     quotes.Add(quoteToAdd);
                     addingQuote = false;
                     quoteTimer.Stop();
-                    ChatHandler.getInstance().sendMessage("Quote added.");
+                    ChatHandler.sendMessage("Quote added.");
                 }
             }
 
             else if (quoteAdders[0] == sender)
             {
-                ChatHandler.getInstance().sendMessage("Yeah, you added the quote. I got it.");
+                ChatHandler.sendMessage("Yeah, you added the quote. I got it.");
             }
 
             else
             {
-                ChatHandler.getInstance().sendMessage("You already voted, dingus.");
+                ChatHandler.sendMessage("You already voted, dingus.");
             }
 
         }
@@ -150,7 +150,7 @@ namespace wowiebot
             }
             if (quotes.Count == 0)
             {
-                return new Quote("No quotes. I guess " + ChatHandler.getInstance().getChannel() + " just isn't funny or quotable.", 0);
+                return new Quote("No quotes. I guess " + ChatHandler.getChannel() + " just isn't funny or quotable.", 0);
             }
             int q;
             do

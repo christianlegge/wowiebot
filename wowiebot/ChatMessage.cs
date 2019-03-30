@@ -12,7 +12,7 @@
         public virtual void handleMessage()
         {
 #if DEBUG
-            ChatHandler.getInstance().writeLineToFormBox(rawMessage);
+            ChatHandler.writeLineToFormBox(rawMessage);
 #endif
         }
 

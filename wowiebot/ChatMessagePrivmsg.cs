@@ -25,25 +25,25 @@ namespace wowiebot
             sender = match.Groups["sender"].Value;
             sentMessage = match.Groups["message"].Value;
             senderIsMod = tags["mod"].Equals("1");
-            senderIsBroadcaster = sender.Equals(ChatHandler.getInstance().getChannel());
+            senderIsBroadcaster = sender.Equals(ChatHandler.getChannel());
         }
 
         public override void handleMessage()
         {
-            if (sender != ChatHandler.getInstance().getBotNick())
+            if (sender != ChatHandler.getBotNick())
             {
-                ChatHandler.getInstance().messagesBetweenPeriodics++;
+                ChatHandler.messagesBetweenPeriodics++;
             }
 
             if (sentMessage.StartsWith("\u0001ACTION"))
             {
                 sentMessage = sentMessage.Replace("\u0001ACTION", "");
                 sentMessage = sentMessage.Replace("\u0001", "");
-                ChatHandler.getInstance().writeLineToFormBox("* " + sender + " " + sentMessage);
+                ChatHandler.writeLineToFormBox("* " + sender + " " + sentMessage);
             }
             else
             {
-                ChatHandler.getInstance().writeLineToFormBox("<" + (senderIsBroadcaster ? "~" : (senderIsMod ? "@" : "")) + sender + "> " + sentMessage);
+                ChatHandler.writeLineToFormBox("<" + (senderIsBroadcaster ? "~" : (senderIsMod ? "@" : "")) + sender + "> " + sentMessage);
             }
 
             if (sentMessage.StartsWith(Properties.Settings.Default.prefix))
@@ -58,32 +58,32 @@ namespace wowiebot
 
                 try
                 {
-                    string msg = ChatHandler.getInstance().getMessageFromCommand(command);
+                    string msg = ChatHandler.getMessageFromCommand(command);
 
                     if (senderHasPermission(command))
                     {
                         string args = getCommandArguments(sentMessage);
                         msg = replaceVariables(msg, args);
-                        ChatHandler.getInstance().sendMessage(msg);
+                        ChatHandler.sendMessage(msg);
                     }
 
                     else
                     {
-                        ChatHandler.getInstance().sendMessage(Properties.Settings.Default.noPermsMessage);
+                        ChatHandler.sendMessage(Properties.Settings.Default.noPermsMessage);
                     }
                 }
                 catch (Exception e)
                 {
-                    if (command == "wowie" && ChatHandler.getInstance().getBotNick() == "wowiebot")
+                    if (command == "wowie" && ChatHandler.getBotNick() == "wowiebot")
                     {
-                        ChatHandler.getInstance().sendMessage("wowie");
+                        ChatHandler.sendMessage("wowie");
                     }
                 }
             }
 
             else if (Properties.Settings.Default.enableLinkTitles)
             {
-                ChatHandler.getInstance().printLinkTitles(sentMessage);
+                ChatHandler.printLinkTitles(sentMessage);
             }
 
 
@@ -92,7 +92,7 @@ namespace wowiebot
                 string msg = Properties.Settings.Default.messageForBits;
                 msg = msg.Replace("$COUNT", bits.ToString());
                 msg = msg.Replace("$SENDER", sender);
-                ChatHandler.getInstance().sendMessage(msg);
+                ChatHandler.sendMessage(msg);
             }
         }
 
@@ -122,7 +122,7 @@ namespace wowiebot
 
         private bool senderHasPermission(string commandName)
         {
-            List<string> allowedUsers = ChatHandler.getInstance().commandsDictionary[commandName].allowedUsers;
+            List<string> allowedUsers = ChatHandler.commandsDictionary[commandName].allowedUsers;
             if (allowedUsers.Count == 0 || allowedUsers.Contains(sender) || (allowedUsers.Contains("$mod") && senderIsMod) || senderIsBroadcaster)
             {
                 return true;
@@ -149,7 +149,7 @@ namespace wowiebot
             TimeSpan uptime = new TimeSpan(0);
             Quote q = null;
 
-            foreach (String cmd in ChatHandler.getInstance().getMessageVars())
+            foreach (String cmd in ChatHandler.getMessageVars())
             {
                 if (commandText.Contains("$" + cmd))
                 {
@@ -176,7 +176,7 @@ namespace wowiebot
                             QuoteHandler.getInstance().voteYes(sender);
                             return null;
                         case "BROADCASTER":
-                            commandText = commandText.Replace("$BROADCASTER", ChatHandler.getInstance().getChannel());
+                            commandText = commandText.Replace("$BROADCASTER", ChatHandler.getChannel());
                             break;
                         case "SENDER":
                             commandText = commandText.Replace("$SENDER", sender);
@@ -184,33 +184,33 @@ namespace wowiebot
                         case "GAME":
                             if (broadcastData == null)
                             {
-                                broadcastData = ChatHandler.getInstance().getBroadcastDataFromAPI();
+                                broadcastData = ChatHandler.getBroadcastDataFromAPI();
                             }
                             commandText = commandText.Replace("$GAME", broadcastData.Property("game").Value.ToString());
                             break;
                         case "TITLE":
                             if (broadcastData == null)
                             {
-                                broadcastData = ChatHandler.getInstance().getBroadcastDataFromAPI();
+                                broadcastData = ChatHandler.getBroadcastDataFromAPI();
                             }
                             commandText = commandText.Replace("$TITLE", broadcastData.Property("status").Value.ToString());
                             break;
                         case "UPHOURS":
                             if (uptime.Ticks == 0)
                             {
-                                uptime = ChatHandler.getInstance().getUptime();
+                                uptime = ChatHandler.getUptime();
                             }
                             commandText = commandText.Replace("$UPHOURS", uptime.Hours.ToString());
                             break;
                         case "UPMINUTES":
                             if (uptime.Ticks == 0)
                             {
-                                uptime = ChatHandler.getInstance().getUptime();
+                                uptime = ChatHandler.getUptime();
                             }
                             commandText = commandText.Replace("$UPMINUTES", uptime.Minutes.ToString());
                             break;
                         case "8BALL":
-                            commandText = commandText.Replace("$8BALL", ChatHandler.getInstance().get8BallResponse());
+                            commandText = commandText.Replace("$8BALL", ChatHandler.get8BallResponse());
                             break;
                         case "CALCULATOR":
                             Expression e = new Expression(commandArgs);
@@ -218,7 +218,7 @@ namespace wowiebot
                             commandText = commandText.Replace("$CALCULATOR", x);
                             break;
                         case "COMMANDS":
-                            commandText = commandText.Replace("$COMMANDS", ChatHandler.getInstance().commandsForHelp);
+                            commandText = commandText.Replace("$COMMANDS", ChatHandler.commandsForHelp);
                             break;
                         case "SONGREQ":
                             Uri ytlink = new Uri(commandArgs);

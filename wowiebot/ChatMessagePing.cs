@@ -12,7 +12,7 @@ namespace wowiebot
 
         public override void handleMessage()
         {
-            ChatHandler.getInstance().sendPong();
+            ChatHandler.sendPong();
         }
     }
 }

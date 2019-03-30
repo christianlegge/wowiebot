@@ -18,46 +18,40 @@ namespace wowiebot
     class ChatHandler
     {
         #region Fields
-        private static ChatHandler instance = new ChatHandler();
-        private byte[] data = new byte[512];
-        private string channel;
-        private string botNick;
-        private string botOauth;
-        private MainForm mainForm;
-        private NetworkStream stream;
-        private Dictionary<System.Timers.Timer, String> periodicMessageTimers;
-        private Dictionary<System.Timers.Timer, System.Timers.Timer> offsetTimers;
+        private static byte[] data = new byte[512];
+        private static string channel;
+        private static string botNick;
+        private static string botOauth;
+        private static MainForm mainForm;
+        private static NetworkStream stream;
+        private static Dictionary<System.Timers.Timer, String> periodicMessageTimers;
+        private static Dictionary<System.Timers.Timer, System.Timers.Timer> offsetTimers;
         public static Random rnd = new Random();
-        private int lastChoice = -1;
-        private List<string> eightBallChoices;
-        public Dictionary<string, Command> commandsDictionary;
-        public List<string> validCommands = new List<string>();
-        private List<bool> displayCommandsInHelp = new List<bool>();
-        private string userID;
-        private List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS", "SONGREQ", "QUEUETIME" });
-        public DataTable commandsTable;
-        private DataTable periodicMessagesTable;
-        private String sender;
-        private bool senderIsMod;
-        private bool botIsMod;
-        public int messagesBetweenPeriodics = 0;
-        private StreamReader streamReader;
-        private bool willDisconnect = false;
-        public string commandsForHelp { get; private set; }
-        private bool apiCallNeeded = false;
+        private static int lastChoice = -1;
+        private static List<string> eightBallChoices;
+        public static Dictionary<string, Command> commandsDictionary;
+        public static List<string> validCommands = new List<string>();
+        private static List<bool> displayCommandsInHelp = new List<bool>();
+        private static string userID;
+        private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS", "SONGREQ", "QUEUETIME" });
+        public static DataTable commandsTable;
+        private static DataTable periodicMessagesTable;
+        private static String sender;
+        private static bool senderIsMod;
+        private static bool botIsMod;
+        public static int messagesBetweenPeriodics = 0;
+        private static StreamReader streamReader;
+        private static bool willDisconnect = false;
+        public static string commandsForHelp { get; private set; }
+        private static bool apiCallNeeded = false;
         #endregion
 
-        public static ChatHandler getInstance()
-        {
-            return instance;
-        }
-
-        public void writeLineToFormBox(string msg)
+        public static void writeLineToFormBox(string msg)
         {
             mainForm.writeToServerOutputTextBox(msg + "\r\n");
         }
 
-        public int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
+        public static int start(MainForm pMainForm, string pChannel, string pNick, string pOauth)
         {
             mainForm = pMainForm;
             channel = pChannel.ToLower();
@@ -93,12 +87,12 @@ namespace wowiebot
 
         }
 
-        public string getMessageFromCommand(string cmd)
+        public static string getMessageFromCommand(string cmd)
         {
             return commandsDictionary[cmd].message;
         }
 
-        private void buildCommandsDictionary()
+        private static void buildCommandsDictionary()
         {
             commandsDictionary = new Dictionary<string, Command>();
             string prefix = Properties.Settings.Default.prefix;
@@ -130,7 +124,7 @@ namespace wowiebot
             commandsForHelp = commandsForHelp.Substring(0, commandsForHelp.Length - 2);
         }
 
-        private void createPeriodicMessagesTimers()
+        private static void createPeriodicMessagesTimers()
         {
             periodicMessageTimers = new Dictionary<System.Timers.Timer, string>();
             offsetTimers = new Dictionary<System.Timers.Timer, System.Timers.Timer>();
@@ -154,7 +148,7 @@ namespace wowiebot
             }
         }
 
-        private void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private static void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
             {
@@ -165,7 +159,7 @@ namespace wowiebot
             ((System.Timers.Timer)sender).Stop();
         }
 
-        private void PeriodicMessageTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private static void PeriodicMessageTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
             {
@@ -173,8 +167,8 @@ namespace wowiebot
                 messagesBetweenPeriodics = 0;
             }
         }
-        
-        public int runBot()
+
+        public static int runBot()
         {
             TcpClient client;
             try
@@ -240,7 +234,7 @@ namespace wowiebot
             return 0;
         }
 
-        public void sendPong()
+        public static void sendPong()
         {
             try
             {
@@ -256,7 +250,7 @@ namespace wowiebot
             }
         }
 
-        public void printLinkTitles(string chatMessage)
+        public static void printLinkTitles(string chatMessage)
         {
             Regex regx = new Regex(@"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)", RegexOptions.IgnoreCase);
             MatchCollection mactches = regx.Matches(chatMessage);
@@ -285,7 +279,7 @@ namespace wowiebot
             }
         }
 
-        private ChatMessage receiveMessage()
+        private static ChatMessage receiveMessage()
         {
             string rawMessage = streamReader.ReadLine();
             Regex privmsgRegex = new Regex("");
@@ -307,8 +301,8 @@ namespace wowiebot
 
             return chatMessage;
         }
-        
-        public void sendMessage(string message)
+
+        public static void sendMessage(string message)
         {
             if (message == null || message == "")
             {
@@ -319,34 +313,34 @@ namespace wowiebot
             mainForm.writeToServerOutputTextBox("<" + botNick + "> " + message + "\r\n");
         }
 
-        public string getVoteYesCommand()
+        public static string getVoteYesCommand()
         {
             return commandsTable.Select("Message LIKE '*$VOTEYES*'")[0].Field<string>("Command");
         }
 
-        private void calculateAndSendResponse(string message, string commandArgs)
+        private static void calculateAndSendResponse(string message, string commandArgs)
         {
             Expression e = new Expression(commandArgs);
             string x = e.calculate().ToString();
             sendMessage(message.Replace("$CALCULATOR", x));
         }
-        
-        public string getBotNick()
+
+        public static string getBotNick()
         {
             return botNick;
         }
 
-        public string getChannel()
+        public static string getChannel()
         {
             return channel;
         }
 
-        private List<String> getMods(string pChannel)
+        private static List<String> getMods(string pChannel)
         {
             return null;
         }
 
-        public String get8BallResponse()
+        public static String get8BallResponse()
         {
             if (Properties.Settings.Default.choices8Ball == null)
             {
@@ -371,8 +365,8 @@ namespace wowiebot
             lastChoice = p;
             return eightBallChoices[p];
         }
-        
-        public TimeSpan getUptime()
+
+        public static TimeSpan getUptime()
         {
             HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/streams/" + userID);
             apiRequest.Accept = "application/vnd.twitchtv.v5+json";
@@ -413,8 +407,8 @@ namespace wowiebot
             sendMessage(channel + " has been live for " + uptime.Hours + " hours and " + uptime.Minutes + " minutes.");
 
         }
-        
-        public JObject getBroadcastDataFromAPI()
+
+        public static JObject getBroadcastDataFromAPI()
         {
             HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/channels/" + userID);
             apiRequest.Accept = "application/vnd.twitchtv.v5+json";
@@ -439,12 +433,12 @@ namespace wowiebot
             sendMessage(channel + " is streaming " + parsed.Property("game").Value.ToString() + ": \"" + parsed.Property("status").Value.ToString() + "\"");
         }
 
-        public List<string> getMessageVars()
+        public static List<string> getMessageVars()
         {
             return messageVars;
         }
 
-        private void getUserIDFromAPI()
+        private static void getUserIDFromAPI()
         {
             HttpWebRequest apiRequest = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/users?login=" + channel);
             apiRequest.Accept = "application/vnd.twitchtv.v5+json";
@@ -468,7 +462,7 @@ namespace wowiebot
             userID = userParsed.GetValue("_id").ToString();
         }
 
-        public void disconnect()
+        public static void disconnect()
         {
             willDisconnect = true;
             foreach (KeyValuePair<System.Timers.Timer, System.Timers.Timer> timer in offsetTimers)
@@ -484,13 +478,13 @@ namespace wowiebot
             periodicMessageTimers.Clear();
         }
 
-        private void sendToServer(string strToSend)
+        private static void sendToServer(string strToSend)
         {
             Byte[] bytesToSend = System.Text.Encoding.UTF8.GetBytes(strToSend);
             stream.Write(bytesToSend, 0, bytesToSend.Length);
         }
 
-        private string readFromServer()
+        private static string readFromServer()
         {
             String responseData = String.Empty;
 

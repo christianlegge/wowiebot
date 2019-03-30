@@ -329,7 +329,7 @@ namespace wowiebot
             }
             else
             {
-                ChatHandler.getInstance().disconnect();
+                ChatHandler.disconnect();
                 connected = false;
                 connectButton.Enabled = false;
                 songRequestButton.Enabled = false;
@@ -344,7 +344,7 @@ namespace wowiebot
             int retVal = 999;
             try
             {
-                retVal = ChatHandler.getInstance().start(this, channelTextBox.Text, loggedInUser, loggedInOauth);
+                retVal = ChatHandler.start(this, channelTextBox.Text, loggedInUser, loggedInOauth);
             }
             catch (Exception e)
             {
