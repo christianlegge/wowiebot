@@ -14,6 +14,7 @@ namespace wowiebot
         private string sentMessage;
         private bool senderIsMod;
         private bool senderIsBroadcaster;
+        public int bits = 0;
         public Dictionary<string, string> tags = new Dictionary<string, string>();
 
         public ChatMessagePrivmsg(string rawMessage) : base(rawMessage)
@@ -79,10 +80,19 @@ namespace wowiebot
                     }
                 }
             }
-            
+
             else if (Properties.Settings.Default.enableLinkTitles)
             {
                 ChatHandler.getInstance().printLinkTitles(sentMessage);
+            }
+
+
+            if (bits >= Properties.Settings.Default.bitsMessageThreshold)
+            {
+                string msg = Properties.Settings.Default.messageForBits;
+                msg = msg.Replace("$COUNT", bits.ToString());
+                msg = msg.Replace("$SENDER", sender);
+                ChatHandler.getInstance().sendMessage(msg);
             }
         }
 
@@ -253,7 +263,12 @@ namespace wowiebot
                 Match match = regex.Match(allTags);
                 tags[tag] = match.Groups[1].Value;
             }
-
+            
+            try
+            {
+                bits = int.Parse(tags["bits"]);
+            }
+            catch (Exception e) { }
         }
     }
 }

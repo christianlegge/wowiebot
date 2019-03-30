@@ -103,6 +103,10 @@ namespace wowiebot
             commandsDictionary = new Dictionary<string, Command>();
             string prefix = Properties.Settings.Default.prefix;
             DataRow[] commands = commandsTable.Select("enabled = true");
+            if (commands.Length == 0)
+            {
+                return;
+            }
             foreach (DataRow i in commands)
             {
                 string cmd = i.Field<string>("Command").ToLower();
@@ -208,7 +212,7 @@ namespace wowiebot
             // String to store the response ASCII representation.
 
             // Requesting tags capability for more info
-            string tagReqString = "CAP REQ :twitch.tv/membership twitch.tv/tags twitch.tv/commands\r\n";
+            string tagReqString = "CAP REQ :twitch.tv/tags twitch.tv/commands\r\n";
             sendToServer(tagReqString);
 
             // Read the request response

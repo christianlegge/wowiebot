@@ -33,6 +33,8 @@ namespace wowiebot
             quoteVotersNum.Value = Properties.Settings.Default.quoteVotersNumber;
             emptyQuoteMessage.Text = Properties.Settings.Default.emptyQuotesMessage;
             noPermsMsgTextBox.Text = Properties.Settings.Default.noPermsMessage;
+            messageOnCheerBox.Text = Properties.Settings.Default.messageForBits;
+            bitsMessageThresholdBox.Value = Properties.Settings.Default.bitsMessageThreshold;
             updateSaveButton();
             commandsDataTable = getDataTableFromSettings();
 
@@ -80,6 +82,8 @@ namespace wowiebot
                 Properties.Settings.Default.quoteVotersNumber = (int)quoteVotersNum.Value;
                 Properties.Settings.Default.emptyQuotesMessage = emptyQuoteMessage.Text;
                 Properties.Settings.Default.noPermsMessage = noPermsMsgTextBox.Text;
+                Properties.Settings.Default.bitsMessageThreshold = (int)bitsMessageThresholdBox.Value;
+                Properties.Settings.Default.messageForBits = messageOnCheerBox.Text;
                 Properties.Settings.Default.Save();
                 Close();
             }

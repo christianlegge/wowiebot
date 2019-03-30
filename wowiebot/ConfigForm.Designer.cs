@@ -50,8 +50,13 @@
             this.importButton = new System.Windows.Forms.Button();
             this.noPermsMsgTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.bitsMessageThresholdBox = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.messageOnCheerBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bitsMessageThresholdBox)).BeginInit();
             this.SuspendLayout();
             // 
             // prefixLabel
@@ -223,7 +228,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 304);
+            this.button2.Location = new System.Drawing.Point(11, 380);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(114, 23);
             this.button2.TabIndex = 23;
@@ -233,7 +238,7 @@
             // 
             // exportButton
             // 
-            this.exportButton.Location = new System.Drawing.Point(12, 333);
+            this.exportButton.Location = new System.Drawing.Point(11, 409);
             this.exportButton.Name = "exportButton";
             this.exportButton.Size = new System.Drawing.Size(103, 23);
             this.exportButton.TabIndex = 24;
@@ -243,7 +248,7 @@
             // 
             // importButton
             // 
-            this.importButton.Location = new System.Drawing.Point(12, 362);
+            this.importButton.Location = new System.Drawing.Point(11, 438);
             this.importButton.Name = "importButton";
             this.importButton.Size = new System.Drawing.Size(103, 23);
             this.importButton.TabIndex = 25;
@@ -267,6 +272,53 @@
             this.label2.TabIndex = 27;
             this.label2.Text = "Message for lacking permissions (leave blank for none)";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 299);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 13);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Message for cheers of ";
+            // 
+            // bitsMessageThresholdBox
+            // 
+            this.bitsMessageThresholdBox.Location = new System.Drawing.Point(132, 297);
+            this.bitsMessageThresholdBox.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.bitsMessageThresholdBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.bitsMessageThresholdBox.Name = "bitsMessageThresholdBox";
+            this.bitsMessageThresholdBox.Size = new System.Drawing.Size(50, 20);
+            this.bitsMessageThresholdBox.TabIndex = 29;
+            this.bitsMessageThresholdBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(188, 304);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 13);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "or more bits";
+            // 
+            // messageOnCheerBox
+            // 
+            this.messageOnCheerBox.Location = new System.Drawing.Point(12, 323);
+            this.messageOnCheerBox.Name = "messageOnCheerBox";
+            this.messageOnCheerBox.Size = new System.Drawing.Size(256, 20);
+            this.messageOnCheerBox.TabIndex = 31;
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.saveButton;
@@ -274,6 +326,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(1097, 540);
+            this.Controls.Add(this.messageOnCheerBox);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.bitsMessageThresholdBox);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.noPermsMsgTextBox);
             this.Controls.Add(this.importButton);
@@ -302,6 +358,7 @@
             this.Text = "Config";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bitsMessageThresholdBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -329,5 +386,9 @@
         private System.Windows.Forms.Button importButton;
         private System.Windows.Forms.TextBox noPermsMsgTextBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown bitsMessageThresholdBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox messageOnCheerBox;
     }
 }

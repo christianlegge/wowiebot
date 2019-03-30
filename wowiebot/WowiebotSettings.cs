@@ -21,6 +21,8 @@ namespace wowiebot
         public string periodicMessagesDataTableJson;
         public string noPermsMessage;
         public int minimumMessagesBetweenPeriodic;
+        public string messageForBits;
+        public int bitsMessageThreshold;
 
         public WowiebotSettings()
         {
@@ -41,6 +43,8 @@ namespace wowiebot
             periodicMessagesDataTableJson = Properties.Settings.Default.periodicMessagesDataTableJson;
             minimumMessagesBetweenPeriodic = Properties.Settings.Default.minimumMessagesBetweenPeriodic;
             noPermsMessage = Properties.Settings.Default.noPermsMessage;
+            messageForBits = Properties.Settings.Default.messageForBits;
+            bitsMessageThreshold = Properties.Settings.Default.bitsMessageThreshold;
         }
 
         public void saveToSettings()
@@ -85,6 +89,8 @@ namespace wowiebot
             }
             Properties.Settings.Default.minimumMessagesBetweenPeriodic = minimumMessagesBetweenPeriodic;
             Properties.Settings.Default.noPermsMessage = noPermsMessage;
+            Properties.Settings.Default.bitsMessageThreshold = bitsMessageThreshold;
+            Properties.Settings.Default.messageForBits = messageForBits;
             Properties.Settings.Default.Save();
         }
     }

@@ -62,5 +62,11 @@
     <Setting Name="noPermsMessage" Type="System.String" Scope="User">
       <Value Profile="(Default)">You don't have permission to do that.</Value>
     </Setting>
+    <Setting Name="messageForBits" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Yo $SENDER, thanks for the $COUNT bits!</Value>
+    </Setting>
+    <Setting Name="bitsMessageThreshold" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

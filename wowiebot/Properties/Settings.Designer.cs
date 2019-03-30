@@ -208,5 +208,29 @@ namespace wowiebot.Properties {
                 this["noPermsMessage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yo $SENDER, thanks for the $COUNT bits!")]
+        public string messageForBits {
+            get {
+                return ((string)(this["messageForBits"]));
+            }
+            set {
+                this["messageForBits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int bitsMessageThreshold {
+            get {
+                return ((int)(this["bitsMessageThreshold"]));
+            }
+            set {
+                this["bitsMessageThreshold"] = value;
+            }
+        }
     }
 }
