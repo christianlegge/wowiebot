@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.prefixTextBox = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.periodicPeriodPicker = new System.Windows.Forms.NumericUpDown();
@@ -38,17 +39,17 @@
             this.bitsMessageThresholdBox = new System.Windows.Forms.NumericUpDown();
             this.messageOnCheerBox = new System.Windows.Forms.TextBox();
             this.noPermsMsgTextBox = new System.Windows.Forms.TextBox();
-            this.prefixTextBox = new System.Windows.Forms.TextBox();
             this.periodicTextBox = new System.Windows.Forms.TextBox();
             this.eightBallBox = new System.Windows.Forms.TextBox();
             this.quotesTextBox = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.linkCheckBox = new System.Windows.Forms.CheckBox();
+            this.quoteVotersNum = new System.Windows.Forms.NumericUpDown();
             this.quoteMethodDropDown = new System.Windows.Forms.ComboBox();
             this.saveButton = new System.Windows.Forms.Button();
-            this.quoteVotersNum = new System.Windows.Forms.NumericUpDown();
-            this.linkCheckBox = new System.Windows.Forms.CheckBox();
             this.exportButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
+            this.addCommandsBox = new System.Windows.Forms.GroupBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -77,6 +78,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.addCommandsBox);
+            this.tabPage1.Controls.Add(this.prefixTextBox);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -84,15 +87,22 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Commands";
             // 
+            // prefixTextBox
+            // 
+            this.prefixTextBox.Location = new System.Drawing.Point(61, 25);
+            this.prefixTextBox.Name = "prefixTextBox";
+            this.prefixTextBox.Size = new System.Drawing.Size(31, 20);
+            this.prefixTextBox.TabIndex = 4;
+            // 
             // dataGridView1
             // 
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 43);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 189);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(692, 421);
+            this.dataGridView1.Size = new System.Drawing.Size(692, 480);
             this.dataGridView1.TabIndex = 1;
             // 
             // tabPage2
@@ -102,7 +112,6 @@
             this.tabPage2.Controls.Add(this.bitsMessageThresholdBox);
             this.tabPage2.Controls.Add(this.messageOnCheerBox);
             this.tabPage2.Controls.Add(this.noPermsMsgTextBox);
-            this.tabPage2.Controls.Add(this.prefixTextBox);
             this.tabPage2.Controls.Add(this.periodicTextBox);
             this.tabPage2.Controls.Add(this.eightBallBox);
             this.tabPage2.Controls.Add(this.quotesTextBox);
@@ -177,13 +186,6 @@
             this.noPermsMsgTextBox.Size = new System.Drawing.Size(225, 20);
             this.noPermsMsgTextBox.TabIndex = 4;
             // 
-            // prefixTextBox
-            // 
-            this.prefixTextBox.Location = new System.Drawing.Point(458, 42);
-            this.prefixTextBox.Name = "prefixTextBox";
-            this.prefixTextBox.Size = new System.Drawing.Size(31, 20);
-            this.prefixTextBox.TabIndex = 3;
-            // 
             // periodicTextBox
             // 
             this.periodicTextBox.Location = new System.Drawing.Point(33, 445);
@@ -225,25 +227,15 @@
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Options";
             // 
-            // quoteMethodDropDown
+            // linkCheckBox
             // 
-            this.quoteMethodDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.quoteMethodDropDown.FormattingEnabled = true;
-            this.quoteMethodDropDown.Location = new System.Drawing.Point(51, 66);
-            this.quoteMethodDropDown.Name = "quoteMethodDropDown";
-            this.quoteMethodDropDown.Size = new System.Drawing.Size(220, 21);
-            this.quoteMethodDropDown.TabIndex = 0;
-            // 
-            // saveButton
-            // 
-            this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(687, 741);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 1;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.linkCheckBox.AutoSize = true;
+            this.linkCheckBox.Location = new System.Drawing.Point(94, 241);
+            this.linkCheckBox.Name = "linkCheckBox";
+            this.linkCheckBox.Size = new System.Drawing.Size(177, 17);
+            this.linkCheckBox.TabIndex = 2;
+            this.linkCheckBox.Text = "Bot will post titles of posted links";
+            this.linkCheckBox.UseVisualStyleBackColor = true;
             // 
             // quoteVotersNum
             // 
@@ -267,15 +259,25 @@
             0,
             0});
             // 
-            // linkCheckBox
+            // quoteMethodDropDown
             // 
-            this.linkCheckBox.AutoSize = true;
-            this.linkCheckBox.Location = new System.Drawing.Point(94, 241);
-            this.linkCheckBox.Name = "linkCheckBox";
-            this.linkCheckBox.Size = new System.Drawing.Size(177, 17);
-            this.linkCheckBox.TabIndex = 2;
-            this.linkCheckBox.Text = "Bot will post titles of posted links";
-            this.linkCheckBox.UseVisualStyleBackColor = true;
+            this.quoteMethodDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.quoteMethodDropDown.FormattingEnabled = true;
+            this.quoteMethodDropDown.Location = new System.Drawing.Point(51, 66);
+            this.quoteMethodDropDown.Name = "quoteMethodDropDown";
+            this.quoteMethodDropDown.Size = new System.Drawing.Size(220, 21);
+            this.quoteMethodDropDown.TabIndex = 0;
+            // 
+            // saveButton
+            // 
+            this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveButton.Location = new System.Drawing.Point(687, 741);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 1;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // exportButton
             // 
@@ -299,6 +301,15 @@
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
+            // addCommandsBox
+            // 
+            this.addCommandsBox.Location = new System.Drawing.Point(13, 60);
+            this.addCommandsBox.Name = "addCommandsBox";
+            this.addCommandsBox.Size = new System.Drawing.Size(624, 102);
+            this.addCommandsBox.TabIndex = 5;
+            this.addCommandsBox.TabStop = false;
+            this.addCommandsBox.Text = "Add Commands:";
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,6 +326,7 @@
             this.Text = "Config";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -338,7 +350,6 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.TextBox eightBallBox;
         private System.Windows.Forms.TextBox periodicTextBox;
-        private System.Windows.Forms.TextBox prefixTextBox;
         private System.Windows.Forms.TextBox noPermsMsgTextBox;
         private System.Windows.Forms.TextBox messageOnCheerBox;
         private System.Windows.Forms.NumericUpDown bitsMessageThresholdBox;
@@ -349,5 +360,7 @@
         private System.Windows.Forms.CheckBox linkCheckBox;
         private System.Windows.Forms.Button exportButton;
         private System.Windows.Forms.Button importButton;
+        private System.Windows.Forms.TextBox prefixTextBox;
+        private System.Windows.Forms.GroupBox addCommandsBox;
     }
 }
