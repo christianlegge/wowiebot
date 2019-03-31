@@ -43,10 +43,11 @@
             // channelTextBox
             // 
             this.channelTextBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.channelTextBox.Location = new System.Drawing.Point(178, 190);
+            this.channelTextBox.Location = new System.Drawing.Point(176, 191);
+            this.channelTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.channelTextBox.MaxLength = 25;
             this.channelTextBox.Name = "channelTextBox";
-            this.channelTextBox.Size = new System.Drawing.Size(150, 20);
+            this.channelTextBox.Size = new System.Drawing.Size(152, 20);
             this.channelTextBox.TabIndex = 0;
             this.channelTextBox.TextChanged += new System.EventHandler(this.channelTextBox_TextChanged);
             // 
@@ -54,7 +55,9 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(123, 193);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(115, 193);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 1;
@@ -63,7 +66,8 @@
             // connectButton
             // 
             this.connectButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.connectButton.Location = new System.Drawing.Point(98, 216);
+            this.connectButton.Location = new System.Drawing.Point(100, 217);
+            this.connectButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(260, 48);
             this.connectButton.TabIndex = 2;
@@ -74,8 +78,9 @@
             // loginPopoutButton
             // 
             this.loginPopoutButton.Location = new System.Drawing.Point(12, 35);
+            this.loginPopoutButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loginPopoutButton.Name = "loginPopoutButton";
-            this.loginPopoutButton.Size = new System.Drawing.Size(75, 23);
+            this.loginPopoutButton.Size = new System.Drawing.Size(76, 22);
             this.loginPopoutButton.TabIndex = 3;
             this.loginPopoutButton.Text = "Log In";
             this.loginPopoutButton.UseVisualStyleBackColor = true;
@@ -86,7 +91,8 @@
             this.useWowieBox.AutoSize = true;
             this.useWowieBox.Checked = true;
             this.useWowieBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.useWowieBox.Location = new System.Drawing.Point(12, 12);
+            this.useWowieBox.Location = new System.Drawing.Point(12, 13);
+            this.useWowieBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.useWowieBox.Name = "useWowieBox";
             this.useWowieBox.Size = new System.Drawing.Size(117, 17);
             this.useWowieBox.TabIndex = 4;
@@ -97,9 +103,10 @@
             // configButton
             // 
             this.configButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.configButton.Location = new System.Drawing.Point(368, 8);
+            this.configButton.Location = new System.Drawing.Point(368, 9);
+            this.configButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.configButton.Name = "configButton";
-            this.configButton.Size = new System.Drawing.Size(75, 23);
+            this.configButton.Size = new System.Drawing.Size(76, 22);
             this.configButton.TabIndex = 5;
             this.configButton.Text = "Configure";
             this.configButton.UseVisualStyleBackColor = true;
@@ -111,12 +118,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.serverOutTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.serverOutTextBox.Location = new System.Drawing.Point(12, 64);
+            this.serverOutTextBox.Location = new System.Drawing.Point(12, 65);
+            this.serverOutTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.serverOutTextBox.Multiline = true;
             this.serverOutTextBox.Name = "serverOutTextBox";
             this.serverOutTextBox.ReadOnly = true;
             this.serverOutTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.serverOutTextBox.Size = new System.Drawing.Size(431, 117);
+            this.serverOutTextBox.Size = new System.Drawing.Size(430, 117);
             this.serverOutTextBox.TabIndex = 6;
             this.serverOutTextBox.TabStop = false;
             // 
@@ -124,8 +132,9 @@
             // 
             this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.updateButton.Location = new System.Drawing.Point(368, 35);
+            this.updateButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(75, 23);
+            this.updateButton.Size = new System.Drawing.Size(76, 22);
             this.updateButton.TabIndex = 7;
             this.updateButton.Text = "Update!";
             this.updateButton.UseVisualStyleBackColor = true;
@@ -135,9 +144,10 @@
             // songRequestButton
             // 
             this.songRequestButton.Enabled = false;
-            this.songRequestButton.Location = new System.Drawing.Point(168, 12);
+            this.songRequestButton.Location = new System.Drawing.Point(168, 13);
+            this.songRequestButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.songRequestButton.Name = "songRequestButton";
-            this.songRequestButton.Size = new System.Drawing.Size(125, 23);
+            this.songRequestButton.Size = new System.Drawing.Size(126, 22);
             this.songRequestButton.TabIndex = 8;
             this.songRequestButton.Text = "Song Requests";
             this.songRequestButton.UseVisualStyleBackColor = true;
@@ -148,7 +158,7 @@
             this.AcceptButton = this.connectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(455, 276);
+            this.ClientSize = new System.Drawing.Size(456, 277);
             this.Controls.Add(this.songRequestButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.serverOutTextBox);
@@ -159,8 +169,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.channelTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(471, 315);
+            this.MinimumSize = new System.Drawing.Size(472, 316);
             this.Name = "MainForm";
             this.Text = "wowiebot launchpad";
             this.Load += new System.EventHandler(this.MainForm_Load);

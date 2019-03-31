@@ -32,6 +32,19 @@ namespace wowiebot
             noPermsMsgTextBox.Text = Properties.Settings.Default.noPermsMessage;
             messageOnCheerBox.Text = Properties.Settings.Default.messageForBits;
             bitsMessageThresholdBox.Value = Properties.Settings.Default.bitsMessageThreshold;
+            periodicPeriodPicker.Value = Properties.Settings.Default.periodicMessagePeriod;
+            foreach (string s in Properties.Settings.Default.quotes)
+            {
+                quotesTextBox.Text += s + "\r\n";
+            }
+            foreach (string s in Properties.Settings.Default.choices8Ball)
+            {
+                eightBallBox.Text += s + "\r\n";
+            }
+            foreach (string s in Properties.Settings.Default.periodicMessagesArray)
+            {
+                periodicTextBox.Text += s + "\r\n";
+            }
             updateSaveButton();
             commandsDataTable = getDataTableFromSettings();
 
@@ -81,6 +94,37 @@ namespace wowiebot
                 Properties.Settings.Default.noPermsMessage = noPermsMsgTextBox.Text;
                 Properties.Settings.Default.bitsMessageThreshold = (int)bitsMessageThresholdBox.Value;
                 Properties.Settings.Default.messageForBits = messageOnCheerBox.Text;
+
+                System.Collections.Specialized.StringCollection q = new System.Collections.Specialized.StringCollection();
+                string[] quotesArr = quotesTextBox.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < quotesArr.Length; i++)
+                {
+                    quotesArr[i] = quotesArr[i].Trim();
+                }
+                quotesArr = quotesArr.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                q.AddRange(quotesArr);
+
+                System.Collections.Specialized.StringCollection b = new System.Collections.Specialized.StringCollection();
+                string[] ballArr = eightBallBox.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < ballArr.Length; i++)
+                {
+                    ballArr[i] = ballArr[i].Trim();
+                }
+                ballArr = ballArr.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                b.AddRange(ballArr);
+
+                System.Collections.Specialized.StringCollection p = new System.Collections.Specialized.StringCollection();
+                string[] periodicArr = periodicTextBox.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < periodicArr.Length; i++)
+                {
+                    periodicArr[i] = periodicArr[i].Trim();
+                }
+                periodicArr = periodicArr.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                p.AddRange(periodicArr);
+
+                Properties.Settings.Default.quotes = q;
+                Properties.Settings.Default.choices8Ball = b;
+                Properties.Settings.Default.periodicMessagesArray = p;
                 Properties.Settings.Default.Save();
                 Close();
             }
@@ -118,12 +162,12 @@ namespace wowiebot
 
         private void prefixTextBox_TextChanged(object sender, EventArgs e)
         {
-            updateSaveButton();
+           updateSaveButton();
         }
-
+        
         private void updateSaveButton()
         {
-            if (prefixTextBox.Text.Length == 0 || emptyQuoteMessage.Text.Length == 0)
+            if (prefixTextBox.Text.Length == 0)
             {
                 saveButton.Enabled = false;
             }
@@ -162,7 +206,7 @@ namespace wowiebot
             CommandsHelpForm commandsHelpForm = new CommandsHelpForm();
             commandsHelpForm.Show();
         }
-
+        
         private void quoteMethodDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (quoteMethodDropDown.SelectedIndex == 3)
