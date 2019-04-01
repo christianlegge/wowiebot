@@ -82,18 +82,6 @@ namespace wowiebot
 
             validateEnabledColumnCommands(commandsDataTable);
 
-            DataTable periodicDataTable;
-            if (Properties.Settings.Default.periodicMessagesDataTableJson == null || Properties.Settings.Default.periodicMessagesDataTableJson == "" || Properties.Settings.Default.periodicMessagesDataTableJson == "[]")
-            {
-                periodicDataTable = loadDefaultPeriodicMessagesTable();
-            }
-            else
-            {
-                periodicDataTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.periodicMessagesDataTableJson);
-            }
-
-            validateEnabledColumnPeriodic(periodicDataTable);
-
             loginPopoutButton.Enabled = !useWowieBox.Checked;
 
             connectButton.Enabled = channelTextBox.TextLength >= 4;
@@ -115,40 +103,6 @@ namespace wowiebot
                 {
                     e.Cancel = true;
                 }
-            }
-        }
-
-        private void validateEnabledColumnPeriodic(DataTable table)
-        {
-            if (table.Columns[0].ColumnName != "Enabled")
-            {
-                DataColumn enabled = new DataColumn("Enabled", typeof(bool));
-                enabled.DefaultValue = true;
-                table.Columns.Add(enabled);
-                enabled.SetOrdinal(0);
-                String x = JsonConvert.SerializeObject(table);
-                Properties.Settings.Default.periodicMessagesDataTableJson = x;
-                Properties.Settings.Default.Save();
-            }
-
-            if (table.Columns[2].DataType == System.Type.GetType("System.Int64"))
-            {
-                DataColumn newPeriod = new DataColumn("New Period", typeof(double));
-                DataColumn newOffset = new DataColumn("New Offset", typeof(double));
-                table.Columns.Add(newPeriod);
-                table.Columns.Add(newOffset);
-                foreach (DataRow row in table.Rows)
-                {
-                    row.SetField<double>("New Period", Convert.ToDouble(row.Field<Int64>("Period")));
-                    row.SetField<double>("New Offset", Convert.ToDouble(row.Field<Int64>("Offset")));
-                }
-                table.Columns.Remove("Period");
-                table.Columns.Remove("Offset");
-                table.Columns[2].ColumnName = "Period";
-                table.Columns[3].ColumnName = "Offset";
-                String x = JsonConvert.SerializeObject(table);
-                Properties.Settings.Default.periodicMessagesDataTableJson = x;
-                Properties.Settings.Default.Save();
             }
         }
 
@@ -245,37 +199,6 @@ namespace wowiebot
             table.Rows.Add(helpRow);
             String x = JsonConvert.SerializeObject(table);
             Properties.Settings.Default.commandsDataTableJson = x;
-            Properties.Settings.Default.Save();
-            return table;
-        }
-
-        public DataTable loadDefaultPeriodicMessagesTable()
-        {
-            // return default table
-            DataTable table = new DataTable();
-            DataColumn enabled = new DataColumn("Enabled", typeof(bool));
-            DataColumn msg = new DataColumn("Message");
-            DataColumn period = new DataColumn("Period", typeof(double));
-            DataColumn offset = new DataColumn("Offset", typeof(double));
-
-            table.Columns.Add(enabled);
-            table.Columns.Add(msg);
-            table.Columns.Add(period);
-            table.Columns.Add(offset);
-            DataRow discordRow = table.NewRow();
-            DataRow twitterRow = table.NewRow();
-            discordRow.SetField<bool>(enabled, true);
-            discordRow.SetField<string>(msg, "Like this bot? You can get it for yourself! https://github.com/scattertv/wowiebot/releases");
-            discordRow.SetField<double>(period, 30);
-            discordRow.SetField<double>(offset, 0);
-            twitterRow.SetField<bool>(enabled, true);
-            twitterRow.SetField<string>(msg, "Be sure to leave a follow if you're enjoying the stream!");
-            twitterRow.SetField<double>(period, 30);
-            twitterRow.SetField<double>(offset, 15);
-            table.Rows.Add(discordRow);
-            table.Rows.Add(twitterRow);
-            String x = JsonConvert.SerializeObject(table);
-            Properties.Settings.Default.periodicMessagesDataTableJson = x;
             Properties.Settings.Default.Save();
             return table;
         }

@@ -23,7 +23,10 @@ namespace wowiebot
 
         private void QuoteTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            ChatHandler.sendMessage("Time's up. I guess no one thought that quote was funny.");
+            string reply = Properties.Settings.Default.nonEmbeddableSrResponse;
+            reply = reply.Replace("$SENDER", quoteAdders[0]);
+            reply = reply.Replace("$BROADCASTER", ChatHandler.getChannel());
+            ChatHandler.sendMessage(reply);
             quoteAdders.Clear();
             addingQuote = false;
             quoteTimer.Stop();
@@ -55,7 +58,7 @@ namespace wowiebot
 
             quoteToAdd = quote;
 
-            if (Properties.Settings.Default.quoteAddingMethod == 0)
+            if (Properties.Settings.Default.quoteVotersNumber == 0)
             {
                 Properties.Settings.Default.quotes.Add(quoteToAdd);
                 Properties.Settings.Default.Save();
@@ -64,24 +67,7 @@ namespace wowiebot
                 return;
             }
 
-            else if (Properties.Settings.Default.quoteAddingMethod == 1 || Properties.Settings.Default.quoteAddingMethod == 2)
-            {
-                if (sender == ChatHandler.getChannel() || (senderIsMod && Properties.Settings.Default.quoteAddingMethod == 1))
-                {
-                    Properties.Settings.Default.quotes.Add(quoteToAdd);
-                    Properties.Settings.Default.Save();
-                    quotes.Add(quoteToAdd);
-                    ChatHandler.sendMessage("Quote added.");
-                    return;
-                }
-                else
-                {
-                    ChatHandler.sendMessage("You don't have permission to do that.");
-                    return;
-                }
-            }
-
-            else if (Properties.Settings.Default.quoteAddingMethod == 3)
+            else
             {
                 addingQuote = true;
                 quoteTimer.Start();
@@ -92,7 +78,6 @@ namespace wowiebot
                              " to add the quote! Ends in one minute.");
                 quoteAdders.Add(sender);
             }
-
         }
 
         public void voteYes(string sender)

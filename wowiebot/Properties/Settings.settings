@@ -18,9 +18,6 @@
     <Setting Name="prefix" Type="System.String" Scope="User">
       <Value Profile="(Default)">!</Value>
     </Setting>
-    <Setting Name="enableLinkTitles" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="choices8Ball" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
@@ -44,17 +41,11 @@
     <Setting Name="commandsDataTableJson" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="quoteAddingMethod" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="quoteVotersNumber" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="emptyQuotesMessage" Type="System.String" Scope="User">
       <Value Profile="(Default)">No quotes. I guess $BROADCASTER isn't funny or quotable.</Value>
-    </Setting>
-    <Setting Name="periodicMessagesDataTableJson" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="minimumMessagesBetweenPeriodic" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -72,6 +63,7 @@
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;Like this chatbot? You can get it for yourself! https://github.com/scatter-dev/wowiebot&lt;/string&gt;
+  &lt;string&gt;Be sure to leave a follow if you're enjoying the stream!&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="periodicMessagePeriod" Type="System.Int32" Scope="User">
@@ -82,6 +74,24 @@
     </Setting>
     <Setting Name="empty8BallResponse" Type="System.String" Scope="User">
       <Value Profile="(Default)">You drop the 8-ball and it shatters irrecoverably onto the floor.</Value>
+    </Setting>
+    <Setting Name="subResponse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Thanks $SENDER for the $MONTHS months!</Value>
+    </Setting>
+    <Setting Name="giftSubResponse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Thanks $SENDER for gifting that sub to $RECIPIENT! PogChamp</Value>
+    </Setting>
+    <Setting Name="raidResponse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Yo thanks $SENDER for bringing over $COUNT people!</Value>
+    </Setting>
+    <Setting Name="closedSrWindowResponse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Unable to load video. Please tell the streamer to open the Song Requests window.</Value>
+    </Setting>
+    <Setting Name="nonEmbeddableSrResponse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">That video is not embeddable and can't be played in the bot window. Sorry!</Value>
+    </Setting>
+    <Setting Name="quoteTimerElapsedResponse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Time's up. I guess no one thought that quote was funny.</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -263,6 +263,10 @@ namespace wowiebot
             {
                 chatMessage = new ChatMessagePrivmsg(rawMessage);
             }
+            else if (rawMessage.Contains("USERNOTICE"))
+            {
+                chatMessage = new ChatMessageUsernotice(rawMessage);
+            }
             else
             {
                 chatMessage = new ChatMessage(rawMessage);

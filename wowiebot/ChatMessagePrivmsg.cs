@@ -14,13 +14,17 @@ namespace wowiebot
         private bool senderIsMod;
         private bool senderIsBroadcaster;
         public int bits = 0;
-        public Dictionary<string, string> tags = new Dictionary<string, string>();
 
         public ChatMessagePrivmsg(string rawMessage) : base(rawMessage)
         {
             Regex r = new Regex(":(?<sender>[A-Za-z0-9_]*)!(.*)@(.*).tmi.twitch.tv PRIVMSG #(.*?) :(?<message>.*)");
             Match match = r.Match(rawMessage);
             parseTags(rawMessage);
+            try
+            {
+                bits = int.Parse(tags["bits"]);
+            }
+            catch (Exception e) { }
             sender = match.Groups["sender"].Value;
             sentMessage = match.Groups["message"].Value;
             senderIsMod = tags["mod"].Equals("1");
@@ -80,13 +84,13 @@ namespace wowiebot
                 }
             }
 
-            else if (Properties.Settings.Default.enableLinkTitles)
+            else
             {
                 ChatHandler.printLinkTitles(sentMessage);
             }
 
 
-            if (bits >= Properties.Settings.Default.bitsMessageThreshold)
+            if (bits > 0) // >= Properties.Settings.Default.bitsMessageThreshold)
             {
                 string msg = Properties.Settings.Default.messageForBits;
                 msg = msg.Replace("$COUNT", bits.ToString());
@@ -224,14 +228,20 @@ namespace wowiebot
                             string id = getIdFromYoutubeLink(ytlink);
                             if (MainForm.songRequestForm == null)
                             {
-                                commandText = "Unable to load video. Please tell the streamer to open the Song Requests window.";
+                                string reply = Properties.Settings.Default.closedSrWindowResponse;
+                                reply = reply.Replace("$SENDER", sender);
+                                reply = reply.Replace("$BROADCASTER", ChatHandler.getChannel());
+                                commandText = reply;
                             }
                             else if (id != null)
                             {
                                 SongRequest sr = new SongRequest(id, sender);
                                 if (sr.embeddable == false)
                                 {
-                                    return "That video is not embeddable and can't be played in the bot window. Sorry!";
+                                    string reply = Properties.Settings.Default.nonEmbeddableSrResponse;
+                                    reply = reply.Replace("$SENDER", sender);
+                                    reply = reply.Replace("$BROADCASTER", ChatHandler.getChannel());
+                                    return reply;
                                 }
                                 MainForm.songRequestForm.queueSong(sr);
                                 return "Queued.";
@@ -251,23 +261,6 @@ namespace wowiebot
             return commandText;
         }
 
-        private void parseTags(string message)
-        {
-            List<string> tagNames = new List<string>{ "badge-info", "badges", "bits", "color", "display-name", "emotes", "id", "message", "mod", "room-id", "subscriber", "tmi-sent-ts", "turbo", "user-id", "user-type"  };
-            string allTags = message.Remove(message.IndexOf("tmi.twitch.tv PRIVMSG #"));
-
-            foreach (string tag in tagNames)
-            {
-                Regex regex = new Regex("\\b"+tag+"=(.*?)[; ]");
-                Match match = regex.Match(allTags);
-                tags[tag] = match.Groups[1].Value;
-            }
-            
-            try
-            {
-                bits = int.Parse(tags["bits"]);
-            }
-            catch (Exception e) { }
-        }
+        
     }
 }

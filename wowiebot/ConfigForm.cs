@@ -26,11 +26,17 @@ namespace wowiebot
             emptyQuoteMessage.Text = Properties.Settings.Default.emptyQuotesMessage;
             noPermsMsgTextBox.Text = Properties.Settings.Default.noPermsMessage;
             messageOnCheerBox.Text = Properties.Settings.Default.messageForBits;
-            bitsMessageThresholdBox.Value = Properties.Settings.Default.bitsMessageThreshold;
+            //bitsMessageThresholdBox.Value = Properties.Settings.Default.bitsMessageThreshold;
             periodicPeriodPicker.Value = Properties.Settings.Default.periodicMessagePeriod;
             periodicSpamPrevent.Value = Properties.Settings.Default.minimumMessagesBetweenPeriodic;
             linkResponseBox.Text = Properties.Settings.Default.linkResponse;
             empty8ballResponseBox.Text = Properties.Settings.Default.empty8BallResponse;
+            subResponseBox.Text = Properties.Settings.Default.subResponse;
+            giftSubResponse.Text = Properties.Settings.Default.giftSubResponse;
+            raidResponse.Text = Properties.Settings.Default.raidResponse;
+            closedSrResponse.Text = Properties.Settings.Default.closedSrWindowResponse;
+            nonEmbeddableResponse.Text = Properties.Settings.Default.nonEmbeddableSrResponse;
+            quoteFailResponse.Text = Properties.Settings.Default.quoteTimerElapsedResponse;
             foreach (string s in Properties.Settings.Default.quotes)
             {
                 quotesTextBox.Text += s + "\r\n";
@@ -88,12 +94,18 @@ namespace wowiebot
                 Properties.Settings.Default.quoteVotersNumber = (int)quoteVotersNum.Value;
                 Properties.Settings.Default.emptyQuotesMessage = emptyQuoteMessage.Text;
                 Properties.Settings.Default.noPermsMessage = noPermsMsgTextBox.Text;
-                Properties.Settings.Default.bitsMessageThreshold = (int)bitsMessageThresholdBox.Value;
+                //Properties.Settings.Default.bitsMessageThreshold = (int)bitsMessageThresholdBox.Value;
                 Properties.Settings.Default.messageForBits = messageOnCheerBox.Text;
                 Properties.Settings.Default.periodicMessagePeriod = (int)periodicPeriodPicker.Value;
                 Properties.Settings.Default.minimumMessagesBetweenPeriodic = (int)periodicSpamPrevent.Value;
                 Properties.Settings.Default.linkResponse = linkResponseBox.Text;
                 Properties.Settings.Default.empty8BallResponse = empty8ballResponseBox.Text;
+                Properties.Settings.Default.subResponse = subResponseBox.Text;
+                Properties.Settings.Default.giftSubResponse = giftSubResponse.Text;
+                Properties.Settings.Default.raidResponse = raidResponse.Text;
+                Properties.Settings.Default.closedSrWindowResponse = closedSrResponse.Text;
+                Properties.Settings.Default.nonEmbeddableSrResponse = nonEmbeddableResponse.Text;
+                Properties.Settings.Default.quoteTimerElapsedResponse = quoteFailResponse.Text;
 
                 System.Collections.Specialized.StringCollection q = new System.Collections.Specialized.StringCollection();
                 string[] quotesArr = quotesTextBox.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -202,13 +214,6 @@ namespace wowiebot
         private void emptyQuoteMessage_TextChanged(object sender, EventArgs e)
         {
             updateSaveButton();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            PeriodicMessagesForm periodicForm = new PeriodicMessagesForm();
-            periodicForm.StartPosition = FormStartPosition.CenterScreen;
-            periodicForm.ShowDialog();
         }
 
         private void exportButton_Click(object sender, EventArgs e)
@@ -336,6 +341,11 @@ namespace wowiebot
         private void githubLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
+        }
+
+        private void label25_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

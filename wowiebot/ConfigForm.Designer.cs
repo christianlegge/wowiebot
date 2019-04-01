@@ -46,15 +46,31 @@
             this.prefixTextBox = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.githubLink = new System.Windows.Forms.LinkLabel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.quoteVotersNum = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.giftSubResponse = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.subResponseBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.empty8ballResponseBox = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.linkResponseBox = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.noPermsMsgTextBox = new System.Windows.Forms.TextBox();
-            this.bitsMessageThresholdBox = new System.Windows.Forms.NumericUpDown();
             this.messageOnCheerBox = new System.Windows.Forms.TextBox();
             this.emptyQuoteMessage = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -72,29 +88,26 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.exportButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
-            this.linkResponseBox = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.quoteVotersNum = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.githubLink = new System.Windows.Forms.LinkLabel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.empty8ballResponseBox = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.raidResponse = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.closedSrResponse = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.nonEmbeddableResponse = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.quoteFailResponse = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.addCommandsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bitsMessageThresholdBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodicSpamPrevent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodicPeriodPicker)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -120,7 +133,7 @@
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(721, 923);
+            this.tabPage1.Size = new System.Drawing.Size(721, 805);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Commands";
             // 
@@ -298,8 +311,101 @@
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Text Strings";
             // 
+            // githubLink
+            // 
+            this.githubLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.githubLink.AutoSize = true;
+            this.githubLink.Location = new System.Drawing.Point(127, 761);
+            this.githubLink.Name = "githubLink";
+            this.githubLink.Size = new System.Drawing.Size(116, 13);
+            this.githubLink.TabIndex = 24;
+            this.githubLink.TabStop = true;
+            this.githubLink.Text = "View source on GitHub";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(127, 746);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(158, 13);
+            this.label17.TabIndex = 23;
+            this.label17.Text = "wowiebot by scatter 2016-2019.";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.Image = global::wowiebot.Properties.Resources.vanessabirdcropped_1mb;
+            this.pictureBox1.Location = new System.Drawing.Point(37, 710);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(84, 78);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 22;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(40, 211);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(109, 13);
+            this.label21.TabIndex = 21;
+            this.label21.Text = "(0 to add immediately)";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(231, 194);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(39, 13);
+            this.label20.TabIndex = 20;
+            this.label20.Text = "people";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(37, 194);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(130, 13);
+            this.label19.TabIndex = 19;
+            this.label19.Text = "Added when voted yes by";
+            // 
+            // quoteVotersNum
+            // 
+            this.quoteVotersNum.Location = new System.Drawing.Point(168, 192);
+            this.quoteVotersNum.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.quoteVotersNum.Name = "quoteVotersNum";
+            this.quoteVotersNum.Size = new System.Drawing.Size(60, 20);
+            this.quoteVotersNum.TabIndex = 18;
+            this.quoteVotersNum.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label30);
+            this.groupBox1.Controls.Add(this.quoteFailResponse);
+            this.groupBox1.Controls.Add(this.label29);
+            this.groupBox1.Controls.Add(this.nonEmbeddableResponse);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.closedSrResponse);
+            this.groupBox1.Controls.Add(this.label28);
+            this.groupBox1.Controls.Add(this.label27);
+            this.groupBox1.Controls.Add(this.raidResponse);
+            this.groupBox1.Controls.Add(this.label26);
+            this.groupBox1.Controls.Add(this.label25);
+            this.groupBox1.Controls.Add(this.label24);
+            this.groupBox1.Controls.Add(this.giftSubResponse);
+            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.label22);
+            this.groupBox1.Controls.Add(this.subResponseBox);
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.empty8ballResponseBox);
             this.groupBox1.Controls.Add(this.label18);
@@ -308,24 +414,114 @@
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.noPermsMsgTextBox);
-            this.groupBox1.Controls.Add(this.bitsMessageThresholdBox);
             this.groupBox1.Controls.Add(this.messageOnCheerBox);
             this.groupBox1.Controls.Add(this.emptyQuoteMessage);
             this.groupBox1.Location = new System.Drawing.Point(340, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(368, 651);
+            this.groupBox1.Size = new System.Drawing.Size(368, 775);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Event Messages (leave blank to disable)";
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(26, 316);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(282, 13);
+            this.label25.TabIndex = 24;
+            this.label25.Text = "Available tokens: $MONTHS = cumulative months subbed";
+            this.label25.Click += new System.EventHandler(this.label25_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(23, 277);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(121, 13);
+            this.label24.TabIndex = 23;
+            this.label24.Text = "Response to gifted subs";
+            // 
+            // giftSubResponse
+            // 
+            this.giftSubResponse.Location = new System.Drawing.Point(26, 293);
+            this.giftSubResponse.Name = "giftSubResponse";
+            this.giftSubResponse.Size = new System.Drawing.Size(316, 20);
+            this.giftSubResponse.TabIndex = 22;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(26, 249);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(282, 13);
+            this.label23.TabIndex = 21;
+            this.label23.Text = "Available tokens: $MONTHS = cumulative months subbed";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(23, 209);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(195, 13);
+            this.label22.TabIndex = 20;
+            this.label22.Text = "Response to subs, resubs, and gift subs";
+            // 
+            // subResponseBox
+            // 
+            this.subResponseBox.Location = new System.Drawing.Point(26, 226);
+            this.subResponseBox.Name = "subResponseBox";
+            this.subResponseBox.Size = new System.Drawing.Size(316, 20);
+            this.subResponseBox.TabIndex = 19;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(20, 155);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(233, 13);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "Response to 8-ball command on empty 8-ball list";
+            // 
+            // empty8ballResponseBox
+            // 
+            this.empty8ballResponseBox.Location = new System.Drawing.Point(26, 171);
+            this.empty8ballResponseBox.Name = "empty8ballResponseBox";
+            this.empty8ballResponseBox.Size = new System.Drawing.Size(316, 20);
+            this.empty8ballResponseBox.TabIndex = 17;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(23, 570);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(248, 13);
+            this.label18.TabIndex = 16;
+            this.label18.Text = "Available tokens: $TITLE = page title of link posted";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(23, 531);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(196, 13);
+            this.label15.TabIndex = 15;
+            this.label15.Text = "Response when links are posted in chat";
+            // 
+            // linkResponseBox
+            // 
+            this.linkResponseBox.Location = new System.Drawing.Point(26, 547);
+            this.linkResponseBox.Name = "linkResponseBox";
+            this.linkResponseBox.Size = new System.Drawing.Size(316, 20);
+            this.linkResponseBox.TabIndex = 14;
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(26, 227);
+            this.label14.Location = new System.Drawing.Point(20, 458);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(255, 13);
             this.label14.TabIndex = 13;
@@ -343,34 +539,25 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(23, 274);
+            this.label12.Location = new System.Drawing.Point(23, 483);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(296, 13);
             this.label12.TabIndex = 11;
             this.label12.Text = "Response to command when sender doesn\'t have permission";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(198, 179);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(61, 13);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "or more bits";
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(23, 179);
+            this.label10.Location = new System.Drawing.Point(23, 418);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(114, 13);
+            this.label10.Size = new System.Drawing.Size(102, 13);
             this.label10.TabIndex = 9;
-            this.label10.Text = "Response to cheers of";
+            this.label10.Text = "Response to cheers";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(23, 57);
+            this.label9.Location = new System.Drawing.Point(20, 103);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(242, 13);
             this.label9.TabIndex = 8;
@@ -378,43 +565,21 @@
             // 
             // noPermsMsgTextBox
             // 
-            this.noPermsMsgTextBox.Location = new System.Drawing.Point(26, 290);
+            this.noPermsMsgTextBox.Location = new System.Drawing.Point(26, 499);
             this.noPermsMsgTextBox.Name = "noPermsMsgTextBox";
             this.noPermsMsgTextBox.Size = new System.Drawing.Size(316, 20);
             this.noPermsMsgTextBox.TabIndex = 4;
             // 
-            // bitsMessageThresholdBox
-            // 
-            this.bitsMessageThresholdBox.Location = new System.Drawing.Point(140, 177);
-            this.bitsMessageThresholdBox.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.bitsMessageThresholdBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.bitsMessageThresholdBox.Name = "bitsMessageThresholdBox";
-            this.bitsMessageThresholdBox.Size = new System.Drawing.Size(55, 20);
-            this.bitsMessageThresholdBox.TabIndex = 6;
-            this.bitsMessageThresholdBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // messageOnCheerBox
             // 
-            this.messageOnCheerBox.Location = new System.Drawing.Point(26, 200);
+            this.messageOnCheerBox.Location = new System.Drawing.Point(26, 434);
             this.messageOnCheerBox.Name = "messageOnCheerBox";
             this.messageOnCheerBox.Size = new System.Drawing.Size(316, 20);
             this.messageOnCheerBox.TabIndex = 5;
             // 
             // emptyQuoteMessage
             // 
-            this.emptyQuoteMessage.Location = new System.Drawing.Point(26, 73);
+            this.emptyQuoteMessage.Location = new System.Drawing.Point(26, 119);
             this.emptyQuoteMessage.Name = "emptyQuoteMessage";
             this.emptyQuoteMessage.Size = new System.Drawing.Size(316, 20);
             this.emptyQuoteMessage.TabIndex = 7;
@@ -518,6 +683,8 @@
             // 
             // periodicTextBox
             // 
+            this.periodicTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.periodicTextBox.Location = new System.Drawing.Point(33, 491);
             this.periodicTextBox.Multiline = true;
             this.periodicTextBox.Name = "periodicTextBox";
@@ -528,6 +695,8 @@
             // 
             // eightBallBox
             // 
+            this.eightBallBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.eightBallBox.Location = new System.Drawing.Point(33, 260);
             this.eightBallBox.Multiline = true;
             this.eightBallBox.Name = "eightBallBox";
@@ -538,6 +707,8 @@
             // 
             // quotesTextBox
             // 
+            this.quotesTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.quotesTextBox.Location = new System.Drawing.Point(33, 29);
             this.quotesTextBox.Multiline = true;
             this.quotesTextBox.Name = "quotesTextBox";
@@ -579,122 +750,87 @@
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
-            // linkResponseBox
+            // label26
             // 
-            this.linkResponseBox.Location = new System.Drawing.Point(26, 349);
-            this.linkResponseBox.Name = "linkResponseBox";
-            this.linkResponseBox.Size = new System.Drawing.Size(316, 20);
-            this.linkResponseBox.TabIndex = 14;
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(110, 330);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(189, 13);
+            this.label26.TabIndex = 25;
+            this.label26.Text = "$RECIPIENT = recipient of the sub gift";
             // 
-            // label15
+            // raidResponse
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(26, 330);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(196, 13);
-            this.label15.TabIndex = 15;
-            this.label15.Text = "Response when links are posted in chat";
+            this.raidResponse.Location = new System.Drawing.Point(26, 364);
+            this.raidResponse.Name = "raidResponse";
+            this.raidResponse.Size = new System.Drawing.Size(316, 20);
+            this.raidResponse.TabIndex = 26;
             // 
-            // label18
+            // label27
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(29, 376);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(248, 13);
-            this.label18.TabIndex = 16;
-            this.label18.Text = "Available tokens: $TITLE = page title of link posted";
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(23, 348);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(92, 13);
+            this.label27.TabIndex = 27;
+            this.label27.Text = "Response to raids";
             // 
-            // quoteVotersNum
+            // label28
             // 
-            this.quoteVotersNum.Location = new System.Drawing.Point(168, 192);
-            this.quoteVotersNum.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.quoteVotersNum.Name = "quoteVotersNum";
-            this.quoteVotersNum.Size = new System.Drawing.Size(60, 20);
-            this.quoteVotersNum.TabIndex = 18;
-            this.quoteVotersNum.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(26, 387);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(228, 13);
+            this.label28.TabIndex = 28;
+            this.label28.Text = "Available tokens: $COUNT = number of raiders";
             // 
-            // label19
+            // closedSrResponse
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(37, 194);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(130, 13);
-            this.label19.TabIndex = 19;
-            this.label19.Text = "Added when voted yes by";
+            this.closedSrResponse.Location = new System.Drawing.Point(26, 614);
+            this.closedSrResponse.Name = "closedSrResponse";
+            this.closedSrResponse.Size = new System.Drawing.Size(316, 20);
+            this.closedSrResponse.TabIndex = 29;
             // 
-            // label20
+            // label11
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(231, 194);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(39, 13);
-            this.label20.TabIndex = 20;
-            this.label20.Text = "people";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(24, 598);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(281, 13);
+            this.label11.TabIndex = 30;
+            this.label11.Text = "Response to song requests when queue window is closed";
             // 
-            // label21
+            // label29
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(40, 211);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(109, 13);
-            this.label21.TabIndex = 21;
-            this.label21.Text = "(0 to add immediately)";
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(24, 646);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(298, 13);
+            this.label29.TabIndex = 32;
+            this.label29.Text = "Response to song requests when video cannot be embedded";
             // 
-            // githubLink
+            // nonEmbeddableResponse
             // 
-            this.githubLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.githubLink.AutoSize = true;
-            this.githubLink.Location = new System.Drawing.Point(108, 761);
-            this.githubLink.Name = "githubLink";
-            this.githubLink.Size = new System.Drawing.Size(116, 13);
-            this.githubLink.TabIndex = 24;
-            this.githubLink.TabStop = true;
-            this.githubLink.Text = "View source on GitHub";
+            this.nonEmbeddableResponse.Location = new System.Drawing.Point(26, 662);
+            this.nonEmbeddableResponse.Name = "nonEmbeddableResponse";
+            this.nonEmbeddableResponse.Size = new System.Drawing.Size(316, 20);
+            this.nonEmbeddableResponse.TabIndex = 31;
             // 
-            // label17
+            // label30
             // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(108, 746);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(158, 13);
-            this.label17.TabIndex = 23;
-            this.label17.Text = "wowiebot by scatter 2016-2019.";
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(20, 55);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(284, 13);
+            this.label30.TabIndex = 34;
+            this.label30.Text = "Response to quote failing to be added due to lack of votes";
             // 
-            // pictureBox1
+            // quoteFailResponse
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.Image = global::wowiebot.Properties.Resources.vanessabirdcropped_1mb;
-            this.pictureBox1.Location = new System.Drawing.Point(18, 710);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(84, 78);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 22;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(23, 109);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(233, 13);
-            this.label16.TabIndex = 18;
-            this.label16.Text = "Response to 8-ball command on empty 8-ball list";
-            // 
-            // empty8ballResponseBox
-            // 
-            this.empty8ballResponseBox.Location = new System.Drawing.Point(26, 125);
-            this.empty8ballResponseBox.Name = "empty8ballResponseBox";
-            this.empty8ballResponseBox.Size = new System.Drawing.Size(316, 20);
-            this.empty8ballResponseBox.TabIndex = 17;
+            this.quoteFailResponse.Location = new System.Drawing.Point(26, 71);
+            this.quoteFailResponse.Name = "quoteFailResponse";
+            this.quoteFailResponse.Size = new System.Drawing.Size(316, 20);
+            this.quoteFailResponse.TabIndex = 33;
             // 
             // ConfigForm
             // 
@@ -717,13 +853,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bitsMessageThresholdBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodicSpamPrevent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodicPeriodPicker)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.quoteVotersNum)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -740,7 +875,6 @@
         private System.Windows.Forms.TextBox periodicTextBox;
         private System.Windows.Forms.TextBox noPermsMsgTextBox;
         private System.Windows.Forms.TextBox messageOnCheerBox;
-        private System.Windows.Forms.NumericUpDown bitsMessageThresholdBox;
         private System.Windows.Forms.TextBox emptyQuoteMessage;
         private System.Windows.Forms.NumericUpDown periodicPeriodPicker;
         private System.Windows.Forms.Button exportButton;
@@ -767,7 +901,6 @@
         private System.Windows.Forms.Button songRequestAddCommand;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button1;
@@ -785,5 +918,21 @@
         private System.Windows.Forms.TextBox linkResponseBox;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox empty8ballResponseBox;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox subResponseBox;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox giftSubResponse;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox raidResponse;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox closedSrResponse;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox nonEmbeddableResponse;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox quoteFailResponse;
     }
 }

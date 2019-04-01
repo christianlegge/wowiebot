@@ -86,18 +86,6 @@ namespace wowiebot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enableLinkTitles {
-            get {
-                return ((bool)(this["enableLinkTitles"]));
-            }
-            set {
-                this["enableLinkTitles"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>yes</string>
@@ -140,18 +128,6 @@ namespace wowiebot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int quoteAddingMethod {
-            get {
-                return ((int)(this["quoteAddingMethod"]));
-            }
-            set {
-                this["quoteAddingMethod"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int quoteVotersNumber {
             get {
                 return ((int)(this["quoteVotersNumber"]));
@@ -170,18 +146,6 @@ namespace wowiebot.Properties {
             }
             set {
                 this["emptyQuotesMessage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string periodicMessagesDataTableJson {
-            get {
-                return ((string)(this["periodicMessagesDataTableJson"]));
-            }
-            set {
-                this["periodicMessagesDataTableJson"] = value;
             }
         }
         
@@ -238,6 +202,7 @@ namespace wowiebot.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>Like this chatbot? You can get it for yourself! https://github.com/scatter-dev/wowiebot</string>
+  <string>Be sure to leave a follow if you're enjoying the stream!</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection periodicMessagesArray {
             get {
@@ -281,6 +246,78 @@ namespace wowiebot.Properties {
             }
             set {
                 this["empty8BallResponse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Thanks $SENDER for the $MONTHS months!")]
+        public string subResponse {
+            get {
+                return ((string)(this["subResponse"]));
+            }
+            set {
+                this["subResponse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Thanks $SENDER for gifting that sub to $RECIPIENT! PogChamp")]
+        public string giftSubResponse {
+            get {
+                return ((string)(this["giftSubResponse"]));
+            }
+            set {
+                this["giftSubResponse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yo thanks $SENDER for bringing over $COUNT people!")]
+        public string raidResponse {
+            get {
+                return ((string)(this["raidResponse"]));
+            }
+            set {
+                this["raidResponse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Unable to load video. Please tell the streamer to open the Song Requests window.")]
+        public string closedSrWindowResponse {
+            get {
+                return ((string)(this["closedSrWindowResponse"]));
+            }
+            set {
+                this["closedSrWindowResponse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("That video is not embeddable and can\'t be played in the bot window. Sorry!")]
+        public string nonEmbeddableSrResponse {
+            get {
+                return ((string)(this["nonEmbeddableSrResponse"]));
+            }
+            set {
+                this["nonEmbeddableSrResponse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Time\'s up. I guess no one thought that quote was funny.")]
+        public string quoteTimerElapsedResponse {
+            get {
+                return ((string)(this["quoteTimerElapsedResponse"]));
+            }
+            set {
+                this["quoteTimerElapsedResponse"] = value;
             }
         }
     }
