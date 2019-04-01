@@ -98,6 +98,7 @@
             this.nonEmbeddableResponse = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.quoteFailResponse = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.addCommandsBox.SuspendLayout();
@@ -127,6 +128,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.label31);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.addCommandsBox);
             this.tabPage1.Controls.Add(this.prefixTextBox);
@@ -278,9 +280,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 122);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 138);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(715, 680);
+            this.dataGridView1.Size = new System.Drawing.Size(715, 664);
             this.dataGridView1.TabIndex = 1;
             // 
             // tabPage2
@@ -832,6 +834,16 @@
             this.quoteFailResponse.Size = new System.Drawing.Size(316, 20);
             this.quoteFailResponse.TabIndex = 33;
             // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(15, 122);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(660, 13);
+            this.label31.TabIndex = 7;
+            this.label31.Text = "Permissions: comma-separated list of users who can run the command. $MOD to allow" +
+    " all mods. Broadcaster can run all commands always.";
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -934,5 +946,6 @@
         private System.Windows.Forms.TextBox nonEmbeddableResponse;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox quoteFailResponse;
+        private System.Windows.Forms.Label label31;
     }
 }
