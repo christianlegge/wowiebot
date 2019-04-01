@@ -313,7 +313,7 @@ namespace wowiebot
         private void calculatorButton_Click(object sender, EventArgs e)
         {
             DataTable dt = (DataTable)dataGridView1.DataSource;
-            dt.Rows.Add(new object[] { true, "calc, calculate, math", "", "$CALCULATOR", true });
+            dt.Rows.Add(new object[] { true, "calc, calculate, math", "", "Answer: $CALCULATOR", true });
             dataGridView1.DataSource = dt;
         }
 
