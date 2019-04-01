@@ -21,14 +21,7 @@ namespace wowiebot
 
             githubLink.Links.Add(0, githubLink.Text.Length, "https://github.com/scatter-dev/wowiebot");
 
-            quoteMethodDropDown.DataSource = new string[] { "All quotes are added automatically",
-                                                            "Only moderators can add quotes",
-                                                            "Only the broadcaster can add quotes",
-                                                            "Quotes are added after being voted on by chat"};
-
             prefixTextBox.Text = Properties.Settings.Default.prefix;
-            linkCheckBox.Checked = Properties.Settings.Default.enableLinkTitles;
-            quoteMethodDropDown.SelectedIndex = Properties.Settings.Default.quoteAddingMethod;
             quoteVotersNum.Value = Properties.Settings.Default.quoteVotersNumber;
             emptyQuoteMessage.Text = Properties.Settings.Default.emptyQuotesMessage;
             noPermsMsgTextBox.Text = Properties.Settings.Default.noPermsMessage;
@@ -73,7 +66,7 @@ namespace wowiebot
             List<string> dupes = dupeCommands();
             string invalid = invalidCommandIfExists();
 
-            if (quoteMethodDropDown.SelectedIndex == 3 && ((DataTable)dataGridView1.DataSource).Select("Message LIKE '*$VOTEYES*'").Length == 0)
+            if (quoteVotersNum.Value > 0 && ((DataTable)dataGridView1.DataSource).Select("Message LIKE '*$VOTEYES*'").Length == 0)
             {
                 MessageBox.Show("You need to have a $VOTEYES command if you're adding quotes by voting!", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -89,9 +82,7 @@ namespace wowiebot
             else
             {
                 Properties.Settings.Default.prefix = prefixTextBox.Text;
-                Properties.Settings.Default.enableLinkTitles = linkCheckBox.Checked;
                 Properties.Settings.Default.commandsDataTableJson = JsonConvert.SerializeObject(dataGridView1.DataSource);
-                Properties.Settings.Default.quoteAddingMethod = quoteMethodDropDown.SelectedIndex;
                 Properties.Settings.Default.quoteVotersNumber = (int)quoteVotersNum.Value;
                 Properties.Settings.Default.emptyQuotesMessage = emptyQuoteMessage.Text;
                 Properties.Settings.Default.noPermsMessage = noPermsMsgTextBox.Text;
@@ -197,19 +188,6 @@ namespace wowiebot
         {
             CommandsHelpForm commandsHelpForm = new CommandsHelpForm();
             commandsHelpForm.Show();
-        }
-        
-        private void quoteMethodDropDown_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (quoteMethodDropDown.SelectedIndex == 3)
-            {
-                // voting
-                quoteVotersNum.Enabled = true;
-            }
-            else
-            {
-                quoteVotersNum.Enabled = false;
-            }
         }
 
         private void dataGridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)

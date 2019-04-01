@@ -48,7 +48,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="quoteVotersNumber" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="emptyQuotesMessage" Type="System.String" Scope="User">
       <Value Profile="(Default)">No quotes. I guess $BROADCASTER isn't funny or quotable.</Value>
