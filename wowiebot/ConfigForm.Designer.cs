@@ -72,7 +72,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.exportButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.linkResponseBox = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.quoteVotersNum = new System.Windows.Forms.NumericUpDown();
@@ -300,7 +300,7 @@
             // 
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.linkResponseBox);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label12);
@@ -575,12 +575,12 @@
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
-            // textBox1
+            // linkResponseBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(26, 287);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(316, 20);
-            this.textBox1.TabIndex = 14;
+            this.linkResponseBox.Location = new System.Drawing.Point(26, 287);
+            this.linkResponseBox.Name = "linkResponseBox";
+            this.linkResponseBox.Size = new System.Drawing.Size(316, 20);
+            this.linkResponseBox.TabIndex = 14;
             // 
             // label15
             // 
@@ -762,6 +762,6 @@
         private System.Windows.Forms.NumericUpDown quoteVotersNum;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox linkResponseBox;
     }
 }

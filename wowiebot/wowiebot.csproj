@@ -225,7 +225,6 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <None Include="Resources\vanessabirdcropped-1mb.png" />
-    <None Include="Resources\scatteravatar.bmp" />
     <EmbeddedResource Include="player.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

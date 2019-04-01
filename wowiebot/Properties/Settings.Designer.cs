@@ -259,5 +259,17 @@ namespace wowiebot.Properties {
                 this["periodicMessagePeriod"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("$SENDER posted: $TITLE")]
+        public string linkResponse {
+            get {
+                return ((string)(this["linkResponse"]));
+            }
+            set {
+                this["linkResponse"] = value;
+            }
+        }
     }
 }

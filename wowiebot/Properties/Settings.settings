@@ -77,5 +77,8 @@
     <Setting Name="periodicMessagePeriod" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">15</Value>
     </Setting>
+    <Setting Name="linkResponse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$SENDER posted: $TITLE</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

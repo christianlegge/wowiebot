@@ -239,7 +239,11 @@ namespace wowiebot
                 title = Regex.Replace(title, @"[^\u0000-\u007F]+", string.Empty);
                 if (title != null && title != "")
                 {
-                    sendMessage(sender + " posted: " + title);
+                    string reply = Properties.Settings.Default.linkResponse;
+                    reply = reply.Replace("$SENDER", sender);
+                    reply = reply.Replace("$BROADCASTER", channel);
+                    reply = reply.Replace("$TITLE", title);
+                    sendMessage(reply);
                 }
             }
         }
