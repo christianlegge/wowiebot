@@ -468,9 +468,9 @@
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(23, 209);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(195, 13);
+            this.label22.Size = new System.Drawing.Size(147, 13);
             this.label22.TabIndex = 20;
-            this.label22.Text = "Response to subs, resubs, and gift subs";
+            this.label22.Text = "Response to subs and resubs";
             // 
             // subResponseBox
             // 
