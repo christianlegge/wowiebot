@@ -19,6 +19,8 @@ namespace wowiebot
         {
             InitializeComponent();
 
+            githubLink.Links.Add(0, githubLink.Text.Length, "https://github.com/scatter-dev/wowiebot");
+
             quoteMethodDropDown.DataSource = new string[] { "All quotes are added automatically",
                                                             "Only moderators can add quotes",
                                                             "Only the broadcaster can add quotes",
@@ -33,6 +35,7 @@ namespace wowiebot
             messageOnCheerBox.Text = Properties.Settings.Default.messageForBits;
             bitsMessageThresholdBox.Value = Properties.Settings.Default.bitsMessageThreshold;
             periodicPeriodPicker.Value = Properties.Settings.Default.periodicMessagePeriod;
+            periodicSpamPrevent.Value = Properties.Settings.Default.minimumMessagesBetweenPeriodic;
             foreach (string s in Properties.Settings.Default.quotes)
             {
                 quotesTextBox.Text += s + "\r\n";
@@ -94,6 +97,8 @@ namespace wowiebot
                 Properties.Settings.Default.noPermsMessage = noPermsMsgTextBox.Text;
                 Properties.Settings.Default.bitsMessageThreshold = (int)bitsMessageThresholdBox.Value;
                 Properties.Settings.Default.messageForBits = messageOnCheerBox.Text;
+                Properties.Settings.Default.periodicMessagePeriod = (int)periodicPeriodPicker.Value;
+                Properties.Settings.Default.minimumMessagesBetweenPeriodic = (int)periodicSpamPrevent.Value;
 
                 System.Collections.Specialized.StringCollection q = new System.Collections.Specialized.StringCollection();
                 string[] quotesArr = quotesTextBox.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -125,6 +130,7 @@ namespace wowiebot
                 Properties.Settings.Default.quotes = q;
                 Properties.Settings.Default.choices8Ball = b;
                 Properties.Settings.Default.periodicMessagesArray = p;
+                
                 Properties.Settings.Default.Save();
                 Close();
             }
@@ -175,20 +181,6 @@ namespace wowiebot
             {
                 saveButton.Enabled = true;
             }
-        }
-
-        private void editQuotesButton_Click(object sender, EventArgs e)
-        {
-            EditStringsForm quotesForm = new EditStringsForm("quotes");
-            quotesForm.StartPosition = FormStartPosition.CenterScreen;
-            quotesForm.ShowDialog();
-        }
-
-        private void edit8BallChoicesButton_Click(object sender, EventArgs e)
-        {
-            EditStringsForm quotesForm = new EditStringsForm("choices");
-            quotesForm.StartPosition = FormStartPosition.CenterScreen;
-            quotesForm.ShowDialog();
         }
 
         private DataTable getDataTableFromSettings()
@@ -287,6 +279,81 @@ namespace wowiebot
                     MessageBox.Show("Error importing settings! No data was lost.");
                 }
             }
+        }
+
+        private void addMessageCommandButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "<command>", "", "<Bot reply here>", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void addQuoteButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "addquote", "", "$ADDQUOTE", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void getQuoteButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "quote", "", "[$QNUM]: $QUOTE", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void uptimeButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "uptime", "", "$BROADCASTER has been live for $UPHOURS hours and $UPMINUTES minutes.", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void eightBallButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "8ball", "", "The 8-ball says: $8BALL", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void helpCommandAddButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "help, commands", "", "Available commands: $COMMANDS", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void calculatorButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "calc, calculate, math", "", "$CALCULATOR", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void titleGameButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "title, game", "", "$BROADCASTER is playing $GAME: $TITLE", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void songRequestAddCommand_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "sr", "", "$SONGREQ", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            dt.Rows.Add(new object[] { true, "queue", "", "The total length of the remaining songs in the queue is $QUEUETIME.", true });
+            dataGridView1.DataSource = dt;
+        }
+
+        private void githubLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
         }
     }
 }

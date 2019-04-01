@@ -24,8 +24,9 @@ namespace wowiebot
         private static string botOauth;
         private static MainForm mainForm;
         private static NetworkStream stream;
-        private static Dictionary<System.Timers.Timer, String> periodicMessageTimers;
-        private static Dictionary<System.Timers.Timer, System.Timers.Timer> offsetTimers;
+        private static System.Collections.Specialized.StringCollection periodicMessages;
+        private static System.Timers.Timer periodicMessageTimer;
+        private static int currentPeriodicMessage;
         public static Random rnd = new Random();
         private static int lastChoice = -1;
         private static List<string> eightBallChoices;
@@ -35,7 +36,6 @@ namespace wowiebot
         private static string userID;
         private static List<string> messageVars = new List<string>(new string[] { "QUOTE", "QNUM", "ADDQUOTE", "VOTEYES", "BROADCASTER", "SENDER", "GAME", "TITLE", "UPHOURS", "UPMINUTES", "8BALL", "CALCULATOR", "COMMANDS", "SONGREQ", "QUEUETIME" });
         public static DataTable commandsTable;
-        private static DataTable periodicMessagesTable;
         private static String sender;
         private static bool senderIsMod;
         private static bool botIsMod;
@@ -59,16 +59,14 @@ namespace wowiebot
             botOauth = pOauth;
 
             commandsTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.commandsDataTableJson);
-            periodicMessagesTable = JsonConvert.DeserializeObject<DataTable>(Properties.Settings.Default.periodicMessagesDataTableJson);
+            periodicMessages = Properties.Settings.Default.periodicMessagesArray;
 
-            if (periodicMessagesTable == null)
-            {
-                periodicMessagesTable = new DataTable();
-            }
-            
             buildCommandsDictionary();
 
-            createPeriodicMessagesTimers();
+            periodicMessageTimer = new System.Timers.Timer(Properties.Settings.Default.periodicMessagePeriod * 60 * 1000);
+            periodicMessageTimer.Elapsed += PeriodicMessageTimer_Elapsed1;
+            periodicMessageTimer.AutoReset = true;
+            periodicMessageTimer.Start();
 
             if (apiCallNeeded)
             {
@@ -85,6 +83,17 @@ namespace wowiebot
 
             return runBot();
 
+        }
+
+        private static void PeriodicMessageTimer_Elapsed1(object sender, ElapsedEventArgs e)
+        {
+            if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
+            {
+                sendMessage(periodicMessages[currentPeriodicMessage]);
+                messagesBetweenPeriodics = 0;
+                currentPeriodicMessage++;
+                currentPeriodicMessage = currentPeriodicMessage % periodicMessages.Count;
+            }
         }
 
         public static string getMessageFromCommand(string cmd)
@@ -122,50 +131,6 @@ namespace wowiebot
             }
       
             commandsForHelp = commandsForHelp.Substring(0, commandsForHelp.Length - 2);
-        }
-
-        private static void createPeriodicMessagesTimers()
-        {
-            periodicMessageTimers = new Dictionary<System.Timers.Timer, string>();
-            offsetTimers = new Dictionary<System.Timers.Timer, System.Timers.Timer>();
-            DataRow[] periodicRows = periodicMessagesTable.Select("enabled = true");
-            foreach (DataRow row in periodicRows)
-            {
-                System.Timers.Timer t = new System.Timers.Timer(row.Field<double>("Period") * 1000 * 60);
-                t.Elapsed += PeriodicMessageTimer_Elapsed;
-                if (row.Field<double>("Offset") > 0)
-                {
-                    System.Timers.Timer offsetTimer = new System.Timers.Timer(row.Field<double>("Offset") * 1000 * 60);
-                    offsetTimer.Elapsed += OffsetTimer_Elapsed;
-                    offsetTimers.Add(offsetTimer, t);
-                    offsetTimer.Start();
-                }
-                else
-                {
-                    t.Start();
-                }
-                periodicMessageTimers.Add(t, row.Field<string>("Message"));
-            }
-        }
-
-        private static void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
-            {
-                sendMessage(periodicMessageTimers[offsetTimers[(System.Timers.Timer)sender]]);
-                messagesBetweenPeriodics = 0;
-            }
-            offsetTimers[(System.Timers.Timer)sender].Start();
-            ((System.Timers.Timer)sender).Stop();
-        }
-
-        private static void PeriodicMessageTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            if (stream != null && messagesBetweenPeriodics >= Properties.Settings.Default.minimumMessagesBetweenPeriodic)
-            {
-                sendMessage(periodicMessageTimers[(System.Timers.Timer)sender]);
-                messagesBetweenPeriodics = 0;
-            }
         }
 
         public static int runBot()
@@ -465,17 +430,7 @@ namespace wowiebot
         public static void disconnect()
         {
             willDisconnect = true;
-            foreach (KeyValuePair<System.Timers.Timer, System.Timers.Timer> timer in offsetTimers)
-            {
-                timer.Key.Enabled = false;
-                timer.Value.Enabled = false;
-            }
-            offsetTimers.Clear();
-            foreach (KeyValuePair<System.Timers.Timer,string> timer in periodicMessageTimers)
-            {
-                timer.Key.Enabled = false;
-            }
-            periodicMessageTimers.Clear();
+            periodicMessageTimer.Stop();
         }
 
         private static void sendToServer(string strToSend)

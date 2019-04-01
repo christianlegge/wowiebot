@@ -57,7 +57,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="minimumMessagesBetweenPeriodic" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="noPermsMessage" Type="System.String" Scope="User">
       <Value Profile="(Default)">You don't have permission to do that.</Value>
