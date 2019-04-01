@@ -134,7 +134,7 @@ namespace wowiebot
         }
 
 
-        public Quote getQuote()
+        public Quote getQuote(string sender)
         {
             if (Properties.Settings.Default.quotes == null)
             {
@@ -150,7 +150,10 @@ namespace wowiebot
             }
             if (quotes.Count == 0)
             {
-                return new Quote("No quotes. I guess " + ChatHandler.getChannel() + " just isn't funny or quotable.", 0);
+                string reply = Properties.Settings.Default.emptyQuotesMessage;
+                reply = reply.Replace("$SENDER", sender);
+                reply = reply.Replace("$BROADCASTER", ChatHandler.getChannel());
+                return new Quote(reply, 0);
             }
             int q;
             do

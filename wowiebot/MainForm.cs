@@ -173,6 +173,7 @@ namespace wowiebot
             DataColumn enabled = new DataColumn("Enabled", typeof(bool));
             DataColumn cmd = new DataColumn("Command");
             DataColumn perms = new DataColumn("Permissions");
+            perms.DefaultValue = "";
             DataColumn msg = new DataColumn("Message");
             DataColumn showInHelp = new DataColumn("Show in commands list", typeof(bool));
 

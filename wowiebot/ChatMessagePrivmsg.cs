@@ -157,14 +157,14 @@ namespace wowiebot
                         case "QUOTE":
                             if (q == null)
                             {
-                                q = QuoteHandler.getInstance().getQuote();
+                                q = QuoteHandler.getInstance().getQuote(sender);
                             }
                             commandText = commandText.Replace("$QUOTE", q.getQuoteText());
                             break;
                         case "QNUM":
                             if (q == null)
                             {
-                                q = QuoteHandler.getInstance().getQuote();
+                                q = QuoteHandler.getInstance().getQuote(sender);
                             }
                             commandText = commandText.Replace("$QNUM", q.getQuoteNumber().ToString());
                             break;
