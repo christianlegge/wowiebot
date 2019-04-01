@@ -271,5 +271,17 @@ namespace wowiebot.Properties {
                 this["linkResponse"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("You drop the 8-ball and it shatters irrecoverably onto the floor.")]
+        public string empty8BallResponse {
+            get {
+                return ((string)(this["empty8BallResponse"]));
+            }
+            set {
+                this["empty8BallResponse"] = value;
+            }
+        }
     }
 }

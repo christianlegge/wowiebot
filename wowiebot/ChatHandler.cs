@@ -324,7 +324,10 @@ namespace wowiebot
             }
             if (eightBallChoices.Count == 0)
             {
-                return "You drop the 8-ball and it shatters irrecoverably onto the floor.";
+                string reply = Properties.Settings.Default.empty8BallResponse;
+                reply.Replace("$SENDER", sender);
+                reply.Replace("$BROADCASTER", channel);
+                return reply;
             }
             int p;
             do

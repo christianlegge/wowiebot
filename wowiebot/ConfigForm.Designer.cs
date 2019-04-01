@@ -82,6 +82,8 @@
             this.githubLink = new System.Windows.Forms.LinkLabel();
             this.label17 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.empty8ballResponseBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.addCommandsBox.SuspendLayout();
@@ -298,6 +300,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.empty8ballResponseBox);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.linkResponseBox);
@@ -321,7 +325,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(26, 165);
+            this.label14.Location = new System.Drawing.Point(26, 227);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(255, 13);
             this.label14.TabIndex = 13;
@@ -339,7 +343,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(23, 212);
+            this.label12.Location = new System.Drawing.Point(23, 274);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(296, 13);
             this.label12.TabIndex = 11;
@@ -348,7 +352,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(198, 117);
+            this.label11.Location = new System.Drawing.Point(198, 179);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(61, 13);
             this.label11.TabIndex = 10;
@@ -357,7 +361,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(23, 117);
+            this.label10.Location = new System.Drawing.Point(23, 179);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 13);
             this.label10.TabIndex = 9;
@@ -374,14 +378,14 @@
             // 
             // noPermsMsgTextBox
             // 
-            this.noPermsMsgTextBox.Location = new System.Drawing.Point(26, 228);
+            this.noPermsMsgTextBox.Location = new System.Drawing.Point(26, 290);
             this.noPermsMsgTextBox.Name = "noPermsMsgTextBox";
             this.noPermsMsgTextBox.Size = new System.Drawing.Size(316, 20);
             this.noPermsMsgTextBox.TabIndex = 4;
             // 
             // bitsMessageThresholdBox
             // 
-            this.bitsMessageThresholdBox.Location = new System.Drawing.Point(140, 115);
+            this.bitsMessageThresholdBox.Location = new System.Drawing.Point(140, 177);
             this.bitsMessageThresholdBox.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -403,7 +407,7 @@
             // 
             // messageOnCheerBox
             // 
-            this.messageOnCheerBox.Location = new System.Drawing.Point(26, 138);
+            this.messageOnCheerBox.Location = new System.Drawing.Point(26, 200);
             this.messageOnCheerBox.Name = "messageOnCheerBox";
             this.messageOnCheerBox.Size = new System.Drawing.Size(316, 20);
             this.messageOnCheerBox.TabIndex = 5;
@@ -577,7 +581,7 @@
             // 
             // linkResponseBox
             // 
-            this.linkResponseBox.Location = new System.Drawing.Point(26, 287);
+            this.linkResponseBox.Location = new System.Drawing.Point(26, 349);
             this.linkResponseBox.Name = "linkResponseBox";
             this.linkResponseBox.Size = new System.Drawing.Size(316, 20);
             this.linkResponseBox.TabIndex = 14;
@@ -585,7 +589,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(26, 268);
+            this.label15.Location = new System.Drawing.Point(26, 330);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(196, 13);
             this.label15.TabIndex = 15;
@@ -594,7 +598,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(29, 314);
+            this.label18.Location = new System.Drawing.Point(29, 376);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(248, 13);
             this.label18.TabIndex = 16;
@@ -675,6 +679,22 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(23, 109);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(233, 13);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "Response to 8-ball command on empty 8-ball list";
+            // 
+            // empty8ballResponseBox
+            // 
+            this.empty8ballResponseBox.Location = new System.Drawing.Point(26, 125);
+            this.empty8ballResponseBox.Name = "empty8ballResponseBox";
+            this.empty8ballResponseBox.Size = new System.Drawing.Size(316, 20);
+            this.empty8ballResponseBox.TabIndex = 17;
             // 
             // ConfigForm
             // 
@@ -763,5 +783,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox linkResponseBox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox empty8ballResponseBox;
     }
 }

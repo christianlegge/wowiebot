@@ -30,6 +30,7 @@ namespace wowiebot
             periodicPeriodPicker.Value = Properties.Settings.Default.periodicMessagePeriod;
             periodicSpamPrevent.Value = Properties.Settings.Default.minimumMessagesBetweenPeriodic;
             linkResponseBox.Text = Properties.Settings.Default.linkResponse;
+            empty8ballResponseBox.Text = Properties.Settings.Default.empty8BallResponse;
             foreach (string s in Properties.Settings.Default.quotes)
             {
                 quotesTextBox.Text += s + "\r\n";
@@ -92,6 +93,7 @@ namespace wowiebot
                 Properties.Settings.Default.periodicMessagePeriod = (int)periodicPeriodPicker.Value;
                 Properties.Settings.Default.minimumMessagesBetweenPeriodic = (int)periodicSpamPrevent.Value;
                 Properties.Settings.Default.linkResponse = linkResponseBox.Text;
+                Properties.Settings.Default.empty8BallResponse = empty8ballResponseBox.Text;
 
                 System.Collections.Specialized.StringCollection q = new System.Collections.Specialized.StringCollection();
                 string[] quotesArr = quotesTextBox.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);

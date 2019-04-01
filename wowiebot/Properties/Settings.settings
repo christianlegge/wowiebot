@@ -80,5 +80,8 @@
     <Setting Name="linkResponse" Type="System.String" Scope="User">
       <Value Profile="(Default)">$SENDER posted: $TITLE</Value>
     </Setting>
+    <Setting Name="empty8BallResponse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">You drop the 8-ball and it shatters irrecoverably onto the floor.</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
