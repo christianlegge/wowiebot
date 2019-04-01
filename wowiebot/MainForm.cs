@@ -390,6 +390,11 @@ namespace wowiebot
 
         private void updateButton_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("There is an update to wowiebot!\n\nLatest version: " + latestVersion + "\nThis version: " + thisVersion + "\n\nVisit GitHub to download?", "Update!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start("https://github.com/scatter-dev/wowiebot/releases");
+            }
+            return;
             if (MessageBox.Show("There is an update to wowiebot!\n\nLatest version: " + latestVersion + "\nThis version: " + thisVersion + "\n\nUpdate? (Will restart automatically.)", "Update!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 JObject exeJson = releaseJson["assets"].Values<JObject>()
