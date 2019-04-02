@@ -33,7 +33,7 @@ namespace wowiebot
             }
             else if (tags["msg-id"] == "subgift" || tags["msg-id"] == "anonsubgift")
             {
-                string reply = Properties.Settings.Default.subResponse;
+                string reply = Properties.Settings.Default.giftSubResponse;
                 reply = reply.Replace("$SENDER", tags["display-name"]);
                 reply = reply.Replace("$BROADCASTER", ChatHandler.getChannel());
                 reply = reply.Replace("$MONTHS", tags["msg-param-months"]);
@@ -42,7 +42,7 @@ namespace wowiebot
             }
             else if (tags["msg-id"] == "raid")
             {
-                string reply = Properties.Settings.Default.subResponse;
+                string reply = Properties.Settings.Default.raidResponse;
                 reply = reply.Replace("$SENDER", tags["msg-param-displayName"]);
                 reply = reply.Replace("$BROADCASTER", ChatHandler.getChannel());
                 reply = reply.Replace("$COUNT", tags["msg-param-viewerCount"]);
