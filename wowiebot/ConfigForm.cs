@@ -200,12 +200,6 @@ namespace wowiebot
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            CommandsHelpForm commandsHelpForm = new CommandsHelpForm();
-            commandsHelpForm.Show();
-        }
-
         private void dataGridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["Show in commands list"].Value = false;
