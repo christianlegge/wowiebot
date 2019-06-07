@@ -236,6 +236,7 @@ namespace wowiebot
                                 var searchListRequest = SongRequest.youtubeService.Search.List("snippet");
                                 searchListRequest.Q = commandArgs;
                                 searchListRequest.MaxResults = 5;
+                                searchListRequest.Type = "video";
                                 var searchListResponse = searchListRequest.Execute();
                                 if (searchListResponse.Items.Count == 0)
                                 {
