@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace wowiebot
@@ -91,6 +92,10 @@ namespace wowiebot
         public void playNext()
         {
             parentForm.playVideo(q.First().id);
+            using (StreamWriter sw = File.CreateText("currentsong.txt"))
+            {
+                sw.WriteLine(q.First().title);
+            }
         }
 
         internal SongRequest First()
