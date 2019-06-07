@@ -57,7 +57,7 @@ On the right side, Event Messages can be edited. These messages will be sent in 
 
 ## Song Requests
 
-wowiebot now supports song requests. To enable these, add a song request command and open the Song Requests window from the main launchpad. Chatters can use the command with a Youtube link to queue up videos to play in the window. When the video is over it will automatically play the next, unless Autoplay is unchecked. The "Play next/skip" button can be used to skip to the end of the current video, or to start the next if Autoplay is disabled. If this window is closed, the queue will be lost.
+wowiebot now supports song requests. To enable these, add a song request command and open the Song Requests window from the main launchpad. Chatters can use the command with a Youtube link or a search query to queue up videos to play in the window. When the video is over it will automatically play the next, unless Autoplay is unchecked. The "Play next/skip" button can be used to skip to the end of the current video, or to start the next if Autoplay is disabled. If this window is closed, the queue will be lost.
 
 ## Development
 
