@@ -224,8 +224,38 @@ namespace wowiebot
                             commandText = commandText.Replace("$COMMANDS", ChatHandler.commandsForHelp);
                             break;
                         case "SONGREQ":
-                            Uri ytlink = new Uri(commandArgs);
-                            string id = getIdFromYoutubeLink(ytlink);
+                            string id = "";
+                            string res = "Queued.";
+                            try
+                            {
+                                Uri ytlink = new Uri(commandArgs);
+                                id = getIdFromYoutubeLink(ytlink);
+                            }
+                            catch
+                            {
+                                var searchListRequest = SongRequest.youtubeService.Search.List("snippet");
+                                searchListRequest.Q = commandArgs;
+                                searchListRequest.MaxResults = 5;
+                                var searchListResponse = searchListRequest.Execute();
+                                if (searchListResponse.Items.Count == 0)
+                                {
+                                    return "No results found.";
+                                }
+                                foreach (var item in searchListResponse.Items)
+                                {
+                                    if (item.Snippet.Title.ToLower().Contains("lyrics"))
+                                    {
+                                        id = item.Id.VideoId;
+                                        res = "Queued \"" + item.Snippet.Title + "\".";
+                                        break;
+                                    }
+                                }
+                                if (id == "")
+                                {
+                                    id = searchListResponse.Items[0].Id.VideoId;
+                                    res = "Queued \"" + searchListResponse.Items[0].Snippet.Title + "\".";
+                                }
+                            }
                             if (MainForm.songRequestForm == null)
                             {
                                 string reply = Properties.Settings.Default.closedSrWindowResponse;
@@ -244,7 +274,7 @@ namespace wowiebot
                                     return reply;
                                 }
                                 MainForm.songRequestForm.queueSong(sr);
-                                return "Queued.";
+                                return res;
                             }
                             else
                             {

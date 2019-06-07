@@ -9,7 +9,7 @@ namespace wowiebot
 {
     public class SongRequest
     {
-        static YouTubeService youtubeService = new YouTubeService(new BaseClientService.Initializer()
+        public static YouTubeService youtubeService = new YouTubeService(new BaseClientService.Initializer()
         {
             ApiKey = "AIzaSyB7ju2a_MJKjs3eBKcrcgHfjhRrWq-CTNo",
             ApplicationName = "wowiebot",
